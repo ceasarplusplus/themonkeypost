@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+
+{% block content %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+<!-- page heading -->
+        {% if breadcrumb.video %}
+        <img src="{{breadcrumb.video.url}}" class="img-fluid" alt="...">
+        <!-- advert -->
+        {% endif %}
+<!-- Page Heading / End -->
+<div class="">  <marquee width="100%" scrollamount="4" loop="infinite" color="#ffffff" direction="left" >
+    {% for rs in news_slide %}
+   <strong class="text-primary"> [ {{rs.category}} ] --</strong><span class="text-white"> {{rs.news}}</span>   ||
+    {% endfor %}
+
+</marquee>
+</div>
+
+<nav class="content-filter">
+    <div class="container"><a href="#" class="content-filter__toggle"></a>
+        <ul class="content-filter__list">
+            <li class="content-filter__item content-filter__item--active"><a href="{% url 'blog' %}"
+                    class="content-filter__link">Video Category</a></li>
+            {% for rs in video_category %}
+            <li class="content-filter__item"><a href="/videos-category/{{rs.id}}/{{rs.slug}}"
+                    class="content-filter__link">{{rs.title}}</a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</nav>
+
+
+<!-- content -->
+<div class="site-content">
+    <div class="container">
+        <div class="card card--clean">
+            <header class="card__header card__header--has-filter">
+                <h4>The Monkey Post Podcast</h4>
+                <ul class="category-filter category-filter--carousel category-filter--extra-space">
+                    <li class="category-filter__item"><a href="#"
+                            class="category-filter__link category-filter__link--reset category-filter__link--active">All</a>
+                    </li>
+                    
+                </ul>
+            </header>
+            <div class="card__content">
+                <!-- Carousel -->
+                <div class="slick posts posts--carousel video-carousel">
+                    {% for rs in podcast %}
+                    <div class="card" style="width: 18rem;">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{rs.link}}" allowfullscreen></iframe>
+                          </div>
+                        <div class="card-body">
+                          <p class="card-text">{{rs.title}}</p>
+                        </div>
+                      </div>
+                        {% endfor %}
+                   
+                </div><!-- Carousel / End -->
+            </div>
+        </div>
+        <div class="row">
+           
+            {% for rs in videos %}
+            <div class="col-lg-6">
+               
+                <div class="card" style="width: 100%;">
+                    <div class="embed-responsive embed-responsive-21by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{rs.link}}?rel=0" allowfullscreen></iframe>
+                      </div>
+                    <div class="card-body">
+                      <p class="card-text">{{rs.title}}</p>
+                    </div>
+                  </div>
+                 
+             
+            </div>
+            {% endfor %}
+            <div class="justify-content-center">
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination justify-content-center">
+                        {% if is_paginated %}
+
+                            {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
+                            <li class="page-item">
+                                
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                                </a>
+                            {% endif %}
+
+
+                        {% endif %}
+
+
+                </ul>
+            </nav>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

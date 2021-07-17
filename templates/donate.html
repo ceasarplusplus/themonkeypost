@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+{% settingstag as setting %}
+
+
+<!-- page heading -->
+{% if breadcrumb.news %}
+<img src="{{breadcrumb.news.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+<!-- Content
+================================================== -->
+<div class="site-content">
+    <div class="container">
+
+
+           
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Billing Details -->
+                    <div class="card card--lg">
+                        <div class="card__header">
+                            <h4>Support The Monkey Post</h4>
+                        </div>
+                        <div class="card__content">
+                            <div class="df-billing-fields">
+                                
+                                {{setting.donate|safe}}
+                            </div>
+                        </div>
+                    </div><!-- Billing Details / End -->
+                    
+                </div>
+                <div class="col-lg-4">
+                    <!-- Order -->
+                    <div class="card ">
+                        <div class="card__header">
+                            <h4>Donate</h4>
+                        </div>
+                        <div class="card__content">
+                            <div>
+                                <form action="" method="POST">
+                                    {% csrf_token%}
+                                    <div class="df-billing-fields">
+                                        <div class="form-group form-group--sm">
+                                            <img src="{% static '' %}assets/images/soccer/paystack.png" style="width: 100%;" alt="">
+                                        </div>
+                                   
+                                        <div class="form-group form-group--sm">
+                                            <label for="billing_address_1">Email Address
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="email" name="email" id="email-address"  required
+                                                class="form-control text-white" placeholder="Enter your Email address...">
+                                        </div>
+                                        <div class="form-group form-group--sm">
+                                            <label for="billing_address_1">Amount 
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="number" name="amount1" id="amount1" required
+                                                class="form-control text-white" placeholder="Enter Amount to Donate...">
+                                        </div>
+                                        <div class="form-group form-group--sm">
+                                            <button class="btn btn-lg btn-primary-inverse ">Donate</button>
+                                        </div>
+        
+        
+                                    </div>
+                                </form>
+                               
+                            </div>
+
+                        </div>
+                    </div><!-- Order / End -->
+
+                    <div class="card ">
+                        <div class="card__header">
+                            <h4>Bank Transfer</h4>
+                        </div>
+                        <div class="card__content">
+                            <div>
+                                <p><strong>BANK:</strong> U.B.A</p>
+                                <P><strong>ACCOUNT NUMBER:</strong> 292929292929</P>
+                                <P><strong>ACCOUNT NAME:</strong> Monkey Post</P>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    </div>
+</div>
+
+
+
+{% endblock content %}

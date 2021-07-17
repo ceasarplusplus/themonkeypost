@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+
+{% block content %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+
+
+<!-- page heading -->
+{% if breadcrumb.video %}
+<img src="{{breadcrumb.video.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+
+<nav class="content-filter">
+    <div class="container"><a href="#" class="content-filter__toggle"></a>
+        <ul class="content-filter__list">
+            <li class="content-filter__item content-filter__item--active"><a href="{% url 'blog' %}"
+                    class="content-filter__link">Video Category</a></li>
+            {% for rs in video_category %}
+            <li class="content-filter__item"><a href="/videos-category/{{rs.id}}/{{rs.slug}}"
+                    class="content-filter__link">{{rs.title}}</a></li>
+            {% endfor %}
+
+        </ul>
+    </div>
+</nav>
+
+
+<!-- content -->
+<div class="site-content">
+    <div class="container">
+       
+        <div class="row">
+            <div class="col-lg-12">
+
+
+
+                <header class="card__header card__header--has-filter mb-4">
+                    <h4>Videos</h4>
+                   
+                </header>
+              
+                   
+
+
+
+
+                <!-- Video Slideshow -->
+               
+                <div class="posts posts--carousel row">
+                    
+                    {% for rs in videos %}
+               
+                    <div class="posts__item posts__item--category-3 col-sm-4 mb-3">
+                        <!-- <h3 class="posts__title mb-1">{{rs.title}}</h3> -->
+                        
+                        <a href="{{rs.link}}"
+                            class="posts__link-wrapper mp_iframe">
+                            <figure class="posts__thumb"><img
+                                    src="{{rs.image.url}}"
+                                    alt="Spectacular view from the top of the stadium"></figure>
+                            <div class="posts__inner">
+                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                </div>
+                                <h3 class="posts__title">{{rs.title}}</h3><time
+                                    datetime="2017-08-28" class="posts__date">August 28th, 2020</time>
+                            </div>
+                        </a></div>
+                        {% endfor %}
+                                    
+                
+                </div><!-- Video Slideshow / End -->
+            </div>
+            <div class="justify-content-center">
+            <nav aria-label="Page navigation example ">
+                <ul class="pagination justify-content-center">
+                        {% if is_paginated %}
+
+                            {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                            <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
+                            <li class="page-item">
+                                
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                                </a>
+                            {% endif %}
+
+
+                        {% endif %}
+
+
+                </ul>
+            </nav>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

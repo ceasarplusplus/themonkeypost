@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+
+<!-- page heading -->
+{% if breadcrumb.news_detail %}
+<img src="{{breadcrumb.news_detail.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+<div class="site-content">
+    <div class="container">
+        <div class="row">
+            <!-- Content -->
+            <div class="content col-lg-8">
+                <!-- Article -->
+                <article class="card card--lg card--block post post--single">
+                    <figure class="post__thumbnail"><img src="{{blog.image.url}}" alt=""></figure>
+                    <!-- Post Meta - Side -->
+                    <div class="post__meta-block post__meta-block--side">
+                        <!-- Post Author -->
+                        <div class="post-author">
+                            <figure class="post-author__avatar"><img src="{{blog.author.userprofile.image.url}}"
+                                    alt="Post Author Avatar">
+                            </figure>
+                            <div class="post-author__info">
+                                <h4 class="post-author__name">{{blog.author.first_name}} {{blog.author.last_name}}</h4>
+                                <span class="post-author__slogan">{{blog.author.username}}</span>
+                            </div>
+                        </div>
+
+                        <!-- Post Author / End -->
+                        <!-- Social Sharing -->
+                        <!-- Social Sharing / End -->
+                        <!-- Post Meta Info -->
+                        <ul class="post__meta meta">
+                            <!-- <li class="meta__item meta__item--views">2369</li>
+                            <li class="meta__item meta__item--likes"><a href="#"><i class="meta-like icon-heart"></i>
+                                    530</a></li> -->
+                            <li class="meta__item meta__item--comments"><a href="#">{{blog.countcomment}}</a></li>
+                        </ul><!-- Post Meta Info / End -->
+                    </div><!-- Post Meta - Side / End -->
+                    <div class="card__content">
+                        <div>
+                            <script type="text/javascript"
+                                src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-60c716d00e6fa134"></script>
+
+                            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                            <div class="addthis_inline_share_toolbox"></div>
+                        </div>
+                        <div class="post__category mt-2"><span class="label posts__cat-label">{{blog.category}}</span>
+                        </div>
+                        <header class="post__header">
+                            <!-- Go to www.addthis.com/dashboard to customize your tools -->
+
+
+                            <h2 class="post__title">{{blog.title}}</h2>
+                            <ul class="post__meta meta">
+                                <li class="meta__item meta__item--date"><time
+                                        datetime="2017-08-23">{{blog.date|timesince}} ago</time></li>
+                                <!-- <li class="meta__item meta__item--views hidden-md hidden-lg">2369</li>
+                                <li class="meta__item meta__item--likes hidden-md hidden-lg"><a href="#"><i
+                                            class="meta-like icon-heart"></i> 530</a></li> -->
+                                <li class="meta__item meta__item--comments hidden-md hidden-lg"><a
+                                        href="#">{{blog.countcomment}}</a></li>
+                            </ul>
+                        </header>
+                        <div class="post__content">
+                            {{blog.detail|safe}}
+                        </div>
+                        <div class="tagcloud mt-10">
+                            {% for rs in blog.tags.all %}
+                            <a href="{% url 'tag_view' rs.slug %}"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">{{rs.name}}</a>
+                            {% endfor %}
+
+                        </div>
+
+                </article><!-- Article / End -->
+                <!-- <aside class="widget widget--sidebar card widget-tagcloud">
+                    <div class="widget__title card__header">
+                        <h4>Tags</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <div class="tagcloud">
+                            {% for rs in blog.tags.all %}
+                            <a href="{% url 'tag_view' rs.slug %}" class="btn btn-primary btn-xs btn-outline btn-sm">{{rs.name}}</a>
+                            {% endfor %}
+                           
+                    </div>
+                    </div>
+                </aside> -->
+
+                {% if blog.video_link %}
+                <div class="card card--clean mb-0">
+                    <header class="card__header card__header--has-btn">
+                        <h4>Video</h4>
+                    </header>
+                    <div class="card__content">
+                        <!-- Carousel -->
+                        <div class="posts posts--video-grid row">
+                            <div class="col-sm-12">
+                                <div class="posts__item posts__item--lg posts__item--category-{{blog.category.id}}"><a
+                                        href="{{blog.video_link}}" class="posts__link-wrapper mp_iframe">
+                                        <figure class="posts__thumb effect-duotone effect-duotone--base"><img
+                                                src="{{blog.image.url}}" alt="">
+                                        </figure>
+                                        <!-- <div class="posts__inner">
+                                            <div class="posts__cat"><span class="label posts__cat-label">The
+                                                    League</span></div>
+                                            <h3 class="posts__title">Take a video tour of the new L.A. Pirates
+                                                stadium</h3><time datetime="2017-08-28" class="posts__date">August 28th,
+                                                2017</time>
+                                        </div> -->
+                                    </a></div>
+                            </div>
+
+                        </div><!-- Carousel / End -->
+                    </div>
+                </div>
+                {% endif %}
+
+
+                {% if gif %}
+
+                <div class="card card--clean mb-0">
+                    <header class="card__header card__header--has-btn">
+                        <h4>Highlights (gif)</h4>
+                    </header>
+
+                </div>
+                {% for rs in gif %}
+                <div class="card" style="width: 100%;" title="click to show gif">
+                    <label class="clicktogif card" title="click to show gif">
+                        <input type="checkbox">
+                        <img src="{{rs.image.url}}" alt="" style="width: 100%;">
+                    </label>
+                    <div class="card-body">
+                        <p class="card-text">{{rs.title}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+
+
+
+                <!-- Post Comments -->
+                <div class="post-comments card card--lg">
+                    <header class="post-commments__header card__header">
+                        <h4>Comments ({{blog.countcomment}})</h4>
+                    </header>
+                    <div class="post-comments__content card__content">
+                        <ul class="comments">
+                            {% for rs in comments %}
+                            <li class="comments__item">
+                                <div class="comments__inner">
+                                    <header class="comment__header">
+                                        <div class="comment__author">
+                                            <figure class="comment__author-avatar"><img
+                                                    src="{{rs.user.userprofile.image.url}}" alt="">
+                                            </figure>
+                                            <div class="comment__author-info">
+                                                <h5 class="comment__author-name">{{rs.user.username}}</h5><time
+                                                    class="comment__post-date"
+                                                    datetime="2016-08-23">{{rs.create_at|timesince}}
+                                                    ago</time>
+                                            </div>
+                                        </div>
+                                        <div class="comment__reply"><a href="#"
+                                                class="comment__reply-link btn btn-link btn-xs">Reply</a></div>
+                                    </header>
+                                    <div class="comment__body">{{rs.comment}}</div>
+                                </div>
+                            </li>
+                            {% endfor %}
+
+                        </ul><!-- Comments Pagination -->
+                        <nav aria-label="Comments Pavigation" class="post__comments-pagination"
+                            aria-label="Comments navigation">
+                            {% if comments.has_other_pages %}
+                            <ul class="pagination">
+                                {% if comments.has_previous %}
+                                <li class="page-item">
+                                    <a href="?page={{comments.previous_page_number}}" class="page-link">&laquo;</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">&laquo;</a>
+                                </li>
+                                {% endif %}
+                                {% for i in comments.paginator.page_range %}
+                                {% if comments.number == i %}
+                                <li class="page-item active">
+                                    <a class="page-link">{{i}}</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item">
+                                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if comments.has_next %}
+                                <li class="page-item">
+                                    <a href="?page={{comments.next_page_number}}" class="page-link">&raquo;</a>
+                                </li>
+                                {% else %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">&raquo;</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+
+
+
+
+
+
+
+                            <!-- <ul class="pagination justify-content-center">
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><span class="page-link">...</span></li>
+                                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                            </ul> -->
+                        </nav><!-- Comments Pagination / End -->
+                    </div>
+                </div><!-- Post Comments / End -->
+                <!-- Post Comment Form -->
+                <div class="post-comment-form card card--lg">
+                    <header class="post-comment-form__header card__header">
+                        <h4>Write a Comment</h4>
+                    </header>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{{message.tags}} alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <div class="post-comment-form__content card__content">
+                        <form action="/addblogcomment/{{blog.id}}" method="POST" class="comment-form">
+                            {% csrf_token %}
+
+                            <div class="form-group"><label class="control-label" for="textarea-comment">Your
+                                    Comment</label> <textarea name="comment" rows="3" class="form-control"></textarea>
+                            </div>
+                            {% if user.is_authenticated %}
+                            <div class="form-group"><button type="submit" class="btn btn-default btn-block btn-lg">Post
+                                    Your Comment</button></div>
+                            {% else %}
+                            <p>You must be logged in to post a comment. Log in <a href="#" data-toggle="modal"
+                                    data-target="#modal-login-register-tabs">Here</a></p>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div><!-- Post Comment Form / End -->
+                <!-- Related Posts -->
+                <div class="post-related">
+                    <div class="card card--clean">
+                        <div class="card__header">
+                            <h4>More Articles</h4>
+                        </div>
+
+                        <div class="card__content">
+                            <div class="row posts--cards">
+                                {% for rs in rel_blog %}
+                                <div class="col-md-6">
+                                    <!-- Prev Post -->
+                                    <div
+                                        class="posts__item posts__item--card posts__item--category-{{rs.category.id}} card">
+                                        <figure class="posts__thumb">
+                                            <div class="posts__cat"><span
+                                                    class="label posts__cat-label">{{rs.category}}</span>
+                                            </div><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                                    src="{{rs.image.url}}" alt=""></a>
+                                        </figure>
+                                        <div class="posts__inner card__content"><a href="#" class="posts__cta"></a>
+                                            <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}}
+                                                ago</time>
+                                            <h6 class="posts__title"><a
+                                                    href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a>
+                                            </h6>
+                                        </div>
+
+                                    </div>
+                                    <!-- Prev Post / End -->
+                                </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Related Posts / End -->
+            </div><!-- Content / End -->
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar col-lg-4">
+
+                <!-- Widget: Popular News -->
+                <aside class="widget widget--sidebar card widget-popular-posts">
+                    <div class="widget__title card__header">
+                        <h4>Trending News</h4>
+                    </div>
+
+                    <div class="widget__content card__content">
+                        <ul class="posts posts--simple-list">
+                            {% for rs in top_trends %}
+                            <li class="posts__item posts__item--category-{{rs.category.id}}">
+                                <figure class="posts__thumb"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                            src="{{rs.image.url}}" style="width: 80px;" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                    </div>
+                                    <h6 class="posts__title"><a
+                                            href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                    <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}} ago</time>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside><!-- Widget: Popular News / End -->
+                <!-- Widget: Tag Cloud -->
+                <aside class="widget widget--sidebar card widget-tagcloud">
+                    <div class="widget__title card__header">
+                        <h4>Tag Cloud</h4>
+                    </div>
+                    <div class="widget__content card__content">
+
+                        <div class="tagcloud">
+                            {% for rs in pop_tags %}
+                            <a href="{% url 'tag_view' rs.slug %}"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">{{rs.name}}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </aside><!-- Widget: Tag Cloud / End -->
+                <!-- Widget: Banner -->
+                <aside class="widget card widget--sidebar widget-banner">
+                    <div class="widget__title card__header">
+                        <h4>Advertisement</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <figure class="widget-banner__img"><a
+                                href="https://themeforest.net/item/the-alchemists-sports-news-html-template/19106722?ref=dan_fisher"><img
+                                    src="{% static '' %}assets/images/samples/banner.jpg" alt="Banner"></a>
+                        </figure>
+                    </div>
+                </aside><!-- Widget: Banner / End -->
+
+
+                <!-- Widget: Newsletter -->
+                {% include 'subscribe.html' %}
+                <!-- Widget: Newsletter / End -->
+            </div><!-- Sidebar / End -->
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

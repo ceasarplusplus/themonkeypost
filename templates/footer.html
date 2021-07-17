@@ -1,0 +1,292 @@
+{% load static %}
+{% load myapptags %}
+{% newstrendfooter as top_trends_footer %}
+{% settingstag as setting %}
+
+
+
+<footer id="footer" class="footer">
+    <!-- Footer Widgets -->
+    <div class="footer-widgets">
+        <div class="footer-widgets__inner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="footer-col-inner">
+                            <!-- Footer Logo -->
+                            <div class="footer-logo footer-logo--has-txt"><a href="{% url 'index' %}"><img
+                                        src="{{setting.icon.url}}"
+                                        srcset="{{setting.icon.url}}" alt="The Monkeypost logo"
+                                        class="footer-logo__img">
+                                    <div class="footer-logo__heading">
+
+                                    </div>
+                                </a></div><!-- Footer Logo / End -->
+                            <!-- Widget: Contact Info -->
+                            <div class="widget widget--footer widget-contact-info">
+                                <div class="widget__content">
+                                    <div class="widget-contact-info__desc">
+                                        <p>{{setting.our_mission}}</p>
+                                    </div>
+                                    <div class="widget-contact-info__body info-block">
+                                        <div class="info-block__item"><svg role="img"
+                                                class="df-icon df-icon--soccer-ball">
+                                                <use
+                                                    xlink:href="{% static '' %}assets/images/icons-soccer.svg#soccer-ball" />
+                                            </svg>
+                                            <h6 class="info-block__heading">Contact Us</h6><a class="info-block__link"
+                                                href="mailto:{{setting.email}}">{{setting.email}}</a>
+                                        </div>
+                                        <div class="info-block__item"><svg role="img" class="df-icon df-icon--whistle">
+                                                <use
+                                                    xlink:href="{% static '' %}assets/images/icons-soccer.svg#whistle" />
+                                            </svg>
+                                            <h6 class="info-block__heading">Call Our Team!</h6><a
+                                                class="info-block__link"
+                                                href="tel:{{setting.phone}}">{{setting.phone}}</a>
+                                        </div>
+                                        <div class="info-block__item info-block__item--nopadding">
+                                            <ul class="social-links">
+                                                <li class="social-links__item"><a href="{{setting.facebook}}" target="_blank" rel="noopener noreferrer" class="social-links__link"><i
+                                                            class="fab fa-facebook"></i> Facebook</a></li>
+                                               
+                                                <li class="social-links__item"><a href="{{setting.instagram}}" target="_blank" rel="noopener noreferrer" class="social-links__link"><i
+                                                            class="fab fa-instagram"></i> Instagram</a></li>
+                                                <li class="social-links__item"><a href="{{setting.youtube}}" target="_blank" rel="noopener noreferrer" class="social-links__link"><i
+                                                            class="fab fa-youtube"></i> Youtube</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- Widget: Contact Info / End -->
+                        </div>
+                    </div>
+                    <div class="col-sm-9 col-lg-6">
+                        <div class="footer-col-inner">
+                            <!-- Widget: Popular Posts / End -->
+                            <div class="widget widget--footer widget-popular-posts">
+                                <h4 class="widget__title">Trending News</h4>
+                                <div class="widget__content">
+                                    <ul class="posts posts--simple-list">
+                                        
+                                        {% for rs in top_trends_footer %}
+                                        <li class="posts__item posts__item--category-{{rs.id}}">
+                                            <figure class="posts__thumb posts__thumb--hover"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                                        src="{{rs.image.url}}" style="width: 80px;"
+                                                        alt=""></a>
+                                            </figure>
+                                            <div class="posts__inner">
+                                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span></div>
+                                                <h6 class="posts__title posts__title--color-hover"><a
+                                                        href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6><time
+                                                    datetime="2017-08-21" class="posts__date">{{rs.date|timesince}}</time>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div><!-- Widget: Popular Posts / End -->
+                        </div>
+                    </div>
+                    <div class="clearfix visible-sm"></div>
+
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="footer-col-inner">
+                            <!-- Widget: Contact / End -->
+                            <div class="widget widget--footer widget-contact">
+                                <h4 class="widget__title">Quick Contact</h4>
+                                <div class="widget__content">
+                                    <p>Get in touch with the Monkey Post
+                                    </p>
+                                    <form action="/contact/" method="POST" class="contact-form">
+                                        {% csrf_token %}
+                                        <div class="form-group form-group--xs"><input type="number"
+                                                class="form-control input-sm" id="contact-form-email" name="phone"
+                                                placeholder="Your Phone" required></div>
+                                        <div class="form-group form-group--xs"><input type="email" name="email"
+                                                class="form-control input-sm" required id="contact-form-email"
+                                                placeholder="Your email address"></div>
+                                        <div class="form-group form-group--xs"><textarea class="form-control input-sm"
+                                                name="description" required rows="4"
+                                                placeholder="Your message..."></textarea></div><button type="submit"
+                                            class="btn btn-primary-inverse btn-sm btn-block">Send
+                                            Your Message</button>
+                                    </form>
+                                </div>
+                            </div><!-- Widget: Contact / End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- Sponsors -->
+        <div class="container">
+            <div class="sponsors">
+                <!-- <h6 class="sponsors-title">Our Sponsors:</h6> -->
+                <ul class="sponsors-logos">
+
+                    <li class="sponsors__item"><a href="#" target="_blank"><img
+                                src="{% static '' %}assets/images/soccer/sponsor-visa.png" alt=""></a></li>
+                    <li class="sponsors__item"><a href="#" target="_blank"><img
+                                src="{% static '' %}assets/images/soccer/sponsor-discover.png" alt=""></a></li>
+                    <li class="sponsors__item"><a href="#" target="_blank"><img
+                                src="{% static '' %}assets/images/soccer/sponsor-paypal.png" alt=""></a></li>
+                    <li class="sponsors__item"><a href="#" target="_blank"><img
+                                src="{% static '' %}assets/images/soccer/sponsor-skrill.png" alt=""></a></li>
+                    <li class="sponsors__item"><a href="#" target="_blank"><img
+                                src="{% static '' %}assets/images/soccer/sponsor-westernunion.png" alt=""></a></li>
+                    <li class="sponsors__item"><a href="#" target="_blank"><img
+                                src="{% static '' %}assets/images/soccer/sponsor-payoneer.png" alt=""></a></li>
+                </ul>
+            </div>
+        </div><!-- Sponsors / End -->
+    </div><!-- Footer Widgets / End -->
+    <!-- Footer Secondary -->
+    <div class="footer-secondary">
+        <div class="container">
+            <div class="footer-secondary__inner">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="footer-copyright"><a href="/">The Monkey Post</a> 2021
+                            &nbsp; | &nbsp; All Rights Reserved</div>
+                    </div>
+                    <div class="col-md-8">
+                        <ul class="footer-nav footer-nav--right footer-nav--condensed footer-nav--sm">
+                            <li class="footer-nav__item"><a href="{% url 'donate' %}">Donate</a></li>
+                            <li class="footer-nav__item"><a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+                            </li>
+                            <li class="footer-nav__item"><a href="{% url 'tandc' %}">Terms & Condictions</a>
+                            </li>
+                            <li class="footer-nav__item"><a href="{% url 'faq' %}">FAQs</a></li>
+                            <!-- <li class="footer-nav__item"><a href="_soccer_blog-3.html">About</a></li> -->
+                          
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- Footer Secondary / End -->
+
+</footer>
+
+
+<!-- Footer ======== -->
+
+
+<!-- Login/Register Modal -->
+<div class="modal fade" id="modal-login-register-tabs" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg modal--login modal--login-only" role="document">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div class="modal-body">
+                <div class="modal-account__item">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- Tab: Login -->
+                        <div role="tabpanel" class="tab-pane fade show active" id="tab-login">
+                            <!-- Login Form -->
+                            <form action="/login/" method="POST" class="modal-form">
+                                {% csrf_token %}
+                                <h5>Login to your account</h5>
+                                <div class="form-group">
+                                    <input type="text" name="username" class="form-control"
+                                        placeholder="Enter your Username..."></div>
+                                <div class="form-group"><input type="password" name="password" class="form-control"
+                                        placeholder="Enter your Password..."></div>
+                                <div class="form-group form-group--pass-reminder"><label
+                                        class="checkbox checkbox-inline">
+                                        <input type="checkbox"
+                                            id="inlineCheckbox1" value="option1" checked="checked"> Remember
+                                        Me <span class="checkbox-indicator"></span></label> 
+                                        
+                                        <a
+                                        href="#">Forgot your password?</a></div>
+                                <div class="form-group form-group--submit"><button type="submit"
+                                        class="btn btn-primary-inverse btn-block">Enter to your account</button>
+                                </div>
+                                <!-- <div class="modal-form--social">
+                                    <h6>or Login with your social profile:</h6>
+                                    <ul class="social-links social-links--btn text-center">
+                                        <li class="social-links__item"><a href="#"
+                                                class="social-links__link social-links__link--lg social-links__link--fb"><i
+                                                    class="fab fa-facebook"></i></a></li>
+                                        <li class="social-links__item"><a href="#"
+                                                class="social-links__link social-links__link--lg social-links__link--twitter"><i
+                                                    class="fab fa-twitter"></i></a></li>
+                                        <li class="social-links__item"><a href="#"
+                                                class="social-links__link social-links__link--lg social-links__link--gplus"><i
+                                                    class="fab fa-google-plus-g"></i></a></li>
+                                    </ul>
+                                </div> -->
+                            </form><!-- Login Form / End -->
+                        </div><!-- Tab: Login / End -->
+                        <!-- Tab: Register -->
+                        <div role="tabpanel" class="tab-pane fade" id="tab-register">
+                            <!-- Register Form -->
+                            <form action="/register/" method="POST" class="modal-form">
+                                {% csrf_token %}
+                                <h5>Register Now!</h5>
+                                <div class="form-group"><input type="text" name="username" class="form-control"
+                                        placeholder="Enter your Username..."></div>
+                                <div class="form-group"><input type="email" name="email" class="form-control"
+                                        placeholder="Enter your email address..."></div>
+                                <div class="form-group"><input type="text" name="first_name" class="form-control"
+                                        placeholder="Enter your first name..."></div>
+                                <div class="form-group"><input type="text" name="last_name" class="form-control"
+                                        placeholder="Enter your last name..."></div>
+                                <div class="form-group"><input type="password" name="password1" class="form-control"
+                                        placeholder="Enter your password..."></div>
+                                <div class="form-group"><input type="password" name="password2" class="form-control"
+                                        placeholder="Repeat your password..."></div>
+                                <div class="form-group form-group--submit"><button type="submit"
+                                        class="btn btn-success btn-block">Create Your Account</button></div>
+                                <!-- <div class="modal-form--note">You’ll receive a confirmation email in your
+                                    inbox with a link to activate your account.</div> -->
+                            </form><!-- Register Form / End -->
+                        </div><!-- Tab: Register / End -->
+                    </div><!-- Nav tabs -->
+                    <div class="nav-tabs-login-wrapper">
+                        <ul class="nav nav-tabs nav-justified nav-tabs--login" role="tablist">
+                            <li class="nav-item"><a class="nav-link active" href="#tab-login" role="tab"
+                                    data-toggle="tab">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#tab-register" role="tab"
+                                    data-toggle="tab">Register</a></li>
+                        </ul>
+                    </div><!-- Nav tabs / End -->
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login/Register Modal / End -->
+
+
+
+
+<!-- podcast modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Episode 1</h5>
+
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe src="https://audiomack.com/embed/playlist/joevango/verified-hh" scrolling="no" width="100%"
+                    height="400" scrollbars="no" frameborder="0"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>

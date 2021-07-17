@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+{% settingstag as setting %}
+
+
+<!-- page heading -->
+{% if breadcrumb.news %}
+<img src="{{breadcrumb.news.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+<!-- Content
+================================================== -->
+<div class="site-content">
+    <div class="container">
+   
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Billing Details -->
+                    <div class="card card--lg">
+                        <div class="card__header">
+                            <h4>Terms and Conditions</h4>
+                        </div>
+                        <div class="card__content">
+                            <div class="df-billing-fields">
+                                
+                                {{setting.tandc|safe}}
+                            </div>
+                        </div>
+                    </div><!-- Billing Details / End -->
+                    
+                </div>
+                
+            </div>
+
+    </div>
+</div>
+
+
+
+{% endblock content %}

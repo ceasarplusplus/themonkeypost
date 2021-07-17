@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+
+
+<!-- Page Heading / End -->
+<!-- Conten
+================================================== -->
+<div class="site-content">
+    <div class="container">
+        <!-- Wishlist -->
+        <div class="card card--has-table">
+            <div class="card__header">
+                <h4>Order Completed</h4>
+            </div>
+            <div class="card__content">
+                <div class="card text-center">
+
+                    <div class="card-body">
+                        <img src="{% static '' %}assets/images/check.png" style="width: 150px;" alt="">
+                        <h5 class="card-title">Purchase Successful</h5>
+                        <p class="card-text">Order information has been sent to your email. The Monkey Post will contact
+                            you for your item(s) delivery</p>
+                        <a href="{% url 'index' %}" class="btn btn-primary">Go Home</a>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- Wishlist / End -->
+    </div>
+</div>
+
+{% endblock content %}

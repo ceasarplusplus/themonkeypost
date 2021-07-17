@@ -1,0 +1,446 @@
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% load myapptags %}
+{% blogcategories as blog_category %}
+
+<!-- Content
+		================================================== -->
+<div class="site-content">
+    <div class="container">
+        <div class="row">
+            <!-- Content -->
+            <div class="content col-lg-8">
+                <!-- Featured News -->
+                <div class="card card--clean">
+                    <header class="card__header card__header--has-filter">
+                        <h4>Trending News</h4>
+                        <ul class="category-filter category-filter--featured">
+                            <li class="category-filter__item"><a href="#"
+                                    class="category-filter__link category-filter__link--reset category-filter__link--active">All</a>
+                            </li>
+
+                            {% for rs in blog_category %}
+                            <li class="category-filter__item">
+                                <a href="#" class="category-filter__link"
+                                    data-category="posts__item--category-{{rs.id}}">{{rs.title}}
+                                </a>
+                            </li>
+                            {% endfor %}
+                            <!-- <li class="category-filter__item"><a href="#" class="category-filter__link"
+                                    data-category="posts__item--category-3">Playoffs</a></li>
+                            <li class="category-filter__item"><a href="#" class="category-filter__link"
+                                    data-category="posts__item--category-2">Injuries</a></li> -->
+                        </ul>
+                    </header>
+                    <div class="card__content">
+                        <!-- Slider -->
+                        <div class="slick posts posts--slider-featured">
+                            {% for rs in top_trends %}
+                            {% if rs.top_news_img %}
+                            <div class="posts__item posts__item--category-{{rs.category.id}}"><a
+                                    href="{% url 'blog_detail' rs.id rs.slug %}" class="posts__link-wrapper">
+                                    <figure class="posts__thumb"><img src="{{rs.top_news_img.url}}" alt="">
+                                    </figure>
+                                    <div class="posts__inner">
+                                        <div class="posts__cat"><span
+                                                class="label posts__cat-label">{{rs.category}}</span></div>
+                                        <h3 class="posts__title">{{rs.title}}</h3>
+                                        <!-- <div class="post-author">
+                                            <figure class="post-author__avatar"><img
+                                                    src="{% static '' %}assets/images/samples/avatar-4.jpg"
+                                                    alt="Post Author Avatar"></figure>
+                                            <div class="post-author__info">
+                                                <h4 class="post-author__name">Jesse Stevens</h4><time
+                                                    datetime="2017-08-28" class="posts__date">August 28th,
+                                                    2018</time>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </a></div>
+                            {% endif %}
+                            {% endfor %}
+                        </div><!-- Slider / End -->
+                    </div>
+                </div><!-- Featured News / End -->
+                <!-- Post Area 1 -->
+                <div class="posts posts--cards post-grid row">
+                    {% for rs in blogs %}
+                    <div class="post-grid__item col-sm-6" id="blog-box">
+                        <div class="posts__item posts__item--card posts__item--category-{{rs.category.id}} card">
+                            <figure class="posts__thumb">
+                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                </div><a href="{% url 'blog_detail' rs.id rs.slug %}"><img src="{{rs.image.url}}"
+                                        alt=""></a>
+                            </figure>
+                            <div class="posts__inner card__content">
+                                <h6 class="posts__title"><a
+                                        href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}} ago</time>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="d-flex justify-content-center ">
+                    <div id="spinner-box" class="spinner-border text-warning not-visible" role="status">
+
+                    </div>
+                </div>
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if is_paginated %}
+
+                        {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
+                        <li class="page-item">
+
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            {% endif %}
+
+
+                            {% endif %}
+
+
+                    </ul>
+                </nav>
+
+
+                <!-- Post Area 1 / End -->
+
+
+
+                <!-- Last Game Results -->
+
+
+                <div class="card">
+                    <header class="card__header card__header--has-btn">
+                        <h4>Next Match</h4><a href="#"
+                            class="btn btn-default btn-outline btn-xs card-header__button">All match fixturces</a>
+                    </header>
+                    <div class="spm_widget" style="width:100%">
+                        <div class="scoreaxis-live-match-widget scoreaxis-live-match-widget-211820330045" style="border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 8px; padding: 10px; background: rgb(34, 32, 32); width: 100%;"><iframe src="https://www.scoreaxis.com/widget/live-match/18125102?bodyBackground=%23222020&color=%23313934&widgetBorder=1&inst=211820330045&responsiveHeight=1&links=0&font=8&textColor=%23ffffff" width="100%" height="312" style="border: none;" __idm_frm__="1385"></iframe><script type="text/javascript" src="https://www.scoreaxis.com/widget/st/js/installers/live-match.js"></script></div>
+                    </div>
+
+                </div>
+
+                <!-- Last Game Results / End -->
+
+            </div><!-- Content / End -->
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar col-lg-4">
+                <!-- Widget: Standings -->
+                <aside class="widget card widget--sidebar widget-standings">
+                    <div class="widget__title card__header card__header--has-btn">
+                        <h4>Season Standings</h4><a href="#"
+                            class="btn btn-default btn-outline btn-xs card-header__button">See All Stats</a>
+                    </div>
+                    <iframe
+                        src="https://www.scoreaxis.com/widget/standings-widget/8?columns=1%2C1%2C1%2C1%2C1%2C1%2C0%2C0%2C1&tabs=1&header=1&bg=%23FFFFFF&color=%23313934&font=8&bodyBackground=%23303236&textColor=%23ffffff&borderColor=%23474343"
+                        width="100%" height="540" style="border: none;" __idm_frm__="709"></iframe>
+
+                </aside><!-- Widget: Standings / End -->
+
+                <!-- Widget: Popular News -->
+                <!-- <aside class="widget widget--sidebar card widget-popular-posts">
+                    <div class="widget__title card__header">
+                        <h4>Popular News</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <ul class="posts posts--simple-list">
+                            <li class="posts__item posts__item--category-2">
+                                <figure class="posts__thumb"><a href="#"><img
+                                            src="{% static '' %}assets/images/samples/post-img1-xs.jpg" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">Injuries</span>
+                                    </div>
+                                    <h6 class="posts__title"><a href="#">Mark Johnson has a Tibia Fracture and
+                                            is gonna be out</a></h6><time datetime="2016-08-23"
+                                        class="posts__date">August 23rd, 2018</time>
+                                </div>
+                            </li>
+                            <li class="posts__item posts__item--category-1">
+                                <figure class="posts__thumb"><a href="#"><img
+                                            src="{% static '' %}assets/images/samples/post-img2-xs.jpg" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
+                                    </div>
+                                    <h6 class="posts__title"><a href="#">Jay Rorks is only 24 points away from
+                                            breaking the record</a></h6><time datetime="2016-08-23"
+                                        class="posts__date">August 22nd, 2018</time>
+                                </div>
+                            </li>
+                            <li class="posts__item posts__item--category-1">
+                                <figure class="posts__thumb"><a href="#"><img
+                                            src="{% static '' %}assets/images/samples/post-img3-xs.jpg" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
+                                    </div>
+                                    <h6 class="posts__title"><a href="#">The new eco friendly stadium won a
+                                            Leafy Award in 2016</a></h6><time datetime="2016-08-23"
+                                        class="posts__date">June 8th, 2018</time>
+                                </div>
+                            </li>
+                            <li class="posts__item posts__item--category-1">
+                                <figure class="posts__thumb"><a href="#"><img
+                                            src="{% static '' %}assets/images/samples/post-img4-xs.jpg" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
+                                    </div>
+                                    <h6 class="posts__title"><a href="#">The team is starting a new power
+                                            breakfast regimen</a></h6><time datetime="2016-08-23"
+                                        class="posts__date">May 12th, 2018</time>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </aside> -->
+                <!-- Widget: Popular News / End -->
+
+
+                <!-- Widget: Featured Player - Alternative Extended -->
+
+                <aside class="widget card widget--sidebar widget-player widget-player--alt">
+                    <div class="widget__title card__header">
+                        <h4>Featured Player</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <div class="widget-player__team-logo"><img src="{% static '' %}assets/images/logo.png" alt="">
+                        </div>
+                        <figure class="widget-player__photo"><img
+                                src="{% static '' %}assets/images/samples/_soccer_widget-featured-player.png" alt="">
+                        </figure>
+                        <header class="widget-player__header clearfix">
+                            <div class="widget-player__number">38</div>
+                            <h4 class="widget-player__name"><span class="widget-player__first-name">Emeka</span>
+                                <span class="widget-player__last-name">okoro</span></h4>
+                        </header>
+                        <!-- <div class="widget-player__content">
+                            <div class="widget-player__content-inner">
+                                <div class="widget-player__stat widget-player__assists">
+                                    <h6 class="widget-player__stat-label">Assists</h6>
+                                    <div class="widget-player__stat-number">16.9</div>
+                                    <div class="widget-player__stat-legend">AVG</div>
+                                </div>
+                                <div class="widget-player__stat widget-player__steals">
+                                    <h6 class="widget-player__stat-label">Steals</h6>
+                                    <div class="widget-player__stat-number">7.2</div>
+                                    <div class="widget-player__stat-legend">AVG</div>
+                                </div>
+                                <div class="widget-player__stat widget-player__blocks">
+                                    <h6 class="widget-player__stat-label">Blocks</h6>
+                                    <div class="widget-player__stat-number">12.4</div>
+                                    <div class="widget-player__stat-legend">AVG</div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="widget-player__footer"><span class="widget-player__footer-txt">1st
+                                Shooting Guard</span></footer> -->
+                    </div>
+                    <div class="widget__content-secondary">
+                        <!-- Player Details -->
+                        <!-- <div class="widget-player__details">
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">2 Points</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">1250</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">3 Points</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">680</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">Rebounds</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">234</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">Assists</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">751</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">Steals</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">472</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">Blocks</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">565</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">Fouls</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">97</span></div>
+                            </div>
+                            <div class="widget-player__details__item">
+                                <div class="widget-player__details-desc-wrapper"><span
+                                        class="widget-player__details-holder"><span
+                                            class="widget-player__details-label">Game Played</span> <span
+                                            class="widget-player__details-desc">In his career</span>
+                                    </span><span class="widget-player__details-value">104</span></div>
+                            </div>
+                        </div> -->
+                        <!-- Player Details / End -->
+                    </div>
+                    <div class="widget__content-tertiary widget__content--bottom-decor">
+                        <div class="widget__content-inner">
+                            <div class="widget-player__stats row">
+                                <div class="col-4">
+                                    <div class="widget-player__stat-item">
+                                        <div class="widget-player__stat-circular circular">
+                                            <div class="circular__bar" data-percent="88"><span
+                                                    class="circular__percents">88<small>%</small></span></div>
+                                            <span class="circular__label">Shot<br>Accuracy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="widget-player__stat-item">
+                                        <div class="widget-player__stat-circular circular">
+                                            <div class="circular__bar" data-percent="63"><span
+                                                    class="circular__percents">63<small>%</small></span></div>
+                                            <span class="circular__label">Pass<br>Accuracy</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="widget-player__stat-item">
+                                        <div class="widget-player__stat-circular circular">
+                                            <div class="circular__bar" data-percent="75.5"><span
+                                                    class="circular__percents">75.5<small>%</small></span></div>
+                                            <span class="circular__label">Total<br>Assists</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- Widget: Featured Player - Alternative Extended / End -->
+
+
+                <!-- Widget: Trending News -->
+                <aside class="widget widget--sidebar card widget-tabbed">
+                    <div class="widget__title card__header">
+                        <h4>Top Leagues</h4>
+                    </div>
+
+                </aside>
+                <!-- Widget: Trending News / End -->
+
+
+                <!-- Widget: Match Announcement -->
+                <aside class="widget widget--sidebar card widget-preview">
+                    <div class="widget__title card__header">
+                        <h4>Top Next Match</h4>
+                    </div>
+
+
+
+                </aside><!-- Widget: Match Announcement / End -->
+
+
+
+
+
+
+                <!-- Widget: Twitter -->
+                <!-- <aside class="widget widget--sidebar card widget-twitter">
+                    <div class="widget__title card__header">
+                        <h4>Twitter Widget</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <ul class="twitter-feed" data-count="2">
+                            <li>Please wait...</li>
+                        </ul>
+                    </div>
+                </aside> -->
+                <!-- Widget: Twitter / End -->
+
+
+            </div>
+            <!-- Sidebar / End -->
+        </div>
+        <!-- Video Slideshow -->
+        <div class="card card--clean">
+            <header class="card__header card__header--has-filter">
+                <h4>Video Slideshow</h4>
+
+                <ul class="category-filter category-filter--carousel category-filter--extra-space">
+                    <li class="category-filter__item"><a href="{% url 'videos' %}"
+                            class="btn btn-default btn-outline btn-xs card-header__button">Go to Videos</a>
+                    </li>
+                    <!-- {% for rs in video_category %}
+                    <li class="category-filter__item"><a href="#" class="category-filter__link"
+                            data-category="posts__item--category-{{rs.id}}">{{rs.title}}</a></li>
+                    {% endfor %} -->
+                    <!-- <li class="category-filter__item"><a href="#" class="category-filter__link"
+                            data-category="posts__item--category-3">Playoffs</a></li>
+                    <li class="category-filter__item"><a href="#" class="category-filter__link"
+                            data-category="posts__item--category-2">Injuries</a></li> -->
+                </ul>
+            </header>
+            <div class="card__content">
+                <!-- Carousel -->
+                <div class="slick posts posts--carousel video-carousel">
+                    {% for rs in videos %}
+                    <div class="card" style="width: 18rem;">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{rs.link}}" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{rs.title}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div><!-- Carousel / End -->
+            </div>
+        </div><!-- Video Slideshow / End -->
+    </div>
+</div>

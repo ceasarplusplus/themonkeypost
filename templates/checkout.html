@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+
+
+<!-- page heading -->
+{% if breadcrumb.store %}
+<img src="{{breadcrumb.store.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+<!-- Content
+================================================== -->
+<div class="site-content">
+    <div class="container">
+
+        <form action="#" method="POST" class="df-checkout">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Billing Details -->
+                    <div class="card card--lg">
+                        <div class="card__header">
+                            <h4>Billing Details</h4>
+                        </div>
+                        <div class="card__content">
+                            <div class="df-billing-fields">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="billing_first_name">First Name
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" name="first_name" value="{{user.first_name}}" required
+                                                id="billing_first_name" class="form-control text-white"
+                                                placeholder="Your first name..."></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="billing_last_name">Last Name
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" name="last_name" value="{{user.lastt_name}}" required
+                                                id="billing_last_name" class="form-control text-white"
+                                                placeholder="Your last name..."></div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group--sm">
+                                    <label for="billing_address_1">Full Address
+                                        <abbr class="required" title="required">*</abbr>
+                                    </label>
+                                    <input type="text" name="address" value="{{profile.address}}" required
+                                        class="form-control text-white" placeholder="Enter your street address...">
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" name="phone" value="{{profile.phone}}" required
+                                                class="form-control text-white" placeholder="Your phone number...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>State
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" name="state" value="{{profile.state}}" required
+                                                class="form-control text-white" placeholder="Your State"></div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>City
+                                                <abbr class="required" title="required">*</abbr>
+                                            </label>
+                                            <input type="text" name="city" value="{{profile.city}}" required
+                                                class="form-control text-white" placeholder="Your first name..."></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- Billing Details / End -->
+                    <!-- Shipping Details -->
+                    <div class="card card--lg">
+                        <div class="card__header card__header--has-checkbox">
+                            <h4>Payment Method</h4>
+                        </div>
+                        <div class="df-checkout-payment">
+                            <div id="df_payment_methods">
+                                <ul class="df_payment_methods">
+                                    <li class="df_payment_method panel">
+                                        {% for value, name in form.fields.payment_option.choices %}
+                                        <div class="custom-control custom-radio">
+                                            <input id="{{ name }}" name="payment_option" value="{{ value }}"
+                                                type="radio" class="custom-control-input" required>
+                                            <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                                        </div>
+                                        {% endfor %}
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                            <div class="place-order"><input type="submit" class="btn btn-primary btn-lg btn-block"
+                                    id="place_order" value="Place your order now!">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Shipping Details / End -->
+                </div>
+                <div class="col-lg-4">
+                    <!-- Order -->
+                    <div class="card card--has-table">
+                        <div class="card__header">
+                            <h4>Your Order</h4>
+                        </div>
+                        <div class="card__content">
+                            <!-- Checkout Review Order -->
+                            <div class="df-checkout-review-order">
+                                <div class="table-responsive">
+                                    <table class="df-checkout-review-order-table table">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-name">Product</th>
+                                                <th class="product-total">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for rs in shopcart %}
+                                            <tr class="cart_item">
+                                                <td class="product-name">{{rs.product.title}} x ({{rs.quantity}})</td>
+                                                <td class="product-total"><span
+                                                        class="amount">₦{{rs.price|intcomma}}</span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="cart-subtotal">
+                                                <th>Cart Subtotal</th>
+                                                <td><span class="amount">₦{{total|intcomma}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="shipping">
+                                                <th>Shipping and Handlings</th>
+                                                <td><span class="amount">₦1,000</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="order-total">
+                                                <th>Cart Total</th>
+                                                <td><span class="amount">₦{{total|intcomma}}</span>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div><!-- Checkout Review Order / End -->
+
+                        </div>
+                    </div><!-- Order / End -->
+                </div>
+            </div>
+        </form><!-- Checkout Form / End -->
+    </div>
+</div>
+
+
+
+{% endblock content %}

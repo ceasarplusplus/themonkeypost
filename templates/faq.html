@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+
+{% block content %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+{% settingstag as setting %}
+
+
+<!-- page heading -->
+{% if breadcrumb.news %}
+<img src="{{breadcrumb.news.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+		<!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-lg-8">
+						<!-- FAQs -->
+						<div class="accordion accordion--space-between" id="accordionFaqs">
+							{% for rs in faq %}
+							<div class="card">
+								<div class="card__header" id="heading-1">
+									<h5 class="mb-0">
+                                    <button class="btn btn-link accordion__header-link collapsed"
+											type="button" data-toggle="collapse" data-target="#collapse-{{rs.id}}"
+											aria-expanded="false" aria-controls="collapse-{{rs.id}}">{{rs.question}}<span class="accordion__header-link-icon"></span></button></h5>
+								</div>
+								<div id="collapse-{{rs.id}}" class="collapse" aria-labelledby="heading-1"
+									data-parent="#accordionFaqs">
+									<div class="card__content">
+										<p>{{rs.answer|safe}}</p>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+							
+						</div><!-- FAQs / End -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock content %}

@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+
+{% block content %}
+
+<!-- Page Heading
+		================================================== -->
+        <div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title"><span class="highlight">Order Details</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+							<li class="breadcrumb-item"><a href="shop-grid.html">order</a></li>
+							<li class="breadcrumb-item active" aria-current="page">{{user.username}}</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div><!-- Page Heading / End -->
+		<!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4">
+						<!-- Account Navigation -->
+						<div class="card">
+							<div class="card__header">
+								<h4>Order information </h4>
+							</div>
+							<div class="card__content">
+								<nav class="df-account-navigation">
+									<ul>
+										<li class="df-account-navigation__link"><a href="{% url 'account' %}">Go Back</a>
+										</li>
+										
+									</ul>
+								</nav>
+							</div>
+						</div><!-- Account Navigation / End -->
+					</div>
+					<div class="col-lg-8">
+						<!-- Personal Information -->
+						<div class="card card--lg">
+							<div class="card__header">
+								<h4>Order</h4>
+							</div>
+                           
+
+
+							<div class="card__content">
+                                <table class="shopping-cart-table table">
+                                    <tr>
+                                        <th class="text-left">Name Surname</th>
+                                        <td class="text-left">{{ order.first_name}}
+                                            {{ order.last_name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">Phone</th>
+                                        <td class="text-left">{{ order.phone}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">Addres</th>
+                                        <td class="text-left">{{ order.address}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">City</th>
+                                        <td class="text-left">{{ order.city}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">State</th>
+                                        <td class="text-left">{{ order.state}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-left">Status</th>
+                                        <td class="text-left">{{ order.status}}</td>
+                                    </tr>
+        
+                                    <tr>
+                                        <th class="text-left">Date</th>
+                                        <td class="text-left">{{ order.create_at}}</td>
+                                    </tr>
+        
+                                    <th class="text-left">Shipping Info</th>
+                                    <td class="text-left">{{ order.adminnote}}</td>
+                                    </tr>
+        
+                                </table>
+							</div>
+						</div><!-- Personal Information / End -->
+					</div>
+				</div>
+			</div>
+		</div>
+      
+
+        <div class="container">
+            <!-- Shopping Cart -->
+            <div class="card card--has-table">
+                <div class="card__header">
+                    <h4>Your Order Items</h4>
+                </div>
+                <div class="card__content">
+                    <div class="table-responsive">
+                        <table class="table shop-table">
+                            <thead>
+                                <tr>
+                                    <th class="product__photo">Image</th>
+                                    <th class="product__remove"></th>
+                                    <th class="product__info">Product Info</th>
+                                    <th class="product__quantity">Quantity</th>
+                                    <th class="product__total">Total</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rs in orderitems %}
+                                <tr>
+                                    <td class="product__photo">
+                                        <figure class="product__thumb"><a href="/product/{{rs.id}}/{{rs.slug}}"><img
+                                                    src="{{rs.product.image.url}}" alt=""></a>
+                                        </figure>
+                                    </td>
+                                    <td class="product__remove">
+                                    </td>
+                                    <td class="product__info"><span class="product__cat">{{rs.product.category}}</span>
+                                        <h5 class="product__name"><a
+                                                href="/product/{{rs.id}}/{{rs.slug}}">{{rs.product.title}}</a></h5>
+                                        
+                                    </td>
+    
+    
+                                    <td class="product__quantity">
+                                        <div class="quantity-control"><input type="number" value="{{rs.quantity}}"
+                                                class="form-control input-sm"> </div>
+                                    </td>
+                                    <td class="product__total">₦{{rs.price|intcomma}}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- Shopping Cart / End -->
+           
+        </div>
+{% endblock content %}

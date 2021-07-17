@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+
+
+<!-- page heading -->
+{% if breadcrumb.news_detail %}
+<img src="{{breadcrumb.news_detail.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+
+<!-- Page Heading
+		================================================== -->
+
+<nav class="content-filter">
+    <div class="container"><a href="#" class="content-filter__toggle"></a>
+        <ul class="content-filter__list">
+            <li class="content-filter__item content-filter__item--active"><a href="{% url 'blog' %}"
+                    class="content-filter__link">News Category (All)</a></li>
+            {% for rs in blog_category %}
+            <li class="content-filter__item"><a href="{% url 'category_blog' rs.id rs.slug %}"
+                    class="content-filter__link">{{rs.title}}</a></li>
+            {% endfor %}
+            <!-- <li class="content-filter__item"><a href="team-standings.html" class="content-filter__link">Standings</a>
+            </li>
+            <li class="content-filter__item"><a href="team-last-results.html" class="content-filter__link">Latest
+                    Results</a></li>
+            <li class="content-filter__item"><a href="team-schedule.html" class="content-filter__link">Schedule</a></li>
+            <li class="content-filter__item"><a href="team-gallery.html" class="content-filter__link">Gallery</a></li> -->
+        </ul>
+    </div>
+</nav>
+<!-- Content
+================================================== -->
+<div class="site-content">
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="content col-lg-8">
+                <aside class="widget widget--sidebar card widget-popular-posts">
+                    <div class="widget__title card__header">
+                        <h4>Latest News</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <ul class="posts posts--simple-list">
+                            {% for rs in blogs %}
+                            <li class="posts__item posts__item--category-{{rs.category.id}}">
+                                <figure class="posts__thumb"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                            src="{{rs.image.url}}" alt="" style="width: 80px;"></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                    </div>
+                                    <h6 class="posts__title"><a
+                                            href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                    <time class="posts__date">{{rs.date|timesince}}</time>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside>
+
+
+                <!-- Post Pagination -->
+                <nav class="post-pagination" aria-label="Blog navigation">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><span class="page-link">...</span></li>
+                        <li class="page-item"><a class="page-link" href="#">16</a></li>
+                    </ul>
+                </nav><!-- Post Pagination / End -->
+            </div><!-- Content / End -->
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar col-lg-4">
+                <aside class="widget card widget--sidebar widget-banner">
+                    <div class="widget__title card__header">
+                        <h4>Advertisement</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <figure class="widget-banner__img"><a
+                                href="https://themeforest.net/item/the-alchemists-sports-news-html-template/19106722?ref=dan_fisher"><img
+                                    src="{% static '' %}assets/images/samples/banner.jpg" alt="Banner"></a></figure>
+                    </div>
+                </aside>
+
+                <!-- Widget: Popular News -->
+                <aside class="widget widget--sidebar card widget-popular-posts">
+                    <div class="widget__title card__header">
+                        <h4>Trending News</h4>
+                    </div>
+
+                    <div class="widget__content card__content">
+                        <ul class="posts posts--simple-list">
+                            {% for rs in top_trends %}
+                            <li class="posts__item posts__item--category-{{rs.category.id}}">
+                                <figure class="posts__thumb"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                            src="{{rs.image.url}}" style="width: 80px;" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                    </div>
+                                    <h6 class="posts__title"><a
+                                            href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                    <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}} ago</time>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside><!-- Widget: Popular News / End -->
+                <!-- Widget: Tag Cloud -->
+                <aside class="widget widget--sidebar card widget-tagcloud">
+                    <div class="widget__title card__header">
+                        <h4>Tag Cloud</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <div class="tagcloud"><a href="#" class="btn btn-primary btn-xs btn-outline btn-sm">PLAYOFFS</a>
+                            <a href="#" class="btn btn-primary btn-xs btn-outline btn-sm">ALCHEMISTS</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">INJURIES</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">TEAM</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">INCORPORATIONS</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">UNIFORMS</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">CHAMPIONS</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">PROFESSIONAL</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">COACH</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">STADIUM</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">NEWS</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">PLAYERS</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">WOMEN DIVISION</a> <a href="#"
+                                class="btn btn-primary btn-xs btn-outline btn-sm">AWARDS</a></div>
+                    </div>
+                </aside><!-- Widget: Tag Cloud / End -->
+                <!-- Widget: Banner -->
+                <aside class="widget card widget--sidebar widget-banner">
+                    <div class="widget__title card__header">
+                        <h4>Advertisement</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <figure class="widget-banner__img"><a
+                                href="https://themeforest.net/item/the-alchemists-sports-news-html-template/19106722?ref=dan_fisher"><img
+                                    src="{% static '' %}assets/images/samples/banner.jpg" alt="Banner"></a></figure>
+                    </div>
+                </aside><!-- Widget: Banner / End -->
+            </div><!-- Sidebar / End -->
+
+        </div>
+    </div>
+</div><!-- Content / End -->
+
+{% endblock content %}

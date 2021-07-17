@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+
+
+<!-- page heading -->
+{% if breadcrumb.store %}
+<img src="{{breadcrumb.store.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+
+<nav class="content-filter">
+    <div class="container"><a href="#" class="content-filter__toggle"></a>
+        <ul class="content-filter__list">
+            <li class="content-filter__item content-filter__item--active"><a href="{% url 'shop' %}"
+                    class="content-filter__link">Categories (All)</a></li>
+            {% for rs in category %}
+            <li class="content-filter__item"><a href="/shop-category/{{rs.id}}/{{rs.slug}}"
+                    class="content-filter__link">{{rs.title}}</a>
+            </li>
+            {% endfor %}
+            <!-- <li class="content-filter__item"><a href="team-standings.html" class="content-filter__link">Standings</a>
+            </li>
+            <li class="content-filter__item"><a href="team-last-results.html" class="content-filter__link">Latest
+                    Results</a></li>
+            <li class="content-filter__item"><a href="team-schedule.html" class="content-filter__link">Schedule</a></li>
+            <li class="content-filter__item"><a href="team-gallery.html" class="content-filter__link">Gallery</a></li> -->
+        </ul>
+    </div>
+</nav>
+<!-- Content
+================================================== -->
+<div class="card card--clean mt-20">
+
+    <div class="card__content ">
+        <!-- Products -->
+        <ul class="products products--grid products--grid-4 products--grid-simple ">
+            <!-- Product #0 -->
+            {% for rs in products %}
+            <li class="product__item">
+                <div class="product__img">
+                    <div class="product__thumb"><img src="{{rs.image.url}}" alt=""></div>
+                    <div class="product__overlay">
+                        <div class="product__btns"><a href="/addtoshopcart/{{rs.id}}"
+                                class="btn btn-primary-inverse btn-block btn-icon"><i class="icon-bag"></i> Add to your
+                                bag</a>
+                            <a href="/product/{{rs.id}}/{{rs.slug}}" class="btn btn-primary btn-block btn-icon"><i
+                                    class="icon-heart"></i>
+                                View Item</a>
+                        </div>
+                    </div>
+                    <div class="product__content card__content">
+                        <div class="product__header">
+                            <div class="product__header-inner">
+                                <h2 class="product__title"><a href="/addtoshopcart/{{rs.id}}">{{rs.title}}</a></h2>
+                                <div class="product__ratings">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="product__price">₦{{rs.price|intcomma}}</div>
+                            </div>
+                        </div>
+                    </div>
+            </li>
+            {% endfor %}
+        </ul><!-- Products / End -->
+    </div>
+</div>
+
+
+{% endblock content %}

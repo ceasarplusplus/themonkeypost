@@ -1,0 +1,302 @@
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% load myapptags %}
+{% videocategories as video_category %}
+{% settingstag as setting %}
+{% newstrendheader as top_trends_header %}
+{% poptags as pop_tags %}
+
+<div class="site-overlay"></div>
+<!-- Header
+		================================================== -->
+<!-- Header Mobile -->
+<div class="header-mobile clearfix" id="header-mobile">
+    <div class="header-mobile__logo"><a href="{% url 'index' %}"><img src="{{setting.icon.url}}"
+                srcset="{{setting.icon.url}}" alt="The Monkeypost logo"
+                class="header-mobile__logo-img"></a>
+    </div>
+    <div class="header-mobile__inner"><a id="header-mobile__toggle" class="burger-menu-icon"><span
+                class="burger-menu-icon__line"></span></a> <span class="header-mobile__search-icon"
+            id="header-mobile__search-icon"></span></div>
+</div>
+<!-- Header Desktop -->
+<header class="header header--layout-1">
+    <!-- Header Top Bar -->
+    <div class="header__top-bar clearfix">
+        <div class="container">
+            <div class="header__top-bar-inner"></ul><!-- Social Links -->
+                <ul class="social-links  social-links--inline social-links--main-nav">
+                    <li class="social-links__item">
+                        <a href="{{setting.facebook}}" target="_blank" rel="noopener noreferrer" class="social-links__link" data-toggle="tooltip"
+                            data-placement="bottom" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                   
+                    <li class="social-links__item">
+                        <a href="{{setting.instagram}}" target="_blank" rel="noopener noreferrer" class="social-links__link" data-toggle="tooltip"
+                            data-placement="bottom" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li class="social-links__item">
+                        <a href="{{setting.youtube}}" target="_blank" rel="noopener noreferrer" class="social-links__link" data-toggle="tooltip"
+                            data-placement="bottom" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                </ul>
+
+               
+                <!-- Account Navigation -->
+                <ul class="nav-account">
+                    {% if user.is_authenticated %}
+                    <li class="nav-account__item"><a href="{% url 'account' %}"
+                      >Your Account: [ {{user.username}} ]</a>
+                </li>
+                    {% if user.is_staff %}
+                    <li class="nav-account__item"><a href="/admin"
+                        >Admin Dashboard</a>
+                  </li>
+                    {% endif %}
+                <li class="nav-account__item "><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                    <li class="nav-account__item"><a href="#" data-toggle="modal"
+                            data-target="#modal-login-register-tabs">Login or Sign Up</a>
+                    </li>
+                    {% endif %}
+
+       
+                        
+                        
+                    
+                   
+                </ul><!-- Account Navigation / End -->
+            </div>
+        </div>
+    </div><!-- Header Top Bar / End -->
+    <!-- Header Secondary -->
+    <div class="header__secondary">
+        <div class="container">
+            <!-- Header Search Form -->
+            <div class="header-search-form">
+                <form action="#" id="mobile-search-form" class="search-form"><input type="text"
+                        class="form-control header-mobile__search-control" value=""
+                        placeholder="Enter your search here..."> <button type="submit"
+                        class="header-mobile__search-submit"><i class="fas fa-search"></i></button></form>
+            </div>
+            <!-- Header Search Form / End -->
+            <ul class="info-block info-block--header">
+              
+                <li class="info-block__item info-block__item--contact-primary"><svg role="img" class="df-icon df-icon--whistle">
+                    <use
+                        xlink:href="{% static '' %}assets/images/icons-soccer.svg#whistle" />
+                </svg>
+                    <h6 class="info-block__heading">Call our Team!</h6><a class="info-block__link"
+                        href="tel:{{setting.phone}}">{{setting.phone}}</a>
+                </li>
+                <li class="info-block__item info-block__item--contact-secondary"><svg role="img"
+                    class="df-icon df-icon--soccer-ball">
+                    <use
+                        xlink:href="{% static '' %}assets/images/icons-soccer.svg#soccer-ball" />
+                </svg>
+                    <h6 class="info-block__heading">Contact Us</h6><a class="info-block__link"
+                        href="mailto:{{setting.email}}">{{setting.email}}</a>
+                </li>
+                <li class="info-block__item info-block__item--shopping-cart js-info-block__item--onhover"><a href="{% url 'shopcart' %}"
+                        class="info-block__link-wrapper">
+                        <div class="df-icon-stack df-icon-stack--bag"><svg role="img" class="df-icon df-icon--bag">
+                                <use xlink:href="{% static '' %}assets/images/icons-basket.svg#bag" /></svg>
+                            <svg role="img" class="df-icon df-icon--bag-handle">
+                                <use xlink:href="{% static '' %}assets/images/icons-basket.svg#bag-handle" />
+                            </svg></div>
+                            {% shopcartcount user.id as count %}
+                            {% totaltag user.id as total %}
+                        <h6 class="info-block__heading">Your Bag ({{count}} items)</h6><span
+                            class="info-block__cart-sum">₦{{total|intcomma}}</span>
+                    </a><!-- Dropdown Shopping Cart -->
+                    <ul class="header-cart">
+                        {% shopcarttag user.id as shopcart %}
+                        
+                        {% if shopcart %}
+                        {% for rs in shopcart %}
+                        <li class="header-cart__item">
+                            <figure class="header-cart__product-thumb"><a href="/product/{{rs.id}}/{{rs.slug}}"><img
+                                        src="{{rs.product.image.url}}" style="width: 100px;" alt=""></a></figure>
+                            <div class="header-cart__inner"><span
+                                    class="header-cart__product-cat">{{rs.product.category}}</span>
+                                <h5 class="header-cart__product-name"><a
+                                        href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a></h5>
+                                <div class="header-cart__product-ratings">
+                                    <i class="fas fa-star {% if rs.product.averagereview < 1%} empty{% endif%}"></i>
+                                    <i class="fas fa-star {% if rs.product.averagereview < 2%} empty{% endif%}"></i>
+                                    <i class="fas fa-star {% if rs.product.averagereview < 3%} empty{% endif%}"></i>
+                                    <i class="fas fa-star {% if rs.product.averagereview < 4%} empty{% endif%}"></i>
+                                    <i class="fas fa-star {% if rs.product.averagereview < 5%} empty{% endif%}"></i>
+                                </div>
+                                <div class="header-cart__product-sum"><span
+                                        class="header-cart__product-price">₦{{rs.price|intcomma}}</span> x <span
+                                        class="header-cart__product-count">{{rs.quantity}}</span></div>
+
+                            </div>
+                        </li>
+
+                        {% endfor %}
+                        <li class="header-cart__item header-cart__item--subtotal"><span
+                                class="header-cart__subtotal">Cart Subtotal</span> 
+                                
+                                <span
+                                class="header-cart__subtotal-sum">₦{{ total|intcomma }}</span></li>
+                        <li class="header-cart__item header-cart__item--action"><a href="{% url 'shopcart' %}"
+                                class="btn btn-default btn-block">Go to Cart</a> <a href="{% url 'checkout' %}"
+                                class="btn btn-primary-inverse btn-block">Checkout</a></li>
+
+                        {% else %}
+                        <li class="header-cart__item">
+
+                            <div class="header-cart__inner">
+                                <h5 class="header-cart__product-name"><a href="shop-product.html">Shopping cart is
+                                        empty</a></h5>
+
+                            </div>
+                        </li>
+                        {% endif %}
+
+
+
+
+                    </ul><!-- Dropdown Shopping Cart / End -->
+                </li>
+            </ul>
+        </div>
+    </div><!-- Header Secondary / End -->
+    <!-- Header Primary -->
+    <div class="header__primary">
+        <div class="container">
+            <div class="header__primary-inner">
+                <!-- Header Logo -->
+                <div class="header-logo"><a href="/"><img src="{{setting.icon.url}}"
+                            style="width: 150px;" alt="The Monkeypost logo"
+                            srcset="{{setting.icon.url}}" class="header-logo__img"></a></div>
+                <!-- Header Logo / End -->
+                <!-- Main Navigation -->
+                <nav class="main-nav clearfix">
+                    <ul class="main-nav__list">
+                        <li class="active"><a href="{% url 'index' %}">Home</a>
+
+                        </li>
+                        <li class=""><a href="{% url 'blog' %}">News</a>
+                            <ul class="main-nav__sub">
+                                <li class="active"><a href="{% url 'blog' %}">All</a></li>
+                                
+                                {% blogcategories as blog_category %}
+                                {% recursetree blog_category %}
+                                <li><a href="{% url 'category_blog' node.id node.slug %}">{{node.title}}</a>
+                                </li>
+                                {% endrecursetree %}
+                            </ul>
+                        </li>
+                        <li class=""><a href="{% url 'live_view' %}">Live Scores</a>
+
+                        </li>
+                        <li class=""><a href="{% url 'videos' %}">Podcast</a>
+                            <ul class="main-nav__sub">
+                                <li class="active"><a href="{% url 'podcast' %}">Audios</a></li>
+                                <li class="active"><a href="{% url 'videos' %}">Videos</a></li>
+                                
+                              
+                            </ul>
+
+                        </li>                       
+                        
+                        <li class=""><a href="{% url 'videos' %}">videos</a>
+
+                        </li>
+                        <li class=""><a href="{% url 'shop' %}">Store</a>
+
+                        </li>
+                    </ul><!-- Social Links -->
+                    <!-- <ul class="social-links social-links--inline social-links--main-nav">
+                        <li class="social-links__item"><a href="#" class="social-links__link" data-toggle="tooltip"
+                                data-placement="bottom" title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li class="social-links__item"><a href="#" class="social-links__link" data-toggle="tooltip"
+                                data-placement="bottom" title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li class="social-links__item"><a href="#" class="social-links__link" data-toggle="tooltip"
+                                data-placement="bottom" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    </ul> -->
+                    <!-- Social Links / End -->
+                    <!-- Pushy Panel Toggle --> <a href="#" class="pushy-panel__toggle"><span
+                            class="pushy-panel__line"></span> </a><!-- Pushy Panel Toggle / Eng -->
+                </nav><!-- Main Navigation / End -->
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span>
+            </button>
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <!-- Header Primary / End -->
+</header><!-- Header / End -->
+<!-- Pushy Panel -->
+<aside class="pushy-panel pushy-panel--dark">
+    <div class="pushy-panel__inner">
+        <header class="pushy-panel__header">
+            <div class="pushy-panel__logo"><a href="{% url 'index' %}"><img src="{{setting.icon.url}}"
+                        srcset="{{setting.icon.url}}" alt="Monkey post logo"></a></div>
+        </header>
+        <div class="pushy-panel__content">
+            <!-- Widget: Posts -->
+            <aside class="widget widget--side-panel">
+                <div class="widget__content">
+                    <ul class="posts posts--simple-list">
+                        
+                        {% for rs in top_trends_header %}
+                        <li class="posts__item posts__item--category-{{rs.id}}">
+                            <figure class="posts__thumb posts__thumb--hover"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                        src="{{rs.image.url}}" style="width: 80px;"
+                                        alt=""></a>
+                            </figure>
+                            <div class="posts__inner">
+                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span></div>
+                                <h6 class="posts__title posts__title--color-hover"><a
+                                        href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6><time
+                                    datetime="2017-08-21" class="posts__date">{{rs.date|timesince}}</time>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </aside><!-- Widget: Posts / End -->
+             <!-- Widget: Tag Cloud -->
+             <aside class="widget widget--sidebar card widget-tagcloud">
+                <div class="widget__title card__header">
+                    <h4>Tag Cloud</h4>
+                </div>
+                <div class="widget__content card__content">
+
+                    <div class="tagcloud">
+                        {% for rs in pop_tags %}
+                        <a href="{% url 'tag_view' rs.slug %}"
+                            class="btn btn-primary btn-xs btn-outline btn-sm">{{rs.name}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside><!-- Widget: Tag Cloud / End -->
+            <!-- Widget: Banner -->
+            <aside class="widget widget--side-panel widget-banner">
+                <div class="widget__content">
+                    <figure class="widget-banner__img"><a href="#"><img
+                                src="{% static '' %}assets/images/samples/banner.jpg" alt="Banner"></a></figure>
+                </div>
+            </aside><!-- Widget: Banner / End -->
+        </div><a href="#" class="pushy-panel__back-btn"></a>
+    </div>
+</aside><!-- Pushy Panel / End -->

@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+{% blogcategories as blog_category %}
+{% poptags as pop_tags %}
+
+
+
+<!-- page heading -->
+{% if breadcrumb.news %}
+<img src="{{breadcrumb.news.url}}" class="img-fluid" alt="...">
+<!-- advert -->
+{% endif %}
+<!-- Page Heading / End -->
+<div class="">
+    <marquee width="100%" scrollamount="3" loop="infinite" color="#ffffff" direction="left">
+        {% for rs in news_slide %}
+        <strong class="text-primary"> [ {{rs.category}} ] --</strong><span class="text-white"> {{rs.news}}</span> ||
+        {% endfor %}
+
+    </marquee>
+</div>
+
+<nav class="content-filter">
+    <div class="container"><a href="#" class="content-filter__toggle"></a>
+        <ul class="content-filter__list">
+            <li class="content-filter__item content-filter__item--active"><a href="{% url 'blog' %}"
+                    class="content-filter__link">News Category (All)</a></li>
+            {% for rs in blog_category %}
+            <li class="content-filter__item"><a href="{% url 'category_blog' rs.id rs.slug %}"
+                    class="content-filter__link">{{rs.title}}</a></li>
+            {% endfor %}
+            <!-- <li class="content-filter__item"><a href="team-standings.html" class="content-filter__link">Standings</a>
+            </li>
+            <li class="content-filter__item"><a href="team-last-results.html" class="content-filter__link">Latest
+                    Results</a></li>
+            <li class="content-filter__item"><a href="team-schedule.html" class="content-filter__link">Schedule</a></li>
+            <li class="content-filter__item"><a href="team-gallery.html" class="content-filter__link">Gallery</a></li> -->
+        </ul>
+    </div>
+</nav>
+<!-- Content
+================================================== -->
+<div class="site-content">
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="content col-lg-8">
+                <aside class="widget widget--sidebar card widget-popular-posts">
+                    <div class="widget__title card__header">
+                        <h4>Latest News</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <ul class="posts posts--simple-list">
+                            {% for rs in blogs %}
+                            <li class="posts__item posts__item--category-{{rs.category.id}}">
+                                <figure class="posts__thumb"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                            src="{{rs.image.url}}" alt="" style="width: 80px;"></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                    </div>
+                                    <h6 class="posts__title"><a
+                                            href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                    <time class="posts__date">{{rs.date|timesince}}</time>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside>
+
+
+                <!-- Post Pagination -->
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if is_paginated %}
+
+                        {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
+                        <li class="page-item">
+
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                            {% endif %}
+
+
+                            {% endif %}
+
+
+                    </ul>
+                </nav>
+            </div><!-- Content / End -->
+            <!-- Sidebar -->
+            <div id="sidebar" class="sidebar col-lg-4">
+                <!-- Widget: Standings -->
+                <aside class="widget card widget--sidebar widget-standings">
+                    <div class="widget__title card__header card__header--has-btn">
+                        <h4>Season Standings</h4><a href="#"
+                            class="btn btn-default btn-outline btn-xs card-header__button">See All Stats</a>
+                    </div>
+                    <iframe
+                        src="https://www.scoreaxis.com/widget/standings-widget/8?columns=1%2C1%2C1%2C1%2C1%2C1%2C0%2C0%2C1&tabs=1&header=1&bg=%23FFFFFF&color=%23313934&font=8&bodyBackground=%23303236&textColor=%23ffffff&borderColor=%23474343"
+                        width="100%" height="540" style="border: none;" __idm_frm__="709"></iframe>
+
+                </aside><!-- Widget: Standings / End -->
+                <!-- Widget: Popular News -->
+                <aside class="widget widget--sidebar card widget-popular-posts">
+                    <div class="widget__title card__header">
+                        <h4>Trending News</h4>
+                    </div>
+
+                    <div class="widget__content card__content">
+                        <ul class="posts posts--simple-list">
+                            {% for rs in top_trends %}
+                            <li class="posts__item posts__item--category-{{rs.category.id}}">
+                                <figure class="posts__thumb"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                            src="{{rs.image.url}}" style="width: 80px;" alt=""></a>
+                                </figure>
+                                <div class="posts__inner">
+                                    <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                    </div>
+                                    <h6 class="posts__title"><a
+                                            href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                    <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}} ago</time>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </aside><!-- Widget: Popular News / End -->
+                <aside class="widget card widget--sidebar widget-banner">
+                    <div class="widget__title card__header">
+                        <h4>Advertisement</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <figure class="widget-banner__img"><a
+                                href="https://themeforest.net/item/the-alchemists-sports-news-html-template/19106722?ref=dan_fisher"><img
+                                    src="{% static '' %}assets/images/samples/banner.jpg" alt="Banner"></a></figure>
+                    </div>
+                </aside>
+
+
+                 <!-- Widget: Tag Cloud -->
+             <aside class="widget widget--sidebar card widget-tagcloud">
+                <div class="widget__title card__header">
+                    <h4>Tag Cloud</h4>
+                </div>
+                <div class="widget__content card__content">
+
+                    <div class="tagcloud">
+                        {% for rs in pop_tags %}
+                        <a href="{% url 'tag_view' rs.slug %}"
+                            class="btn btn-primary btn-xs btn-outline btn-sm">{{rs.name}}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </aside><!-- Widget: Tag Cloud / End -->
+                <!-- Widget: Banner -->
+                <aside class="widget card widget--sidebar widget-banner">
+                    <div class="widget__title card__header">
+                        <h4>Advertisement</h4>
+                    </div>
+                    <div class="widget__content card__content">
+                        <figure class="widget-banner__img"><a
+                                href="https://themeforest.net/item/the-alchemists-sports-news-html-template/19106722?ref=dan_fisher"><img
+                                    src="{% static '' %}assets/images/samples/banner.jpg" alt="Banner"></a></figure>
+                    </div>
+                </aside><!-- Widget: Banner / End -->
+            </div><!-- Sidebar / End -->
+
+        </div>
+    </div>
+</div><!-- Content / End -->
+
+{% endblock content %}

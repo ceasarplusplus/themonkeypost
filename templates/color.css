@@ -1,0 +1,24 @@
+.lightbox-holder.posts__item--category-4 .lightbox-holder__link--play:before,
+.lightbox-holder.posts__item--category-4 .lightbox-holder__overlay--video:before {
+    border-color: rgb(255, 0, 0)
+}
+.lightbox-holder.posts__item--category-5 .lightbox-holder__link--play:before,
+.lightbox-holder.posts__item--category-5 .lightbox-holder__overlay--video:before {
+    border-color: rgb(100, 84, 19)
+}
+.lightbox-holder.posts__item--category-6 .lightbox-holder__link--play:before,
+.lightbox-holder.posts__item--category-6 .lightbox-holder__overlay--video:before {
+    border-color: rgb(255, 33, 17)
+}
+.lightbox-holder.posts__item--category-7 .lightbox-holder__link--play:before,
+.lightbox-holder.posts__item--category-7 .lightbox-holder__overlay--video:before {
+    border-color: rgb(78, 25, 226)
+}
+.lightbox-holder.posts__item--category-8 .lightbox-holder__link--play:before,
+.lightbox-holder.posts__item--category-8 .lightbox-holder__overlay--video:before {
+    border-color: rgb(212, 22, 165)
+}
+.lightbox-holder.posts__item--category-9 .lightbox-holder__link--play:before,
+.lightbox-holder.posts__item--category-9 .lightbox-holder__overlay--video:before {
+    border-color: rgb(61, 150, 101)
+}

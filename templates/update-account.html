@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+
+{% block content %}
+
+<!-- Page Heading
+		================================================== -->
+        <div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title"><span class="highlight">Account</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+							<li class="breadcrumb-item"><a href="shop-grid.html">Users</a></li>
+							<li class="breadcrumb-item active" aria-current="page">{{user.username}}</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div><!-- Page Heading / End -->
+		<!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4">
+						<!-- Account Navigation -->
+						<div class="card">
+							<div class="card__header">
+								<h4>Update information</h4>
+							</div>
+							<div class="card__content">
+								<nav class="df-account-navigation">
+									<ul>
+										<li class="df-account-navigation__link"><a href="{% url 'account' %}">Go Back</a>
+										</li>
+										
+									</ul>
+								</nav>
+							</div>
+						</div><!-- Account Navigation / End -->
+					</div>
+					<div class="col-lg-8">
+						<!-- Personal Information -->
+						<div class="card card--lg">
+							<div class="card__header">
+								<h4>Update</h4>
+							</div>
+                           
+
+
+							<div class="card__content">
+								<form  method="post" enctype="multipart/form-data" class="df-personal-info">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-3">
+                                            <div class="single-input-item">
+                                                <label for="id_city" class="form-label">Profile Picture</label>
+    
+                                                <input type="file" id="id_image" name="image"
+                                                accept="image/*" value="{{ user.userprofile.image.url }}"
+                                                class="form-control-file clearablefileinput"  />
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+									<div class="row">
+                                        <div class="col-md-6">
+											<div class="form-group"><label for="account-username">Username</label>
+												<input type="text" class="form-control text-white" id="id_username" value="{{user.username}}"
+                                                    name="username"></div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group"><label for="account-email">Email</label> <input
+													type="email" class="form-control" id="id_email" value="{{user.email}}" name="email"
+                                                    class="form-control text-white" required></div>
+										</div>
+										
+									</div>
+									
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group"><label for="account-first-name">First Name</label>
+												<input type="text" class="form-control text-white" id="id_first_name" value="{{ user.first_name }}"
+                                                name="first_name" required></div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group"><label for="account-last-name">Last Name</label>
+												<input type="text" name="last_name" value="{{ user.last_name }}"
+                                                maxlength="20" required id="id_last_name" class="form-control text-white"
+                                                required></div>
+										</div>
+									</div>
+									<div class="form-group form-group"><label for="account-address-1">Phone</label> <input type="text" id="id_phone" name="phone"
+                                        value="{{ user.userprofile.phone }}" class="form-control text-white"
+                                        required></div>
+									
+                                    <div class="form-group"><label for="account-address-1">Full
+                                        Address</label><input type="text" id="id_address"
+                                        value="{{ user.userprofile.address }}" name="address"
+                                        class="form-control text-white" required></div>
+									
+                                   
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group"><label for="account-city">State</label>
+												<input type="text" id="id_state"
+                                                    value="{{ user.userprofile.state }}" name="state"
+                                                    class="form-control text-white" required /></div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group"><label for="account-postcode">City/town</label>
+												<input type="text" id="id_city" placeholder="City" name="city"
+                                                    value="{{ user.userprofile.city }}" class="form-control text-white"
+                                                    required /></div>
+										</div>
+									</div>
+									<div class="form-group--submit"><button type="submit"
+											class="btn btn-default btn-lg btn-block">Save changes</button></div>
+                           
+									
+								</form>
+							</div>
+						</div><!-- Personal Information / End -->
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock content %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+
+{% block content %}
+
+<!-- Page Heading
+		================================================== -->
+        <div class="page-heading">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10 offset-md-1">
+						<h1 class="page-heading__title"><span class="highlight">Account</span></h1>
+						<ol class="page-heading__breadcrumb breadcrumb">
+							<li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+							<li class="breadcrumb-item"><a >Users</a></li>
+							<li class="breadcrumb-item active" aria-current="page">{{user.username}}</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div><!-- Page Heading / End -->
+		<!-- Content
+		================================================== -->
+		<div class="site-content">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-4">
+						<!-- Account Navigation -->
+						<div class="card">
+							<div class="card__header">
+								<h4>User information</h4>
+							</div>
+							<div class="card__content">
+								<nav class="df-account-navigation">
+									<ul>
+										<li class="df-account-navigation__link"><a href="{%url 'account' %}">Personal Information</a>
+										</li>
+										<li class="df-account-navigation__link"><a href="[% url 'user_orders' %]">Orders</a></li>
+										<li class="df-account-navigation__link"><a href="{% url 'user_update' %}">Update Profile</a>
+										</li>
+                                        <li class="df-account-navigation__link"><a href="{% url 'user_password' %}">Change Password</a>
+										</li>
+										
+									</ul>
+								</nav>
+								
+							</div>
+						</div><!-- Account Navigation / End -->
+					</div>
+					<div class="col-lg-8">
+						<!-- Personal Information -->
+						<div class="card card--lg">
+							<div class="card__header">
+								<h4> {{user.username}}</h4>
+							</div>
+                            
+		<div class="card__content">
+            {% if orders %}
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Order</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for rs in orders %}
+                    <tr>
+                        <td>{{ rs.code }}</td>
+                        <td>{{ rs.create_at|date:"M d, Y"}}</td>
+                        <td>{{ rs.status }}</td>
+                        <td>₦{{rs.total|intcomma}}</td>
+                        <td><a class="btn btn-secondary" href="/order-details/{{ rs.id }}">view</a></td>
+                    </tr>
+                    {% endfor %}
+                    <!-- <tr>
+                        <td>2</td>
+                        <td>October 4, 2019</td>
+                        <td>Processing</td>
+                        <td>$17.00 for 1 item </td>
+                        <td><a class="btn btn-secondary" href="cart.html">view</a></td>
+                    </tr> -->
+                </tbody>
+              </table>
+              {% else %}
+                        <h3 class="billing-address">NO RECORD FOUND</h3>
+                        {% endif %}
+        </div>
+						</div><!-- Personal Information / End -->
+					</div>
+				</div>
+			</div>
+		</div>
+        
+{% endblock content %}

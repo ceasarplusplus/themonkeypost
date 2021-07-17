@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+{% include 'head.html' %}
+
+<body data-template="template-basketball">
+    <div class="site-wrapper clearfix">
+
+        <!-- Header
+		================================================== -->
+        {% include 'header.html' %}
+
+        {% block content %}
+
+        {% endblock content %}
+
+        <!-- Footer ======== -->
+        {% include 'footer.html' %}
+    </div>
+    <!-- Javascript Files
+	================================================== -->
+    {% include 'scripts.html' %}
+</body>
+
+</html>
