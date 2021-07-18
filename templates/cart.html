@@ -40,13 +40,13 @@
                             {% for rs in shopcart %}
                             <tr>
                                 <td class="product__photo">
-                                    <figure class="product__thumb"><a href="/product/{{rs.id}}/{{rs.slug}}"><img
+                                    <figure class="product__thumb"><a href="/product/{{rs.product.id}}/{{rs.product.slug}}"><img
                                                 src="{{rs.product.image.url}}" alt=""></a>
                                     </figure>
                                 </td>
                                 <td class="product__info"><span class="product__cat">{{rs.product.category}}</span>
                                     <h5 class="product__name"><a
-                                            href="/product/{{rs.id}}/{{rs.slug}}">{{rs.product.title}}</a></h5>
+                                            href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a></h5>
                                     <div class="product__ratings">
                                         <i class="fas fa-star {% if rs.product.averagereview < 1%} empty{% endif%}"></i>
                                         <i class="fas fa-star {% if rs.product.averagereview < 2%} empty{% endif%}"></i>
@@ -112,7 +112,7 @@
                         <!-- Checkout Payment -->
                         <div class="df-checkout-payment">
                             <div class="place-order"><a href="{% url 'checkout' %}"
-                                class="btn btn-primary-inverse btn-block">Checkout</a>></div>
+                                class="btn btn-primary-inverse btn-block">Checkout</a></div>
                         </div><!-- Checkout Payment / End -->
                     </div>
                 </div><!-- Cart Totals / End -->

@@ -46,11 +46,11 @@ def totaltag(userid):
 
 @register.simple_tag
 def newstrendfooter():
-    return Blog.objects.filter(top_news=True)[:3]
+    return Blog.objects.filter(top_news=True).order_by('-id')[:3]
 
 @register.simple_tag
 def newstrendheader():
-    return Blog.objects.filter(top_news=True)[:5]
+    return Blog.objects.filter(top_news=True).order_by('-id')[:3]
 
 
 @register.simple_tag
