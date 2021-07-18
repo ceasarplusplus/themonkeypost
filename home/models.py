@@ -207,6 +207,7 @@ class Audios(models.Model):
 
 
 class Breadcrumb(models.Model):
+    home = models.ImageField(blank=True, upload_to='images/breadcrumb/')
     news = models.ImageField(blank=True, upload_to='images/breadcrumb/')
     news_detail = models.ImageField(blank=True, upload_to='images/breadcrumb/')
     audio = models.ImageField(blank=True, upload_to='images/breadcrumb/')
@@ -229,6 +230,8 @@ class Nextmatch(models.Model):
 class Advert(models.Model):
     title = models.CharField(max_length=100)
     advert= models.ImageField(blank=True, upload_to='images/breadcrumb/')
+    link = models.CharField(max_length=255, blank=True, null=True)
+    home = models.BooleanField(default=False)
     news = models.BooleanField(default=False)
     store = models.BooleanField(default=False)
     audio = models.BooleanField(default=False)

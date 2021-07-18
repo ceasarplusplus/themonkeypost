@@ -7,14 +7,10 @@
 
 {% load myapptags %}
 {% breadcrumbs as breadcrumb %}
+{% advertisements as adverts %}
 
 
-<!-- page heading -->
-{% if breadcrumb.store %}
-<img src="{{breadcrumb.store.url}}" class="img-fluid" alt="...">
-<!-- advert -->
-{% endif %}
-<!-- Page Heading / End -->
+{% include 'breadcrumb-news.html' %}
 <!-- Content
 ================================================== -->
 <div class="site-content">

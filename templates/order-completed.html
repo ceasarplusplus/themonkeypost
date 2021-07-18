@@ -18,7 +18,7 @@
         {% for rs in adverts %}
             {% if rs.news == True %}
             <div class="carousel-item">
-                <img src="{{rs.advert.url}}" class="d-block w-100" alt="...">
+                <a href="{{rs.link}}"><img src="{{rs.advert.url}}" class="d-block w-100" alt="{{rs.title}}"></a>
             </div>
             {% endif %}
         {% endfor %}
