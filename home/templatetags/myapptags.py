@@ -1,7 +1,7 @@
 from django import template
 from django.urls import reverse
 
-from home.models import VideoCategory, Setting, Breadcrumb
+from home.models import VideoCategory, Setting, Breadcrumb, Advert
 from news.models import BlogCategory,  Blog
 from store.models import ShopCart
 
@@ -51,6 +51,11 @@ def newstrendfooter():
 @register.simple_tag
 def newstrendheader():
     return Blog.objects.filter(top_news=True)[:5]
+
+
+@register.simple_tag
+def advertisements():
+    return Advert.objects.all()
 
 
 @register.simple_tag

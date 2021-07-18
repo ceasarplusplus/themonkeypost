@@ -1,7 +1,7 @@
 from django.contrib import admin
 import admin_thumbnails
 from mptt.admin import DraggableMPTTAdmin
-from .models import VideoCategory, Videos, Breadcrumb, Setting, Nextmatch, Subscribe, Portfolio, PortfolioImages, Audios, Gallery, ContactMessage, Faqs
+from .models import VideoCategory, Videos, Breadcrumb, Advert, Setting, Nextmatch, Subscribe, Portfolio, PortfolioImages, Audios, Gallery, ContactMessage, Faqs
 
 
 class VideoCategoryAdmin2(DraggableMPTTAdmin):
@@ -102,6 +102,7 @@ admin.site.register(Subscribe)
 admin.site.register(Faqs)
 admin.site.register(Gallery)
 admin.site.register(Breadcrumb)
+admin.site.register(Advert)
 admin.site.register(Nextmatch)
 
 

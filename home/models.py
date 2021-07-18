@@ -224,3 +224,17 @@ class Nextmatch(models.Model):
 
     def __str__(self):
         return self.match
+
+
+class Advert(models.Model):
+    title = models.CharField(max_length=100)
+    advert= models.ImageField(blank=True, upload_to='images/breadcrumb/')
+    news = models.BooleanField(default=False)
+    store = models.BooleanField(default=False)
+    audio = models.BooleanField(default=False)
+    video = models.BooleanField(default=False)
+    account = models.BooleanField(default=False)
+    
+    
+    def __str__(self):
+        return self.title
