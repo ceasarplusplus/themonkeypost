@@ -1,4 +1,7 @@
 {% load static %}
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+{% advertisements as adverts %}
 
 
 
@@ -32,7 +35,7 @@
    
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <a href="{{rs.link}}"><img src="{{breadcrumb.home.url}}" class="d-block w-100" alt="..."></a>
+            <a href=""><img src="{{breadcrumb.home.url}}" class="d-block w-100" alt="..."></a>
             
         </div>
         {% for rs in adverts %}
