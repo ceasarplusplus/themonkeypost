@@ -13,12 +13,13 @@
 
 
 
-<div class="">  <marquee width="100%" scrollamount="4" loop="infinite" color="#ffffff" direction="left" >
-    {% for rs in news_slide %}
-   <strong class="text-primary"> [ {{rs.category}} ] --</strong><span class="text-white"> {{rs.news}}</span>   ||
-    {% endfor %}
+<div class="">
+    <marquee width="100%" scrollamount="4" loop="infinite" color="#ffffff" direction="left">
+        {% for rs in news_slide %}
+        <strong class="text-primary"> [ {{rs.category}} ] --</strong><span class="text-white"> {{rs.news}}</span> ||
+        {% endfor %}
 
-</marquee>
+    </marquee>
 </div>
 
 <nav class="content-filter">
@@ -46,7 +47,7 @@
                     <li class="category-filter__item"><a href="#"
                             class="category-filter__link category-filter__link--reset category-filter__link--active">All</a>
                     </li>
-                    
+
                 </ul>
             </header>
             <div class="card__content">
@@ -55,73 +56,163 @@
                     {% for rs in podcast %}
                     <div class="card" style="width: 18rem;">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="{{rs.link}}" allowfullscreen></iframe>
-                          </div>
-                        <div class="card-body">
-                          <p class="card-text">{{rs.title}}</p>
+                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{rs.link}}?rel=0" allowfullscreen></iframe>
                         </div>
-                      </div>
-                        {% endfor %}
-                   
+                        <div class="card-body">
+                            <p class="card-text">{{rs.title}}</p>
+                        </div>
+                    </div>
+                    <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/cMSNtCfHQjPmY5tIy9" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cMSNtCfHQjPmY5tIy9">via GIPHY</a></p>
+           
+                    {% endfor %}
+
                 </div><!-- Carousel / End -->
             </div>
         </div>
         <div class="row">
-           
+
             {% for rs in videos %}
             <div class="col-lg-6">
-               
+
                 <div class="card" style="width: 100%;">
                     <div class="embed-responsive embed-responsive-21by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{rs.link}}?rel=0" allowfullscreen></iframe>
-                      </div>
-                    <div class="card-body">
-                      <p class="card-text">{{rs.title}}</p>
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{rs.link}}?rel=0"
+                            allowfullscreen></iframe>
                     </div>
-                  </div>
-                 
-             
+                    <div class="card-body">
+                        <p class="card-text">{{rs.title}}</p>
+                    </div>
+                </div>
+
+
             </div>
             {% endfor %}
+
+
+            <div class="card card--no-paddings">
+                <div class="card__content">
+                    <div class="alc-embeded-player alc-embeded-player--bg-color-dark alc-embeded-player--center alc-embeded-player--center-lg"
+                        data-id="D2EEj-i1UEo" data-controls="false" data-provider="youtube"
+                        data-thumbnail="{% static '' %}assets/images/samples/album-img1.jpg" data-easy-embed>
+                        <div class="alc-embeded-player__overlay">
+                            <div class="alc-embeded-player__inner">
+                                <h3 class="alc-embeded-player__title">Monkeypost advert</h3><time datetime="2017-08-28"
+                                    class="alc-embeded-player__date">January 27th, 2020</time>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- Video Highlights / End -->
+
+            <!-- <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/cMSNtCfHQjPmY5tIy9" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cMSNtCfHQjPmY5tIy9">via GIPHY</a></p> -->
+           
             <div class="justify-content-center">
-            <nav aria-label="Page navigation example ">
-                <ul class="pagination justify-content-center">
+
+
+                <nav aria-label="Page navigation example ">
+                    <ul class="pagination justify-content-center">
                         {% if is_paginated %}
 
-                            {% if page_obj.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
+                        {% if page_obj.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
                             {% endif %}
 
                             {% for num in page_obj.paginator.page_range %}
-                                {% if page_obj.number == num %}
-                                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
-                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                {% endif %}
-                            {% endfor %}
+                            {% if page_obj.number == num %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                        {% endfor %}
 
-                            {% if page_obj.has_next %}
-                            <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
-                            <li class="page-item">
-                                
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                        {% if page_obj.has_next %}
+                        <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
+                        <li class="page-item">
+
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                                 <span class="sr-only">Next</span>
-                                </a>
+                            </a>
                             {% endif %}
 
 
-                        {% endif %}
+                            {% endif %}
 
 
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
+            </div>
         </div>
+    </div>
+</div>
+
+
+<div class="site-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Video Highlights -->
+                <div class="card card--no-paddings">
+                    <div class="card__content">
+                        <div class="alc-embeded-player alc-embeded-player--bg-color-dark alc-embeded-player--center alc-embeded-player--center-lg"
+                            data-id="D2EEj-i1UEo" data-controls="false" data-provider="youtube"
+                            data-thumbnail="{% static '' %}assets/images/samples/event-video-1-sm.jpg" data-easy-embed>
+                            <div class="alc-embeded-player__overlay">
+                                <div class="alc-embeded-player__inner">
+                                    <h3 class="alc-embeded-player__title">Check The Alchemists in action in this
+                                        exclusive clip from last night</h3><time datetime="2017-08-28"
+                                        class="alc-embeded-player__date">January 27th, 2020</time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Video Highlights / End -->
+                <!-- Video Slideshow -->
+                <div class="posts posts--carousel row">
+                    <div class="posts__item posts__item--category-3 col-sm-4 mb-3"><a
+                            href="https://www.youtube.com/watch?v=D2EEj-i1UEo" class="posts__link-wrapper mp_iframe">
+                            <figure class="posts__thumb"><img src="{% static '' %}assets/images/samples/event-video-2-sm.jpg"
+                                    alt="Spectacular view from the top of the stadium"></figure>
+                            <div class="posts__inner">
+                                <div class="posts__cat"><span class="label posts__cat-label">Playoffs</span>
+                                </div>
+                                <h3 class="posts__title">Spectacular view from the top of the stadium</h3><time
+                                    datetime="2017-08-28" class="posts__date">August 28th, 2020</time>
+                            </div>
+                        </a></div>
+                    <div class="posts__item posts__item--category-1 col-sm-4 mb-3"><a
+                            href="https://www.youtube.com/watch?v=D2EEj-i1UEo"
+                            class="posts__link-wrapper mp_iframe">
+                            <figure class="posts__thumb"><img src="{% static '' %}assets/images/samples/event-video-3-sm.jpg"
+                                    alt="&quot;Shiw Wow&quot; is the Alchemists new pet, check him out!">
+                            </figure>
+                            <div class="posts__inner">
+                                <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
+                                </div>
+                                <h3 class="posts__title">&quot;Shiw Wow&quot; is the Alchemists new pet, check
+                                    him out!</h3><time datetime="2017-08-28" class="posts__date">August 28th,
+                                    2020</time>
+                            </div>
+                        </a></div>
+                    <div class="posts__item posts__item--category-1 col-sm-4 mb-3"><a
+                            href="https://www.youtube.com/watch?v=D2EEj-i1UEo"
+                            class="posts__link-wrapper mp_iframe">
+                            <figure class="posts__thumb"><img src="{% static '' %}assets/images/samples/event-video-4-sm.jpg"
+                                    alt="Checkout the new ride of our best player of the season"></figure>
+                            <div class="posts__inner">
+                                <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
+                                </div>
+                                <h3 class="posts__title">Checkout the new ride of our best player of the season
+                                </h3><time datetime="2017-08-28" class="posts__date">August 28th, 2020</time>
+                            </div>
+                        </a></div>
+                </div><!-- Video Slideshow / End -->
+            </div>
         </div>
     </div>
 </div>
