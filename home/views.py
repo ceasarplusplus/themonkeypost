@@ -318,3 +318,10 @@ def handler404(request, exception):
 
 def handler500(request):
     return render(request, '500.html', status=400)
+
+
+class Youtube(View):
+    def get(self, request):
+        qs = Videos.objects.all().order_by('-id')
+        data = serializers.serialize('json', qs)
+        return JsonResponse({'data': data}, safe=False)

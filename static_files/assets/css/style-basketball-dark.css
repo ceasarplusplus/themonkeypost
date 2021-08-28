@@ -5141,6 +5141,9 @@ screen and (-ms-high-contrast:active) {
     border-color: rgb(255, 0, 0)
 }
 
+.my-vid{
+    cursor: pointer;
+}
 
 /* 5 */
 .lightbox-holder.posts__item--category-5 .lightbox-holder__link--play:before,

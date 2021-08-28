@@ -101,10 +101,10 @@
                                     <form action="/contact/" method="POST" class="contact-form">
                                         {% csrf_token %}
                                         <div class="form-group form-group--xs"><input type="number"
-                                                class="form-control input-sm" id="contact-form-email" name="phone"
+                                                class="form-control input-sm"  name="phone"
                                                 placeholder="Your Phone" required></div>
                                         <div class="form-group form-group--xs"><input type="email" name="email"
-                                                class="form-control input-sm" required id="contact-form-email"
+                                                class="form-control input-sm" required 
                                                 placeholder="Your email address"></div>
                                         <div class="form-group form-group--xs"><textarea class="form-control input-sm"
                                                 name="description" required rows="4"
@@ -280,8 +280,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <iframe src="https://audiomack.com/embed/playlist/joevango/verified-hh" scrolling="no" width="100%"
-                    height="400" scrollbars="no" frameborder="0"></iframe>
+               
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

@@ -14,6 +14,7 @@ from .views import (
     privacy_policy,
     tandc,
     contact,
+    Youtube,
 
 )
 
@@ -40,6 +41,7 @@ urlpatterns = [
     path('privacy-policy/', privacy_policy, name='privacy_policy'),
     path('terms-and-conditions/', tandc, name='tandc'),
     path('contact/', contact, name='contact'),
+    path('youtube-json/', Youtube.as_view(), name='youtube-json'),
     
 
 

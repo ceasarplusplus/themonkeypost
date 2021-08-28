@@ -56,57 +56,43 @@
                     {% for rs in podcast %}
                     <div class="card" style="width: 18rem;">
                         <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{rs.link}}?rel=0" allowfullscreen></iframe>
+
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{rs.title}}</p>
                         </div>
                     </div>
-                    <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/cMSNtCfHQjPmY5tIy9" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cMSNtCfHQjPmY5tIy9">via GIPHY</a></p>
-           
+
                     {% endfor %}
 
                 </div><!-- Carousel / End -->
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="postvideo">
 
-            {% for rs in videos %}
+            <!-- {% for rs in videos %}
             <div class="col-lg-6">
 
                 <div class="card" style="width: 100%;">
                     <div class="embed-responsive embed-responsive-21by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{rs.link}}?rel=0"
-                            allowfullscreen></iframe>
+
                     </div>
                     <div class="card-body">
+                        <img src="{{rs.image.url}}" alt="">
                         <p class="card-text">{{rs.title}}</p>
                     </div>
                 </div>
 
 
             </div>
-            {% endfor %}
+            {% endfor %} -->
 
 
-            <div class="card card--no-paddings">
-                <div class="card__content">
-                    <div class="alc-embeded-player alc-embeded-player--bg-color-dark alc-embeded-player--center alc-embeded-player--center-lg"
-                        data-id="D2EEj-i1UEo" data-controls="false" data-provider="youtube"
-                        data-thumbnail="{% static '' %}assets/images/samples/album-img1.jpg" data-easy-embed>
-                        <div class="alc-embeded-player__overlay">
-                            <div class="alc-embeded-player__inner">
-                                <h3 class="alc-embeded-player__title">Monkeypost advert</h3><time datetime="2017-08-28"
-                                    class="alc-embeded-player__date">January 27th, 2020</time>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- Video Highlights / End -->
+       
 
-            <!-- <div style="width:100%;height:0;padding-bottom:56%;position:relative;"><iframe src="https://giphy.com/embed/cMSNtCfHQjPmY5tIy9" width="100%" height="100%" style="position:absolute" frameBorder="0" class="giphy-embed" allowFullScreen></iframe></div><p><a href="https://giphy.com/gifs/cMSNtCfHQjPmY5tIy9">via GIPHY</a></p> -->
            
-            <div class="justify-content-center">
+
+            <!-- <div class="justify-content-center">
 
 
                 <nav aria-label="Page navigation example ">
@@ -131,7 +117,7 @@
                         {% endfor %}
 
                         {% if page_obj.has_next %}
-                        <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
+                      
                         <li class="page-item">
 
                             <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
@@ -146,75 +132,106 @@
 
                     </ul>
                 </nav>
+            </div> -->
+        </div>
+
+
+
+        
+        </div>
+    </div>
+</div>
+
+<script>
+//     $(document).ready(function () {
+//         // on preview show iframe
+//    $('#myModalPrev').on('show.bs.modal', function (e) {
+    
+// //     var idVideo = $(e.relatedTarget).data('id');
+// //       $('#myModalPrev .modal-body').html(`<iframe width="100%" height="400px" src="https://www.youtube.com/embed/'${idVideo}'?autoplay=true" frameborder="0" allowfullscreen></iframe>`);
+// //     });
+// //     //on close remove
+// //     $('#myModalPrev').on('hidden.bs.modal', function () {
+// //        $('#myModalPrev .modal-body').empty();
+// //     });
+
+//         // var url = $("#Geeks3").attr('src');
+//         // // $("#Geeks2").on('hide.bs.modal', function () {
+//         // //     $("#Geeks3").attr('src', '');
+//         // // });
+//         // $("#Geeks2").on('show.bs.modal', function () {
+//         //     $("#Geeks3").attr('src', url);
+//         // });
+
+//         // $("#close").click(function(){
+//         //     // $("#Geeks3").attr('src', '');
+//         //     $("#Geek2").empty();
+//         // });
+//     });
+
+
+
+    
+
+//     $('#Geeks2').on('shown.bs.modal', function () {
+//         $('#iframe').trigger('focus')
+//     })
+
+
+   
+
+    
+</script>
+
+
+<div class="modal fade" id="previewmodal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Youtube video</h5>
+
+
+
+                <button type="button" class="close" data-dismiss="modal" id="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="iframe" class="modal-body">
+                <!-- <iframe id="Geeks3" class="embed-responsive-item" controls=1 width="100%" height="315"
+               src="https://www.youtube.com/embed/D2EEj-i1UEo" allowfullscreen></iframe> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close"  data-dismiss="modal"
+                    aria-label="Close">Close</button>
+
             </div>
         </div>
     </div>
 </div>
 
+<!-- <a href="#" data-id="D2EEj-i1UEo" data-target="#myModalPrev" id="D2EEj-i1UEo" data-toggle="modal">Abrir Modal</a>
 
-<div class="site-content">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- Video Highlights -->
-                <div class="card card--no-paddings">
-                    <div class="card__content">
-                        <div class="alc-embeded-player alc-embeded-player--bg-color-dark alc-embeded-player--center alc-embeded-player--center-lg"
-                            data-id="D2EEj-i1UEo" data-controls="false" data-provider="youtube"
-                            data-thumbnail="{% static '' %}assets/images/samples/event-video-1-sm.jpg" data-easy-embed>
-                            <div class="alc-embeded-player__overlay">
-                                <div class="alc-embeded-player__inner">
-                                    <h3 class="alc-embeded-player__title">Check The Alchemists in action in this
-                                        exclusive clip from last night</h3><time datetime="2017-08-28"
-                                        class="alc-embeded-player__date">January 27th, 2020</time>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div><!-- Video Highlights / End -->
-                <!-- Video Slideshow -->
-                <div class="posts posts--carousel row">
-                    <div class="posts__item posts__item--category-3 col-sm-4 mb-3"><a
-                            href="https://www.youtube.com/watch?v=D2EEj-i1UEo" class="posts__link-wrapper mp_iframe">
-                            <figure class="posts__thumb"><img src="{% static '' %}assets/images/samples/event-video-2-sm.jpg"
-                                    alt="Spectacular view from the top of the stadium"></figure>
-                            <div class="posts__inner">
-                                <div class="posts__cat"><span class="label posts__cat-label">Playoffs</span>
-                                </div>
-                                <h3 class="posts__title">Spectacular view from the top of the stadium</h3><time
-                                    datetime="2017-08-28" class="posts__date">August 28th, 2020</time>
-                            </div>
-                        </a></div>
-                    <div class="posts__item posts__item--category-1 col-sm-4 mb-3"><a
-                            href="https://www.youtube.com/watch?v=D2EEj-i1UEo"
-                            class="posts__link-wrapper mp_iframe">
-                            <figure class="posts__thumb"><img src="{% static '' %}assets/images/samples/event-video-3-sm.jpg"
-                                    alt="&quot;Shiw Wow&quot; is the Alchemists new pet, check him out!">
-                            </figure>
-                            <div class="posts__inner">
-                                <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
-                                </div>
-                                <h3 class="posts__title">&quot;Shiw Wow&quot; is the Alchemists new pet, check
-                                    him out!</h3><time datetime="2017-08-28" class="posts__date">August 28th,
-                                    2020</time>
-                            </div>
-                        </a></div>
-                    <div class="posts__item posts__item--category-1 col-sm-4 mb-3"><a
-                            href="https://www.youtube.com/watch?v=D2EEj-i1UEo"
-                            class="posts__link-wrapper mp_iframe">
-                            <figure class="posts__thumb"><img src="{% static '' %}assets/images/samples/event-video-4-sm.jpg"
-                                    alt="Checkout the new ride of our best player of the season"></figure>
-                            <div class="posts__inner">
-                                <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
-                                </div>
-                                <h3 class="posts__title">Checkout the new ride of our best player of the season
-                                </h3><time datetime="2017-08-28" class="posts__date">August 28th, 2020</time>
-                            </div>
-                        </a></div>
-                </div><!-- Video Slideshow / End -->
+
+  <div class="modal fade" id="myModalPrev" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 id="myModalLabel" class="semi-bold">Visualizar <strong>Marca</strong>.</h4>
+                </div>
+                <hr>
+                <div class="modal-body">
+                    Modal Content
+                </div>
+                <hr>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-primary"><i class="fa fa-times"></i> Fechar</button>               
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    </div> -->
+
+  
+
 
 {% endblock content %}
