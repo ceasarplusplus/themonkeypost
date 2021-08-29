@@ -3,22 +3,28 @@ console.log('hello world')
 const postvideo = document.getElementById('postvideo')
 const iframe = document.getElementById('iframe')
 const url = window.location.host
+const spinnerbox = document.getElementById('spinner-box')
+const loadBtn = document.getElementById('load-btn')
+const endBox = document.getElementById('end-box')
+
+let visible = 3
+
 console.log(url)
 $.ajax({
     type: 'GET',
-    url: '/youtube-json/',
+    url: `/vid-json/${visible}`,
     success: function (response) {
         console.log(response.data)
-        const data = JSON.parse(response.data)
-        // console.log(data)
-        data.forEach(el => {
+        const data = response.data
+        const datas = data.reverse()
+        datas.forEach(el => {
             // console.log(el.fields)
             postvideo.innerHTML += `
             <div class="col-lg-6">
                 <div class="card" style="width: 100%;">
-                    <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="${el.fields.link}">
-                        <img class="vidphoto" src="/media/${el.fields.image}" alt="${el.fields.title}">
-                        <p class="card-text">${el.fields.title}</p>
+                    <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="${el.link}">
+                        <img class="vidphoto" src="${el.image}" alt="${el.title}">
+                        <p class="card-text">${el.title}</p>
                     </div>
                 </div>
             </div>           
@@ -34,6 +40,12 @@ $.ajax({
             iframe.innerHTML = `<iframe id="Geeks3" class="embed-responsive-item" controls=1 width="100%" height="315"
             src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`
         }))
+        console.log(response.size)
+            if (response.size === 0) {
+                endBox.textContent = "Videos are not available at the moment... "
+            } else if (response.size <= visible) {
+                endBox.textContent = "No more videos to load... "
+            }
     },
     error: function (error) {
         console.log(error)
@@ -41,11 +53,58 @@ $.ajax({
 })
 
 
+const getData = () => {
+    $.ajax({
+        type: 'GET',
+        url: `/vid-json/${visible}`,
+        success: function (response) {
+            console.log(response.data)
+            const data = response.data
+            // console.log(data)
+            data.forEach(el => {
+                console.log('images', el.image)
+                postvideo.innerHTML += `
+                <div class="col-lg-6">
+                    <div class="card" style="width: 100%;">
+                        <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="${el.link}">
+                            <img class="vidphoto" src="${el.image}" alt="${el.title}">
+                            <p class="card-text">${el.title}</p>
+                        </div>
+                    </div>
+                </div>           
+                `
+            });
+            const vidphotos = [...document.getElementsByClassName('vidphoto')]
+            // console.log(vidphoto.reverse())
+            const vidphoto = vidphotos.reverse()
+            vidphoto.forEach(item=>item.addEventListener('click', e=>{
+               
+                const videoId = e.target.parentElement.getAttribute('data-vid')
+                console.log(videoId)
+                iframe.innerHTML = `<iframe id="Geeks3" class="embed-responsive-item" controls=1 width="100%" height="315"
+                src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`
+            }))
+            console.log(response.size)
+                if (response.size === 0) {
+                    endBox.textContent = "Videos are not available at the moment... "
+                } else if (response.size <= visible) {
+                    endBox.textContent = "No more videos to load... "
+                }
+        },
+        error: function (error) {
+            console.log(error)
+        }
+    })
+}
 
 
 
 
-
+loadBtn.addEventListener('click', () => {
+    spinnerbox.classList.remove('not-visible')
+    visible += 3
+    getData()
+})
 
 
 

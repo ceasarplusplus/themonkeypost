@@ -320,8 +320,54 @@ def handler500(request):
     return render(request, '500.html', status=400)
 
 
+class VideosTestView(ListView):
+    model = Videos
+    template_name = 'videostest.html'
+    context_object_name = 'videos'
+    ordering = ['-id']
+
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        video_category = VideoCategory.objects.all()
+        podcast = Videos.objects.filter(podcast=True)
+        news_slide = NewsSlide.objects.all()[:6]
+        context.update({'video_category': video_category,
+                        'podcast': podcast,     
+                        'news_slide': news_slide,                   
+                        })
+        return context
+
+
 class Youtube(View):
     def get(self, request):
+        visible = 3 
+        num_posts = self.kwargs.get('num_posts')
+        upper = num_posts
+        lower = upper - visible
+        size = Videos.objects.all().count()
         qs = Videos.objects.all().order_by('-id')
         data = serializers.serialize('json', qs)
-        return JsonResponse({'data': data}, safe=False)
+        return JsonResponse({'data': data[lower:upper], 'size': size}, safe=False)
+
+    
+
+def vid_json(request, num_posts):
+    visible = 3 
+    upper = num_posts
+    lower = upper - visible
+    size = Videos.objects.all().count()
+    qs = Videos.objects.all()
+    data = []
+    for rs in qs:
+        item ={
+            'id': rs.id,
+            'title': rs.title,
+            'link': rs.link,
+            'image': rs.image.url,
+
+        }
+        data.append(item)
+        
+    return JsonResponse({'data': data[lower:upper], 'size': size})

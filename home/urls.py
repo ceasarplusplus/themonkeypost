@@ -15,6 +15,8 @@ from .views import (
     tandc,
     contact,
     Youtube,
+    vid_json,
+    VideosTestView
 
 )
 
@@ -25,6 +27,7 @@ urlpatterns = [
     
 
     path('videos/', VideosView.as_view(), name='videos'),
+    path('videostest/', VideosTestView.as_view(), name='videostest'),
     path('podcast/', AudiosView.as_view(), name='podcast'),
     
     
@@ -42,6 +45,7 @@ urlpatterns = [
     path('terms-and-conditions/', tandc, name='tandc'),
     path('contact/', contact, name='contact'),
     path('youtube-json/', Youtube.as_view(), name='youtube-json'),
+    path('vid-json/<int:num_posts>/', vid_json, name='vid-json'),
     
 
 

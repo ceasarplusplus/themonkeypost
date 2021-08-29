@@ -70,8 +70,8 @@
         </div>
         <div class="row" id="postvideo">
 
-            <!-- {% for rs in videos %}
-            <div class="col-lg-6">
+            {% for rs in videos %}
+            <!-- <div class="col-lg-6">
 
                 <div class="card" style="width: 100%;">
                     <div class="embed-responsive embed-responsive-21by9">
@@ -84,8 +84,17 @@
                 </div>
 
 
-            </div>
-            {% endfor %} -->
+            </div> -->
+
+            <div class="col-lg-6">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="{{rs.link}}">
+                        <img class="vidphoto" src="{{rs.image.url}}" alt="{{rs.title}}">
+                        <p class="card-text">{{rs.title}}</p>
+                    </div>
+                </div>
+            </div>   
+            {% endfor %}
 
 
 
@@ -135,25 +144,31 @@
             </div> -->
         </div>
 
+        <div class="d-flex justify-content-center ">
+            <div id="spinner-box" class="spinner-border text-primary " role="status">
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-5" id="end-box">
+            <button id="load-btn" class="btn btn-primary-inverse">Load More</button>
+        </div>
+
+
+
 
 
 
     </div>
 </div>
-</div>
+
 
 <script>
-    $(document).ready(function () {
-        $('#previewmodal').on('shown.bs.modal', function () {
-            $('#iframe').trigger('focus')
-        });
+    // $(document).ready(function () {
+    //     $('#previewmodal').on('shown.bs.modal', function () {
+    //         $('#iframe').trigger('focus')
+    //     });
 
-    });
-
-
-
-
-
+    // });
 </script>
 
 
