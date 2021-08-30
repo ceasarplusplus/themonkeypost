@@ -79,7 +79,7 @@ class AudiosView(ListView):
   
 class VideosView(ListView):
     model = Videos
-    template_name = 'videos.html'
+    template_name = 'videostest.html'
     context_object_name = 'videos'
     ordering = ['-id']
 
@@ -326,7 +326,7 @@ class VideosTestView(ListView):
     context_object_name = 'videos'
     ordering = ['-id']
 
-    paginate_by = 20
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -1,12 +1,13 @@
 from django.urls import path, include
 from django.urls.resolvers import URLPattern
 
-from .views import BlogView, blog_detail, addblogcomment, category_blog, TagView, highlights, BlogCategoryView
+from .views import BlogView, blog_detail, addblogcomment, highlight_json, category_blog, TagView, highlights, BlogCategoryView
 
 
 urlpatterns = [
     path('news/', BlogView.as_view(), name='blog'),
-    path('highlights/', highlights, name='highlights'),
+    path('highlight-json/', highlight_json, name='highlight-json'),
+    path('Match-highlights/', highlights, name='highlights'),
     path('news/<int:id>/<slug:slug>',
          blog_detail, name='blog_detail'),
     path('news/tags/<slug:slug>',

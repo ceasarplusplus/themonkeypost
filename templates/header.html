@@ -13,8 +13,7 @@
 <!-- Header Mobile -->
 <div class="header-mobile clearfix" id="header-mobile">
     <div class="header-mobile__logo"><a href="{% url 'index' %}"><img src="{{setting.icon.url}}"
-                srcset="{{setting.icon.url}}" alt="The Monkeypost logo"
-                class="header-mobile__logo-img"></a>
+                srcset="{{setting.icon.url}}" alt="The Monkeypost logo" class="header-mobile__logo-img"></a>
     </div>
     <div class="header-mobile__inner"><a id="header-mobile__toggle" class="burger-menu-icon"><span
                 class="burger-menu-icon__line"></span></a> <span class="header-mobile__search-icon"
@@ -25,44 +24,46 @@
     <!-- Header Top Bar -->
     <div class="header__top-bar clearfix">
         <div class="container">
-            <div class="header__top-bar-inner"></ul><!-- Social Links -->
+            <div class="header__top-bar-inner">
+                </ul><!-- Social Links -->
                 <ul class="social-links  social-links--inline social-links--main-nav">
                     <li class="social-links__item">
-                        <a href="{{setting.facebook}}" target="_blank" rel="noopener noreferrer" class="social-links__link" data-toggle="tooltip"
-                            data-placement="bottom" title="Facebook"><i class="fab fa-facebook"></i></a></li>
-                   
+                        <a href="{{setting.facebook}}" target="_blank" rel="noopener noreferrer"
+                            class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
+                                class="fab fa-facebook"></i></a></li>
+
                     <li class="social-links__item">
-                        <a href="{{setting.instagram}}" target="_blank" rel="noopener noreferrer" class="social-links__link" data-toggle="tooltip"
-                            data-placement="bottom" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+                        <a href="{{setting.instagram}}" target="_blank" rel="noopener noreferrer"
+                            class="social-links__link" data-toggle="tooltip" data-placement="bottom"
+                            title="Instagram"><i class="fab fa-instagram"></i></a></li>
                     <li class="social-links__item">
-                        <a href="{{setting.youtube}}" target="_blank" rel="noopener noreferrer" class="social-links__link" data-toggle="tooltip"
-                            data-placement="bottom" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                        <a href="{{setting.youtube}}" target="_blank" rel="noopener noreferrer"
+                            class="social-links__link" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
+                                class="fab fa-youtube"></i></a></li>
                 </ul>
 
-               
+
                 <!-- Account Navigation -->
                 <ul class="nav-account">
                     {% if user.is_authenticated %}
-                    <li class="nav-account__item"><a href="{% url 'account' %}"
-                      >Your Account: [ {{user.username}} ]</a>
-                </li>
+                    <li class="nav-account__item"><a href="{% url 'account' %}">Your Account: [ {{user.username}} ]</a>
+                    </li>
                     {% if user.is_staff %}
-                    <li class="nav-account__item"><a href="/admin"
-                        >Admin Dashboard</a>
-                  </li>
+                    <li class="nav-account__item"><a href="/admin">Admin Dashboard</a>
+                    </li>
                     {% endif %}
-                <li class="nav-account__item "><a href="{% url 'logout' %}">Logout</a></li>
+                    <li class="nav-account__item "><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li class="nav-account__item"><a href="#" data-toggle="modal"
                             data-target="#modal-login-register-tabs">Login or Sign Up</a>
                     </li>
                     {% endif %}
 
-       
-                        
-                        
-                    
-                   
+
+
+
+
+
                 </ul><!-- Account Navigation / End -->
             </div>
         </div>
@@ -79,37 +80,36 @@
             </div>
             <!-- Header Search Form / End -->
             <ul class="info-block info-block--header">
-              
-                <li class="info-block__item info-block__item--contact-primary"><svg role="img" class="df-icon df-icon--whistle">
-                    <use
-                        xlink:href="{% static '' %}assets/images/icons-soccer.svg#whistle" />
-                </svg>
+
+                <li class="info-block__item info-block__item--contact-primary"><svg role="img"
+                        class="df-icon df-icon--whistle">
+                        <use xlink:href="{% static '' %}assets/images/icons-soccer.svg#whistle" />
+                    </svg>
                     <h6 class="info-block__heading">Call our Team!</h6><a class="info-block__link"
                         href="tel:{{setting.phone}}">{{setting.phone}}</a>
                 </li>
                 <li class="info-block__item info-block__item--contact-secondary"><svg role="img"
-                    class="df-icon df-icon--soccer-ball">
-                    <use
-                        xlink:href="{% static '' %}assets/images/icons-soccer.svg#soccer-ball" />
-                </svg>
+                        class="df-icon df-icon--soccer-ball">
+                        <use xlink:href="{% static '' %}assets/images/icons-soccer.svg#soccer-ball" />
+                    </svg>
                     <h6 class="info-block__heading">Contact Us</h6><a class="info-block__link"
                         href="mailto:{{setting.email}}">{{setting.email}}</a>
                 </li>
-                <li class="info-block__item info-block__item--shopping-cart js-info-block__item--onhover"><a href="{% url 'shopcart' %}"
-                        class="info-block__link-wrapper">
+                <li class="info-block__item info-block__item--shopping-cart js-info-block__item--onhover"><a
+                        href="{% url 'shopcart' %}" class="info-block__link-wrapper">
                         <div class="df-icon-stack df-icon-stack--bag"><svg role="img" class="df-icon df-icon--bag">
                                 <use xlink:href="{% static '' %}assets/images/icons-basket.svg#bag" /></svg>
                             <svg role="img" class="df-icon df-icon--bag-handle">
                                 <use xlink:href="{% static '' %}assets/images/icons-basket.svg#bag-handle" />
                             </svg></div>
-                            {% shopcartcount user.id as count %}
-                            {% totaltag user.id as total %}
+                        {% shopcartcount user.id as count %}
+                        {% totaltag user.id as total %}
                         <h6 class="info-block__heading">Your Bag ({{count}} items)</h6><span
                             class="info-block__cart-sum">₦{{total|intcomma}}</span>
                     </a><!-- Dropdown Shopping Cart -->
                     <ul class="header-cart">
                         {% shopcarttag user.id as shopcart %}
-                        
+
                         {% if shopcart %}
                         {% for rs in shopcart %}
                         <li class="header-cart__item">
@@ -118,7 +118,8 @@
                             <div class="header-cart__inner"><span
                                     class="header-cart__product-cat">{{rs.product.category}}</span>
                                 <h5 class="header-cart__product-name"><a
-                                        href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a></h5>
+                                        href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a>
+                                </h5>
                                 <div class="header-cart__product-ratings">
                                     <i class="fas fa-star {% if rs.product.averagereview < 1%} empty{% endif%}"></i>
                                     <i class="fas fa-star {% if rs.product.averagereview < 2%} empty{% endif%}"></i>
@@ -135,10 +136,9 @@
 
                         {% endfor %}
                         <li class="header-cart__item header-cart__item--subtotal"><span
-                                class="header-cart__subtotal">Cart Subtotal</span> 
-                                
-                                <span
-                                class="header-cart__subtotal-sum">₦{{ total|intcomma }}</span></li>
+                                class="header-cart__subtotal">Cart Subtotal</span>
+
+                            <span class="header-cart__subtotal-sum">₦{{ total|intcomma }}</span></li>
                         <li class="header-cart__item header-cart__item--action"><a href="{% url 'shopcart' %}"
                                 class="btn btn-default btn-block">Go to Cart</a> <a href="{% url 'checkout' %}"
                                 class="btn btn-primary-inverse btn-block">Checkout</a></li>
@@ -167,9 +167,8 @@
         <div class="container">
             <div class="header__primary-inner">
                 <!-- Header Logo -->
-                <div class="header-logo"><a href="/"><img src="{{setting.icon.url}}"
-                            style="width: 150px;" alt="The Monkeypost logo"
-                            srcset="{{setting.icon.url}}" class="header-logo__img"></a></div>
+                <div class="header-logo"><a href="/"><img src="{{setting.icon.url}}" style="width: 150px;"
+                            alt="The Monkeypost logo" srcset="{{setting.icon.url}}" class="header-logo__img"></a></div>
                 <!-- Header Logo / End -->
                 <!-- Main Navigation -->
                 <nav class="main-nav clearfix">
@@ -180,7 +179,7 @@
                         <li class=""><a href="{% url 'blog' %}">News</a>
                             <ul class="main-nav__sub">
                                 <li class="active"><a href="{% url 'blog' %}">All</a></li>
-                                
+
                                 {% blogcategories as blog_category %}
                                 {% recursetree blog_category %}
                                 <li><a href="{% url 'category_blog' node.id node.slug %}">{{node.title}}</a>
@@ -195,13 +194,19 @@
                             <ul class="main-nav__sub">
                                 <li class="active"><a href="{% url 'podcast' %}">Audios</a></li>
                                 <li class="active"><a href="{% url 'videos' %}">Videos</a></li>
-                                
-                              
+
+
                             </ul>
 
-                        </li>                       
-                        
+                        </li>
+
                         <li class=""><a href="{% url 'videos' %}">videos</a>
+                            <ul class="main-nav__sub">
+                                <li class="active"><a href="{% url 'videos' %}">Videos</a></li>
+                                <li class="active"><a href="{% url 'highlights' %}">Match Higlights</a></li>
+
+
+                            </ul>
 
                         </li>
                         <li class=""><a href="{% url 'shop' %}">Store</a>
@@ -253,15 +258,16 @@
             <aside class="widget widget--side-panel">
                 <div class="widget__content">
                     <ul class="posts posts--simple-list">
-                        
+
                         {% for rs in top_trends_header %}
                         <li class="posts__item posts__item--category-{{rs.id}}">
-                            <figure class="posts__thumb posts__thumb--hover"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
-                                        src="{{rs.image.url}}" style="width: 80px;"
-                                        alt=""></a>
+                            <figure class="posts__thumb posts__thumb--hover"><a
+                                    href="{% url 'blog_detail' rs.id rs.slug %}"><img src="{{rs.image.url}}"
+                                        style="width: 80px;" alt=""></a>
                             </figure>
                             <div class="posts__inner">
-                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span></div>
+                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
+                                </div>
                                 <h6 class="posts__title posts__title--color-hover"><a
                                         href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6><time
                                     datetime="2017-08-21" class="posts__date">{{rs.date|timesince}}</time>
@@ -271,8 +277,8 @@
                     </ul>
                 </div>
             </aside><!-- Widget: Posts / End -->
-             <!-- Widget: Tag Cloud -->
-             <aside class="widget widget--sidebar card widget-tagcloud">
+            <!-- Widget: Tag Cloud -->
+            <aside class="widget widget--sidebar card widget-tagcloud">
                 <div class="widget__title card__header">
                     <h4>Tag Cloud</h4>
                 </div>

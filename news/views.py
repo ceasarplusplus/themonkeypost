@@ -211,70 +211,35 @@ def deleteblogcomment(request, id):
     return HttpResponseRedirect(url)
 
 
-# def search(request):
 
-#     if request.method == 'POST':  # check post
-#         form = SearchForm(request.POST)
-#         if form.is_valid():
-#             query = form.cleaned_data['query']  # get form input data
-#             # catid = form.cleaned_data['catid']
-#             # if catid == 0:
-#             # SELECT * FROM product WHERE title LIKE '%query%'
-#             #     products = Product.objects.filter(title__icontains=query)
-#             # else:
-#             blogs = Blog.objects.filter(
-#                 title__icontains=query)
-
-#             category = Category.objects.all()
-#             paginator = Paginator(products, 10)
-
-#             pages = request.GET.get('page', 1)
-#             paginator = Paginator(product, 30)
-#             try:
-#                 queryset = paginator.page(pages)
-#             except PageNotAnInteger:
-#                 queryset = paginator.page(1)
-#             except EmptyPage:
-#                 queryset = paginator.page(paginator.num_pages)
-
-#             g_context = gcontext
-#             context = {'products': products,
-#                        'query': query,
-#                        'category': category,
-#                        'page': queryset,
-#                        'g_context': g_context,
-#                        'title': query,
-#                        }
-#             return render(request, 'app/search_products.html', context)
-
-#     return HttpResponseRedirect('/')
-
-
-# def search_auto(request):
-#     if request.is_ajax():
-#         q = request.GET.get('term', '')
-#         blogs = Blog.objects.filter(title__icontains=q)
-
-#         results = []
-#         for rs in products:
-#             product_json = {}
-#             product_json = rs.title + " > " + rs.category.title
-#             results.append(product_json)
-#         data = json.dumps(results)
-#     else:
-#         data = 'fail'
-#     mimetype = 'application/json'
-#     return HttpResponse(data, mimetype)
-
-# class Search(View):
-#     model = Blog
-#     template_name = 'search.html'
-#     context_object_name = 'blogs'
-
-#     def post(self, *args, **kwargs):
 def highlights(request): 
+    # vids = {} 
+    # videos = {}
+    # highlight = []
+    # url = 'https://www.scorebat.com/video-api/v1/'
+    # r = requests.get(url)
+    # if r.status_code == 200:
+    #     results = r.json()
+    #     vids = json.dumps(results, indent=2)
+    #     print(vids)
+    # # for videos in results:
+    # context = {
+    #     'videos': videos,
+    #     'highlight': highlight,
+    #     'results': results,
+    #     'vids': vids
+    # }
+        
+
+
+    return render(request, 'highlights.html')
+
+    
+    
+def highlight_json(request):
     vids = {} 
     videos = {}
+    # results = {}
     highlight = []
     url = 'https://www.scorebat.com/video-api/v1/'
     r = requests.get(url)
@@ -282,17 +247,40 @@ def highlights(request):
         results = r.json()
         vids = json.dumps(results, indent=2)
         # print(vids)
-    # for videos in results:
-    context = {
-        'videos': videos,
-        'highlight': highlight,
-        'results': results,
-        'vids': vids
-    }
-        
+        for videos in results:
+            title = videos['title']
+            # print('title --', title)
+            competition = videos['competition']['name']
+            team_a = videos['side1']['name']
+            team_b = videos['side2']['name']
+            embed = videos['embed']
+            date = videos['date']
+            thumbnail = videos['thumbnail']
+            # for v in videos['videos'][:]:
+            #     item = v['embed'] 
+            #     print('item - ', item)
+            #     vids["vid"]= item
+        # print(title, competion, videos)
+            vids = {
+                'title': title,
+                'competition': competition,
+                'team_a': team_a,
+                'team_b': team_b,
+                'embed': embed,
+                'date': date,
+                'thumbnail': thumbnail,
+                # 'vids': vids,
+            }
+            highlight.append(vids)
+
+#         data = {
+    
+#     'highlight': highlight,
+# }
 
 
-    return render(request, 'highlights.html', context)
+    
+    return JsonResponse({'data': highlight})
 
 
 
