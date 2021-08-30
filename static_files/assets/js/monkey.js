@@ -110,6 +110,7 @@ $.ajax({
 
 //                 </div>`
 
+
 //                 })
 //                 if (max_size) {
 //                     console.log('Done')

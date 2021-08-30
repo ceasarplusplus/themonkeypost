@@ -2,7 +2,8 @@
 
 console.log('hello word')
 const postvideo = document.getElementById('postvideo')
-const spinnerbox = document.getElementById('spinner-box')
+const spinnerBox = document.getElementById('spinner-box')
+// const spinnerBoxLoad = document.getElementById('spinner-box-load')
 const loadBtn = document.getElementById('load-btn')
 const endBox = document.getElementById('end-box')
 
@@ -26,12 +27,16 @@ $.ajax({
     type: 'GET',
     url: `/highlight-json/`,
     success: function (response) {
-        console.log('response', response)
+        spinnerBox.classList.remove('not-visible')
+        // console.log('response', response)
         const data = response.data
-        console.log(data)
+        spinnerBox.classList.remove('not-visible')
+        // spinnerBoxLoad.classList.remove('not-visible')
+            
         data.forEach(el => {
             // console.log('images', el.image)
             postvideo.innerHTML += `
+            <div class="card__content" >
             <aside class="widget widget--sidebar card widget-preview">
 							<div class="widget__title card__header">
 								<h4>${el.title}</h4>
@@ -61,9 +66,16 @@ $.ajax({
 									</section> -->
 								</div><!-- Match Preview / End -->
 							</div>
-						</aside>          
+						</aside>        
+                        </div>  
             `
         });
+        setTimeout(() => {
+            spinnerBox.classList.add('not-visible')
+            
+            
+
+        }, 15000)
         const vidphotos = [...document.getElementsByClassName('vidphoto')]
             // console.log(vidphoto.reverse())
             const vidphoto = vidphotos.reverse()

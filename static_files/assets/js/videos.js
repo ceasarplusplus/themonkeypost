@@ -15,7 +15,7 @@ const vidphotos = [...document.getElementsByClassName('vidphoto')]
                 const videoId = e.target.parentElement.getAttribute('data-vid')
                 console.log(videoId)
                 iframe.innerHTML = `<iframe id="Geeks3" class="embed-responsive-item" controls=1 width="100%" height="315"
-                src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>`
+                src="https://www.youtube.com/embed/${videoId}" allowfullscreen ></iframe>`
             }))
 
 
