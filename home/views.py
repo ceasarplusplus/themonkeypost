@@ -132,10 +132,12 @@ class VideoCategoryView(ListView):
 
         top_trends = Blog.objects.filter(top_news=True).order_by('-id')[:4]    
         video_category = VideoCategory.objects.all()    
+        news_slide = NewsSlide.objects.all()[:6]
        
         context.update({'title': 'Videos Category - The Monkey Post',                      
                         'top_trends': top_trends,      
-                        'video_category': video_category                                 
+                        'video_category': video_category,
+                        'news_slide': news_slide,                                 
                         })
         return context
 

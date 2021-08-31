@@ -8,9 +8,42 @@
 {% breadcrumbs as breadcrumb %}
 {% advertisements as adverts %}
 
-<!-- page heading -->
 {% include 'breadcrumb-video.html' %}
-<!-- Page Heading / End -->
+
+<div class="modal fade bd-example-modal-xl" aria-labelledby="mySmallModalLabel "data-backdrop="static" data-keyboard="false"  id="previewmodal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">video</h5>
+
+
+
+                <button type="button" class="close" data-dismiss="modal" id="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="iframe" class="modal-body">
+                <!-- <iframe id="Geeks3" class="embed-responsive-item" controls=1 width="100%" height="315"
+               src="https://www.youtube.com/embed/D2EEj-i1UEo" allowfullscreen></iframe> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close" data-dismiss="modal"
+                    aria-label="Close">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="">
+    <marquee width="100%" scrollamount="4" loop="infinite" color="#ffffff" direction="left">
+        {% for rs in news_slide %}
+        <strong class="text-primary"> [ {{rs.category}} ] --</strong><span class="text-white"> {{rs.news}}</span> ||
+        {% endfor %}
+
+    </marquee>
+</div>
 
 <nav class="content-filter">
     <div class="container"><a href="#" class="content-filter__toggle"></a>
@@ -30,79 +63,85 @@
 <!-- content -->
 <div class="site-content">
     <div class="container">
-       
-        <div class="row">
-            <div class="col-lg-12">
+      
+        <div class="row" id="postvideo">
+
+            {% for rs in videos %}
+            <!-- <div class="col-lg-6">
+
+                <div class="card" style="width: 100%;">
+                    <div class="embed-responsive embed-responsive-21by9">
+
+                    </div>
+                    <div class="card-body">
+                        <img src="{{rs.image.url}}" alt="">
+                        <p class="card-text">{{rs.title}}</p>
+                    </div>
+                </div>
+
+
+            </div> -->
+
+            <div class="col-lg-6">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="{{rs.link}}">
+                        <img class="vidphoto" src="{{rs.image.url}}" alt="{{rs.title}}">
+                        <p class="card-text">{{rs.title}}</p>
+                    </div>
+                </div>
+            </div>   
+            {% endfor %}
 
 
 
-                <header class="card__header card__header--has-filter mb-4">
-                    <h4>Videos</h4>
-                   
-                </header>
-              
-                   
 
 
 
+            
+        </div>
 
-                <!-- Video Slideshow -->
-               
-                <div class="posts posts--carousel row">
-                    
-                    {% for rs in videos %}
-               
-                    <div class="posts__item posts__item--category-3 col-sm-4 mb-3">
-                        <!-- <h3 class="posts__title mb-1">{{rs.title}}</h3> -->
-                        
-                        <a href="{{rs.link}}"
-                            class="posts__link-wrapper mp_iframe">
-                            <figure class="posts__thumb"><img
-                                    src="{{rs.image.url}}"
-                                    alt="Spectacular view from the top of the stadium"></figure>
-                            <div class="posts__inner">
-                                <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
-                                </div>
-                                <h3 class="posts__title">{{rs.title}}</h3><time
-                                    datetime="2017-08-28" class="posts__date">August 28th, 2020</time>
-                            </div>
-                        </a></div>
-                        {% endfor %}
-                                    
-                
-                </div><!-- Video Slideshow / End -->
+        <!-- <div class="d-flex justify-content-center ">
+            <div id="spinner-box" class="spinner-border text-primary " role="status">
+
             </div>
-            <div class="justify-content-center">
+        </div>
+        <div class="d-flex justify-content-center mt-5" id="end-box">
+            <button id="load-btn" class="btn btn-primary-inverse">Load More</button>
+        </div> -->
+
+        <div class="justify-content-center">
+
+
             <nav aria-label="Page navigation example ">
                 <ul class="pagination justify-content-center">
-                        {% if is_paginated %}
+                    {% if is_paginated %}
 
-                            {% if page_obj.has_previous %}
-                            <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            {% endif %}
+                    {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">1</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        {% endif %}
 
-                            {% for num in page_obj.paginator.page_range %}
-                                {% if page_obj.number == num %}
-                                <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
-                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
-                                {% endif %}
-                            {% endfor %}
+                        {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% elif num > page_obj.number|add:'-4' and num < page_obj.number|add:'4' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                    {% endfor %}
 
-                            {% if page_obj.has_next %}
-                            <!-- <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">First</a></li> -->
-                            <li class="page-item">
-                                
-                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                                </a>
-                            {% endif %}
+                    {% if page_obj.has_next %}
+                  
+                    <li class="page-item">
+
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        {% endif %}
 
 
                         {% endif %}
@@ -111,8 +150,37 @@
                 </ul>
             </nav>
         </div>
-        </div>
+
+
+
+
+
+
     </div>
 </div>
 
+
+
+
+
+
+
+
+
+
 {% endblock content %}
+
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $('#previewmodal').on('shown.bs.modal', function () {
+            $('#iframe').trigger('focus')
+        });
+
+    });
+</script>
+
+<script src="{% static '' %}assets/js/videos.js"></script>
+
+{% endblock script %}

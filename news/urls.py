@@ -7,7 +7,7 @@ from .views import BlogView, blog_detail, addblogcomment, highlight_json, catego
 urlpatterns = [
     path('news/', BlogView.as_view(), name='blog'),
     path('highlight-json/', highlight_json, name='highlight-json'),
-    path('Match-highlights/', highlights, name='highlights'),
+    path('match-highlights/', highlights, name='highlights'),
     path('news/<int:id>/<slug:slug>',
          blog_detail, name='blog_detail'),
     path('news/tags/<slug:slug>',
