@@ -1,6 +1,6 @@
 "use strict"
 
-console.log('hello word')
+// console.log('hello word')
 const postvideo = document.getElementById('postvideo')
 const spinnerbox = document.getElementById('spinner-box')
 const loadBtn = document.getElementById('load-btn')

@@ -15,10 +15,11 @@ from taggit.models import Tag
 
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 # from .tokens import account_activation_token
 import random
 import json
+from django.template import Context
 from django.utils.crypto import get_random_string
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.conf import settings
@@ -51,6 +52,8 @@ def login_form(request):
                 request, "Login Error! Username or Password is incorrect")
             return HttpResponseRedirect('/login')
 
+        
+
     context = {
 
     }
@@ -65,6 +68,7 @@ def register(request):
             form.save()  # completed sign up
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
+            email = form.cleaned_data.get('email')
             user = authenticate(username=username, password=password)
             login(request, user)
             # Create data in profile table for user
@@ -73,7 +77,23 @@ def register(request):
             data.user_id = current_user.id
             data.image = "media/avatar.png"
             data.save()
-            messages.suucess(request, 'Your account has been created!')
+            messages.success(request, 'Your account has been created - ' + username)
+
+            # welcome email
+            subject = "Welcome to The Monkey Post"
+            to = [email]
+            from_email = settings.DEFAULT_FROM_EMAIL
+
+            ctx = {
+                'username': username,
+                'email': email,
+            }
+
+            message = get_template('email_welcome.html').render(ctx)
+            msg = EmailMessage(subject, message, to=to, from_email=from_email)
+            msg.content_subtype = 'html'
+            msg.send()
+
             return HttpResponseRedirect('/')
         else:
             messages.error(request, form.errors)
@@ -85,7 +105,7 @@ def register(request):
         'form': form,
 
     }
-    return render(request, 'register.html', context)
+    return render(request, 'login-register.html', context)
 
 
 def logout_view(request):

@@ -43,7 +43,7 @@ class IndexView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        videos = Videos.objects.all()
+        videos = Videos.objects.all().order_by('-id')
         top_trends = Blog.objects.filter(top_news=True)
         next_match = Nextmatch.objects.get(pk=1)
         news_slide = NewsSlide.objects.all()[:6]

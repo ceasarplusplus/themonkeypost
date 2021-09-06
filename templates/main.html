@@ -166,67 +166,7 @@
 
                 </aside><!-- Widget: Standings / End -->
 
-                <!-- Widget: Popular News -->
-                <!-- <aside class="widget widget--sidebar card widget-popular-posts">
-                    <div class="widget__title card__header">
-                        <h4>Popular News</h4>
-                    </div>
-                    <div class="widget__content card__content">
-                        <ul class="posts posts--simple-list">
-                            <li class="posts__item posts__item--category-2">
-                                <figure class="posts__thumb"><a href="#"><img
-                                            src="{% static '' %}assets/images/samples/post-img1-xs.jpg" alt=""></a>
-                                </figure>
-                                <div class="posts__inner">
-                                    <div class="posts__cat"><span class="label posts__cat-label">Injuries</span>
-                                    </div>
-                                    <h6 class="posts__title"><a href="#">Mark Johnson has a Tibia Fracture and
-                                            is gonna be out</a></h6><time datetime="2016-08-23"
-                                        class="posts__date">August 23rd, 2018</time>
-                                </div>
-                            </li>
-                            <li class="posts__item posts__item--category-1">
-                                <figure class="posts__thumb"><a href="#"><img
-                                            src="{% static '' %}assets/images/samples/post-img2-xs.jpg" alt=""></a>
-                                </figure>
-                                <div class="posts__inner">
-                                    <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
-                                    </div>
-                                    <h6 class="posts__title"><a href="#">Jay Rorks is only 24 points away from
-                                            breaking the record</a></h6><time datetime="2016-08-23"
-                                        class="posts__date">August 22nd, 2018</time>
-                                </div>
-                            </li>
-                            <li class="posts__item posts__item--category-1">
-                                <figure class="posts__thumb"><a href="#"><img
-                                            src="{% static '' %}assets/images/samples/post-img3-xs.jpg" alt=""></a>
-                                </figure>
-                                <div class="posts__inner">
-                                    <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
-                                    </div>
-                                    <h6 class="posts__title"><a href="#">The new eco friendly stadium won a
-                                            Leafy Award in 2016</a></h6><time datetime="2016-08-23"
-                                        class="posts__date">June 8th, 2018</time>
-                                </div>
-                            </li>
-                            <li class="posts__item posts__item--category-1">
-                                <figure class="posts__thumb"><a href="#"><img
-                                            src="{% static '' %}assets/images/samples/post-img4-xs.jpg" alt=""></a>
-                                </figure>
-                                <div class="posts__inner">
-                                    <div class="posts__cat"><span class="label posts__cat-label">The Team</span>
-                                    </div>
-                                    <h6 class="posts__title"><a href="#">The team is starting a new power
-                                            breakfast regimen</a></h6><time datetime="2016-08-23"
-                                        class="posts__date">May 12th, 2018</time>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </aside> -->
-                <!-- Widget: Popular News / End -->
-
-
+               
                 <!-- Widget: Featured Player - Alternative Extended -->
 
                 <aside class="widget card widget--sidebar widget-player widget-player--alt">
@@ -430,17 +370,38 @@
                 <!-- Carousel -->
                 <div class="slick posts posts--carousel video-carousel">
                     {% for rs in videos %}
-                    <div class="card" style="width: 18rem;">
+                    <!-- <div class="card" style="width: 18rem;">
                         <div class="embed-responsive embed-responsive-16by9">
                             <iframe class="embed-responsive-item" src="{{rs.link}}" allowfullscreen></iframe>
                         </div>
                         <div class="card-body">
                             <p class="card-text">{{rs.title}}</p>
                         </div>
+                    </div> -->
+                    <div class="card pl-0" style="width: 18rem;">
+                        <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="{{rs.link}}">
+                            <img class="vidphoto card-img-top" src="{{rs.image.url}}" alt="{{rs.title}}">
+                            <p class="card-text">{{rs.title}}</p>
+                        </div>
                     </div>
+
                     {% endfor %}
                 </div><!-- Carousel / End -->
             </div>
         </div><!-- Video Slideshow / End -->
     </div>
 </div>
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $('#previewmodal').on('shown.bs.modal', function () {
+            $('#iframe').trigger('focus')
+        });
+
+    });
+</script>
+
+<script src="{% static '' %}assets/js/videos.js"></script>
+
+{% endblock script %}

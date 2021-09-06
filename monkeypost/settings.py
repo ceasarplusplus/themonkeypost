@@ -175,11 +175,12 @@ CKEDITOR_CONFIGS = {
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'mail.privateemail.com'
-EMAIL_HOST_USER = 'info@cmdxguide.com'
-EMAIL_HOST_PASSWORD = 'cmdx@info'
+EMAIL_HOST_USER = 'info@themonkeypost.net'
+EMAIL_HOST_PASSWORD = 'monkeypost@1Admin'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = 'info@themonkeypost.net'
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
