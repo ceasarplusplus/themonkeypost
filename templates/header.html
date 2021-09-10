@@ -118,7 +118,10 @@
                             <div class="header-cart__inner"><span
                                     class="header-cart__product-cat">{{rs.product.category}}</span>
                                 <h5 class="header-cart__product-name"><a
-                                        href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a>
+                                        href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}  {% if rs.variant.size %}
+                                        {{ rs.variant.size }}
+                                        {% endif %}
+                                        {% if rs.variant.color %} {{ rs.variant.color }} {% endif %}</a>
                                 </h5>
                                 <div class="header-cart__product-ratings">
                                     <i class="fas fa-star {% if rs.product.averagereview < 1%} empty{% endif%}"></i>
@@ -128,7 +131,11 @@
                                     <i class="fas fa-star {% if rs.product.averagereview < 5%} empty{% endif%}"></i>
                                 </div>
                                 <div class="header-cart__product-sum"><span
-                                        class="header-cart__product-price">₦{{rs.price|intcomma}}</span> x <span
+                                        class="header-cart__product-price">{% if rs.product.variant == 'None' %}
+                                        ₦{{ rs.price|intcomma }}
+                                        {% else %}
+                                        ₦{{ rs.variant.price|intcomma }}
+                                        {% endif %}</span> x <span
                                         class="header-cart__product-count">{{rs.quantity}}</span></div>
 
                             </div>

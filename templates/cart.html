@@ -40,20 +40,30 @@
                             {% for rs in shopcart %}
                             <tr>
                                 <td class="product__photo">
-                                    <figure class="product__thumb"><a href="/product/{{rs.product.id}}/{{rs.product.slug}}"><img
-                                                src="{{rs.product.image.url}}" alt=""></a>
+                                    <figure class="product__thumb">
+                                        <a href="/product/{{rs.product.id}}/{{rs.product.slug}}">
+                                            {% if rs.variant.image_id > 0 %}
+                                            <img src="{{rs.variant.image}}" alt="">
+                                            {% else %}
+                                            <img src="{{rs.product.image.url}}" alt="">
+                                            {% endif %}
+                                        </a>
                                     </figure>
                                 </td>
                                 <td class="product__info"><span class="product__cat">{{rs.product.category}}</span>
                                     <h5 class="product__name"><a
-                                            href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a></h5>
-                                    <div class="product__ratings">
+                                            href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}  {% if rs.variant.size %}
+                                            {{ rs.variant.size }}
+                                            {% endif %}
+                                            {% if rs.variant.color %} {{ rs.variant.color }} {% endif %}</a>
+                                    </h5>
+                                    <!-- <div class="product__ratings">
                                         <i class="fas fa-star {% if rs.product.averagereview < 1%} empty{% endif%}"></i>
                                         <i class="fas fa-star {% if rs.product.averagereview < 2%} empty{% endif%}"></i>
                                         <i class="fas fa-star {% if rs.product.averagereview < 3%} empty{% endif%}"></i>
                                         <i class="fas fa-star {% if rs.product.averagereview < 4%} empty{% endif%}"></i>
                                         <i class="fas fa-star {% if rs.product.averagereview < 5%} empty{% endif%}"></i>
-                                    </div>
+                                    </div> -->
                                 </td>
 
 
@@ -61,7 +71,11 @@
                                     <div class="quantity-control"><input type="number" value="{{rs.quantity}}"
                                             class="form-control input-sm"> </div>
                                 </td>
-                                <td class="product__total">₦{{rs.price|intcomma}}</td>
+                                <td class="product__total">{% if rs.product.variant == 'None' %}
+                                    ₦{{ rs.amount|intcomma}}
+                                    {% else %}
+                                    ₦{{ rs.varamount|intcomma }}
+                                    {% endif %}</td>
                                 <td class="product__remove"><a href="/deletefromcart/{{rs.id}}"
                                         onclick="return confirm('Are you sure you want to remove item?')"
                                         class="fas fa-times product__remove-icon"></a>
@@ -112,7 +126,7 @@
                         <!-- Checkout Payment -->
                         <div class="df-checkout-payment">
                             <div class="place-order"><a href="{% url 'checkout' %}"
-                                class="btn btn-primary-inverse btn-block">Checkout</a></div>
+                                    class="btn btn-primary-inverse btn-block">Checkout</a></div>
                         </div><!-- Checkout Payment / End -->
                     </div>
                 </div><!-- Cart Totals / End -->
@@ -124,13 +138,13 @@
                 <h4>Shopping Cart is Empty</h4>
                 <ul class="category-filter category-filter--carousel category-filter--extra-space">
                     <li class="category-filter__item"><a href="{% url 'shop' %}"
-                        class="btn btn-primary btn-outline btn-xs card-header__button">Go to Store</a>
+                            class="btn btn-primary btn-outline btn-xs card-header__button">Go to Store</a>
                     </li>
-                  
+
                 </ul>
-                
+
             </div>
-           
+
         </div>
         {% endif %}
 

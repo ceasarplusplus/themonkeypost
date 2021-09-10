@@ -40,7 +40,10 @@ def totaltag(userid):
     total = 0
     shopcart = ShopCart.objects.filter(user_id=userid)
     for rs in shopcart:
-        total += rs.product.price * rs.quantity
+        if rs.product.variant == 'None':
+            total += rs.product.price * rs.quantity
+        else:
+            total += rs.variant.price * rs.quantity
     return total
     
 

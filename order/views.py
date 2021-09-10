@@ -29,7 +29,7 @@ from django.core import serializers
 from .models import OrderProductBack, OrderProduct, OrderBack, Order
 from home.models import Setting
 from news.models import  Blog, BlogCategory
-from store.models import Category, Product, Images, ShopCart, ShopCartForm
+from store.models import Category, Product, Images, ShopCart, ShopCartForm, Variants
 from order.models import OrderProduct, Order
 from users.models import Userprofile
 
@@ -46,7 +46,10 @@ def checkout(request):
     shopcart = ShopCart.objects.filter(user_id=current_user.id)
     total = 0
     for rs in shopcart:
-        total += rs.product.price * rs.quantity
+        if rs.product.variant == 'None':
+            total += rs.product.price * rs.quantity
+        else:
+            total += rs.variant.price * rs.quantity
 
     if request.method == 'POST':  # if there is a post
         form = OrderForm(request.POST)
@@ -74,15 +77,15 @@ def checkout(request):
                 detail.product_id = rs.product_id
                 detail.user_id = current_user.id
                 detail.quantity = rs.quantity
-                detail.price = rs.product.price
+                if rs.product.variant == 'None':
+                    detail.price = rs.product.price
+                else:
+                    detail.price = rs.variant.price
+                detail.variant_id = rs.variant_id
                 detail.amount = rs.amount
                 detail.save()
 
-            if payment_option == 'C':
-
-                return render(request, 'card-payment.html', {'orderid': data.id, 'total': total, 'title': 'Paystack Payment', 'blog_category': blog_category})
-            else:
-                return render(request, 'bank-payment.html', {'orderid': data.id, 'total': total, 'title': 'Bank Payment', 'blog_category': blog_category})
+            return render(request, 'card-payment.html', {'orderid': data.id, 'total': total, 'title': 'Paystack Payment', 'blog_category': blog_category})
 
         else:
             messages.error(request, form.errors)
@@ -159,7 +162,18 @@ def order_completed(request):
         # books.ordered = True
         paid.save()
         current_user = request.user
-        ShopCart.objects.filter(user_id=current_user.id).delete()
+        shopcart = ShopCart.objects.filter(user_id=current_user.id)
+        for rs in shopcart:
+            if  rs.product.variant=='None':
+                    product = Product.objects.get(id=rs.product_id)
+                    product.amount -= rs.quantity
+                    product.save()
+            else:
+                variant = Variants.objects.get(id=rs.product_id)
+                variant.quantity -= rs.quantity
+                variant.save()
+        
+        shopcart.delete()
         request.session['cart_items'] = 0
 
         # template = render_to_string('order_template.html', {

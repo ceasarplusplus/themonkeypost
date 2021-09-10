@@ -1,7 +1,7 @@
 from django.contrib import admin
 import admin_thumbnails
 from mptt.admin import DraggableMPTTAdmin
-from .models import Product, ShopCart, Images, Category, Comment
+from .models import Product, ShopCart, Color, Size, Variants, Images, Category, Comment
 # Register your models here.
 
 
@@ -53,6 +53,14 @@ class ProductImageInline(admin.TabularInline):
 
 
 
+class ProductVariantsInline(admin.TabularInline):
+    model = Variants
+    readonly_fields = ('image_tag',)
+    extra = 1
+    show_change_link = True
+
+
+
 @admin_thumbnails.thumbnail('image')
 class ImagesAdmin(admin.ModelAdmin):
     list_display = ['image', 'title', 'image_thumbnail']
@@ -62,7 +70,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'status', 'image_tag']
     list_filter = ['status']
     readonly_fields = ('image_tag',)
-    inlines = [ProductImageInline]
+    inlines = [ProductImageInline, ProductVariantsInline]
     prepopulated_fields = {'slug': ('title',)}
 
 
@@ -72,9 +80,24 @@ class CommentAdmin(admin.ModelAdmin):
     readonly_fields = ('subject', 'comment', 'user', 'ip')
 
 
+class ColorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'color_tag']
+
+
+class SizeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code']
+
+
+class VariantsAdmin(admin.ModelAdmin):
+    list_display = ['title', 'product', 'color',
+                    'size', 'price', 'quantity', 'image_tag']
 
 
 
+
+admin.site.register(Color, ColorAdmin)
+admin.site.register(Size, SizeAdmin)
+admin.site.register(Variants, VariantsAdmin)
 admin.site.register(Category, CategoryAdmin2)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Images, ImagesAdmin)

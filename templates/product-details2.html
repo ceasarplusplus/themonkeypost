@@ -1,0 +1,423 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load mptt_tags %}
+{% block content %}
+
+{% load myapptags %}
+{% breadcrumbs as breadcrumb %}
+{% advertisements as adverts %}
+
+<!-- page heading -->
+{% include 'breadcrumb-store.html' %}
+<!-- Content
+================================================== -->
+<div class="site-content">
+    <div class="container">
+        <!-- Single Product -->
+        <div class="products products--list products--list-lg">
+            <div class="product__item product__item--color-1 card">
+                <div class="product__img">
+                    <div class="product__img-holder">
+                        <div class="product__bg-letters">Monkey Post</div>
+                        <div class="product__slider">
+                            {% for rs in images %}
+                            <div class="product__slide">
+
+                                <div class="product__slide-img"><img src="{{rs.image.url}}" alt=""></div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="product__content card__content">
+
+                    <header class="product__header product__header--block">
+                        <div class="product__header-inner"><span class="product__category">{{product.category}}</span>
+                            <h2 class="product__title">{{product.title}}</h2>
+                            <div class="product__ratings">
+                                <i class="fas fa-star {% if product.averagereview < 1%} empty{% endif%}"></i>
+                                <i class="fas fa-star {% if product.averagereview < 2%} empty{% endif%}"></i>
+                                <i class="fas fa-star {% if product.averagereview < 3%} empty{% endif%}"></i>
+                                <i class="fas fa-star {% if product.averagereview < 4%} empty{% endif%}"></i>
+                                <i class="fas fa-star {% if product.averagereview < 5%} empty{% endif%}"></i>
+                            </div>
+
+
+                        </div>
+                        <div class="product__price">₦{{product.price|intcomma}}</div>
+                    </header>
+                    <div class="product__excerpt">
+                        <h6>Description</h6>{{product.detail|safe}}
+                    </div>
+                    <script>
+                        $(document).on('change', '#post-form', function (e) {
+                            e.preventDefault();
+                            $.ajax({
+                                type: 'POST',
+                                url: '{% url "ajaxcolor" %}',
+                                data: {
+                                    productid: $('#productid').val(),
+                                    size: $('#size').val(),
+                                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                                    action: 'post'
+                                },
+                                data_type: 'html',
+                                success: function (data) {
+                                    console.log("success");
+                                    $('#appendHere').html(data.rendered_table);
+                                },
+                                error: function (data) {
+                                    alert("please select a size and color");
+                                }
+                            });
+                        });
+                    </script>
+
+                    {% if product.variant == 'Size-Color' %}
+                    <form method="POST" id="post-form" class="product__params">
+                        {% csrf_token %}
+                        <!-- <div class="product__param-item product__param-item--color"><label>Color</label>
+                            <ul class="filter-color">
+                                <li class="filter-color__item"><label class="radio"><input type="radio"
+                                            id="product_color_1" name="product-color" value="1"
+                                            class="color-violet"> <span class="radio-indicator"></span></label>
+                                </li>
+                                <li class="filter-color__item"><label class="radio"><input type="radio"
+                                            id="product_color_2" name="product-color" value="2"
+                                            class="color-blue" checked="checked"> <span
+                                            class="radio-indicator"></span></label></li>
+                                <li class="filter-color__item"><label class="radio"><input type="radio"
+                                            id="product_color_3" name="product-color" value="3"
+                                            class="color-light-blue"> <span
+                                            class="radio-indicator"></span></label></li>
+                                <li class="filter-color__item"><label class="radio"><input type="radio"
+                                            id="product_color_8" name="product-color" value="8"
+                                            class="color-orange"> <span class="radio-indicator"></span></label>
+                                </li>
+                                <li class="filter-color__item"><label class="radio"><input type="radio"
+                                            id="product_color_7" name="product-color" value="7"
+                                            class="color-yellow"> <span class="radio-indicator"></span></label>
+                                </li>
+                            </ul>
+                        </div> -->
+                        <input type="hidden" name="productid" id="productid" value="{{ product.id }}">
+
+                        <div class="product__param-item product__param-item--size"><label class="control-label"
+                                for="select-size">Size</label>
+
+                            <select name="size" id="size" class="form-control form-control--clean">
+                                {% for rs in sizes %}
+                                <option {% if variant.size_id == rs.size_id %} selected {% endif %}
+                                    value="{{ rs.size_id }}">{{ rs.size.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+
+                    </form>
+                    <form method="post" action="?q=selectvariant" id="post-color">
+                        {% csrf_token %}
+                        <div id="appendHere" class="product__param-item product__param-item--color">
+                            <label>Colors</label> <br>
+
+                            {% for rs in colors %}
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" type="radio" {% if variant.id == rs.id %}
+                                    checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}"
+                                    onchange="this.form.submit();" />
+                                <label class="form-check-label pl-1 pr-1" for="inlineRadio1"
+                                    style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 100% ">₦{{ rs.price|intcomma }}
+                                    - {{ rs.color }}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </form>
+
+                    {% elif product.variant == 'Size' %}
+                    <form method="post" action="?q=selectvariant" id="post-color">
+                        {% csrf_token %}
+                        <div id="appendHere" class="product__param-item product__param-item--color"><label>Sizes</label>
+                            <br>
+                            <input type="hidden" name="size" id="size" value="{{ size_id }}">
+                            {% for rs in sizes %}
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" {% if variant.id == rs.id %} checked
+                                    {% endif %} name="variantid" id="variantid" value="{{ rs.id }}"
+                                    onchange="this.form.submit();" />
+                                <label class="form-check-label" for="inlineRadio1">{{ rs.size }}
+                                    ₦{{ rs.price|intcomma}}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </form>
+                    {% elif product.variant == 'Color' %}
+                    <form method="post" action="?q=selectvariant" id="post-color">
+                        {% csrf_token %}
+                        <div id="appendHere" class="product__param-item product__param-item--color">
+                            <label>Colors</label> <br>
+
+                            {% for rs in colors %}
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" type="radio" {% if variant.id == rs.id %}
+                                    checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}"
+                                    onchange="this.form.submit();" />
+                                <label class="form-check-label pl-1 pr-1" for="inlineRadio1"
+                                    style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 100% ">₦{{ rs.price|intcomma }}
+                                    - {{ rs.color }}</label>
+                            </div>
+                            {% endfor %}
+                    </form>
+                    {% endif %}
+
+
+                    {% if  product.variant != 'None'   %}
+                    <form action="/addtoshopcart/{{ product.id }}" method="post" id="addchart-form"
+                        class="product__params">
+                        {% csrf_token %}
+                        <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+
+                        <div id="SelectedProduct">
+                            <strong class="mb-3 text-white">AVAILABILITY:</strong> {% if variant.quantity > 0  %} In
+                            Stock
+                            {% else %} Out of Stock {% endif %}
+                            <div class="mb-1"> <strong class=" text-white">SELECTED :</strong> Size : {{ variant.size }}
+                                -- Color : {{ variant.color }}
+                            </div>
+
+                            <div class="form-group"><label class="control-label" for="input-default">Quantity</label>
+                                <input name="quantity" type="text" value="1" min="1" max="{{ variant.quantity }}"
+                                    class="form-control" id="input-default"></div>
+                            <p><button class="btn btn-danger btn-outline " type="submit"
+                                    {% if variant.quantity < 1  %} disabled {% endif %}>Add to Cart</button></p>
+
+
+
+                        </div>
+                    </form>
+
+                    {% else %}
+
+                    <form action="/addtoshopcart/{{ product.id }}" method="post" id="addchart-form"
+                        class="product__params">
+                        {% csrf_token %}
+                       
+                        <div id="SelectedProduct">
+                            <strong class="mb-3 text-white">AVAILABILITY:</strong> {% if product.quantity > 0  %} In
+                            Stock
+                            {% else %} Out of Stock {% endif %}
+
+
+                            <div class="form-group"><label class="control-label" for="input-default">Quantity</label>
+                                <input name="quantity" type="text" value="1" min="1" max="{{ product.quantity }}"
+                                    class="form-control" id="input-default"></div>
+                            <button class="btn btn-danger btn-outline " type="submit"
+                                    {% if product.quantity < 1  %} disabled {% endif %}>Add to Cart</button>
+
+
+
+                        </div>
+                    </form>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Single Product Tabbed Content -->
+        <div class="product-tabs card card--lg">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs nav-justified nav-product-tabs" role="tablist">
+                <li class="nav-item"><a class="nav-link active" href="#tab-desciption" role="tab" data-toggle="tab">Item
+                        Description</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="#tab-reviews" role="tab"
+                        data-toggle="tab"><small>Product</small>Customer Reviews ({{ product.countreview}})</a></li>
+            </ul><!-- Tab panes -->
+            <div class="tab-content card__content">
+                <!-- Tab: Description -->
+                <div role="tabpanel" class="tab-pane fade show active" id="tab-desciption">
+                    <header class="product-tabs__header">
+                        <h2>Full Description</h2>
+                    </header>
+                    <p>
+                        {{product.detail|safe}}
+                    </p>
+                </div><!-- Tab: Description / End -->
+                <!-- Tab: Shipping -->
+                <div role="tabpanel" class="tab-pane fade" id="tab-info">
+                    <header class="product-tabs__header">
+                        <h2>Additional Information</h2>
+                    </header>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
+                        architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                        sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione
+                        voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit
+                        amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
+                        labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+                        nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi
+                        consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
+                        nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
+                        pariatur?</p>
+                    <div class="spacer"></div>
+                    <h4>Delivery System</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis eder nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum.</p>
+                    <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
+                        consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Lorem ipsum
+                        dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                        in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </div><!-- Tab: Shipping / End -->
+                <!-- Tab: Reviews -->
+                <div role="tabpanel" class="tab-pane fade" id="tab-reviews">
+                    <section class="product-tabs__section">
+                        <header class="product-tabs__header product-tabs__header--sm">
+                            <h2><span class="product-tabs__ratings"><span
+                                        class="highlight">{{ product.averagereview |stringformat:".2f"}}</span> Item
+                                    Rating</span> <span class="product-tabs__reviews">{{ product.countreview}}
+                                    Reviews</span></h2>
+                        </header><!-- Product Reviews -->
+                        <ul class="comments comments--thumb-top">
+                            {% for rs in comments %}
+                            <li class="comments__item">
+                                <div class="comments__inner">
+                                    <header class="comment__header">
+                                        <div class="comment__author">
+                                            <figure class="comment__author-avatar"><img
+                                                    src="{{rs.user.userprofile.image.url}}" alt="">
+                                            </figure>
+                                            <div class="comment__author-info">
+                                                <h5 class="comment__author-name">{{rs.user.username}}</h5><time
+                                                    class="comment__post-date">{{rs.create_at|timesince:rs.update_at}}</time>
+                                                <div class="comment__ratings ratings">
+                                                    <i class="fas fa-star {% if rs.rate < 1%} empty{% endif%}"></i>
+                                                    <i class="fas fa-star {% if rs.rate < 2%} empty{% endif%}"></i>
+                                                    <i class="fas fa-star {% if rs.rate < 3%} empty{% endif%}"></i>
+                                                    <i class="fas fa-star {% if rs.rate < 4%} empty{% endif%}"></i>
+                                                    <i class="fas fa-star {% if rs.rate < 5%} empty{% endif%}"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
+                                    <div class="comment__body">
+                                        <h4 class="comment__title">{{rs.subject}}</h4>{{rs.comment}}
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+
+                        </ul><!-- Product Reviews / End -->
+                    </section>
+                    <section class="product-tabs__section">
+                        <header class="product-tabs__header">
+                            <h2>Write a Review</h2>
+                        </header><!-- Reviews Form -->
+                        <form action="/product/addcomment/{{ product.id }}" method="POST" class="reviews-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group"><label class="control-label" for="review-stars">Review
+                                            Stars</label>
+                                        <div class="stars">
+                                            <span>Bad</span>
+                                            <input type="radio" id="star1" name="rate" value="1" /><label
+                                                for="star1"></label>
+                                            <input type="radio" id="star2" name="rate" value="2" /><label
+                                                for="star2"></label>
+                                            <input type="radio" id="star3" name="rate" value="3" /><label
+                                                for="star3"></label>
+                                            <input type="radio" id="star4" name="rate" value="4" /><label
+                                                for="star4"></label>
+                                            <input type="radio" id="star5" name="rate" value="5" /><label
+                                                for="star5"></label>
+
+                                            <span>Good</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group"><label class="control-label" for="review-title">Review
+                                            Title</label> <input type="text" required name="subject"
+                                            class="form-control"></div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group"><label class="control-label" for="textarea-review">Your
+                                            Review</label> <textarea required name="comment" rows="5"
+                                            class="form-control"></textarea></div>
+                                </div>
+                            </div>
+                            {% if user.id is not None %}
+                            <div class="form-group form-group--submit"><button type="submit"
+                                    class="btn btn-default btn-block btn-lg">Post Your Review</button></div>
+                            {% else %}
+                            You must be logged in to post a review
+                            {% endif %}
+
+                        </form><!-- Reviews Form / End -->
+                    </section>
+                </div><!-- Tab: Reviews / End -->
+            </div>
+        </div><!-- Single Product Tabbed Content / End -->
+        <!-- Related Products -->
+        <div class="card card--clean">
+            <header class="card__header">
+                <h4>Related Products</h4>
+            </header>
+            <div class="card__content">
+                <!-- Products -->
+                <ul class="products products--grid products--grid-4 products--grid-simple">
+                    <!-- Product #0 -->
+
+                    <!-- Product #1 -->
+                    {% for rs in rel_products %}
+                    <li class="product__item">
+                        <div class="product__img">
+                            <div class="product__thumb"><img src="{{rs.image.url}}" alt=""></div>
+                            <div class="product__overlay">
+                                <div class="product__btns"><a href="/addtoshopcart/{{rs.id}}"
+                                        class="btn btn-primary-inverse btn-block btn-icon"><i class="icon-bag"></i>
+                                        Add
+                                        to your
+                                        bag</a>
+                                    <a href="/product/{{rs.id}}/{{rs.slug}}"
+                                        class="btn btn-primary btn-block btn-icon"><i class="icon-heart"></i>
+                                        View Item</a>
+                                </div>
+                            </div>
+                            <div class="product__content card__content">
+                                <div class="product__header">
+                                    <div class="product__header-inner">
+                                        <h2 class="product__title"><a href="/addtoshopcart/{{rs.id}}">{{rs.title}}</a>
+                                        </h2>
+                                        <div class="product__ratings">
+                                            <i class="fas fa-star {% if rs.averagereview < 1%} empty{% endif%}"></i>
+                                            <i class="fas fa-star {% if rs.averagereview < 2%} empty{% endif%}"></i>
+                                            <i class="fas fa-star {% if rs.averagereview < 3%} empty{% endif%}"></i>
+                                            <i class="fas fa-star {% if rs.averagereview < 4%} empty{% endif%}"></i>
+                                            <i class="fas fa-star {% if rs.averagereview < 5%} empty{% endif%}"></i>
+                                        </div>
+                                        <div class="product__price">₦{{rs.price|intcomma}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                    </li>
+                    {% endfor %}
+
+                </ul><!-- Products / End -->
+            </div>
+        </div><!-- Related Products / End -->
+    </div>
+</div>
+
+
+
+{% endblock content %}

@@ -29,23 +29,23 @@ class SearchForm(forms.Form):
     query = forms.CharField(max_length=100)
 
 
-PAYMENT_CHOICES = (
-    ('B', 'Bank Transfer'),
-    ('C', 'Credit Card'),
+# PAYMENT_CHOICES = (
+#     ('B', 'Bank Transfer'),
+#     ('C', 'Credit Card'),
 
 
-)
+# )
 
 
 class OrderForm(forms.ModelForm):
 
-    payment_option = forms.ChoiceField(
-        widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
+    # payment_option = forms.ChoiceField(
+    #     widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
 
     class Meta:
         model = Order
         fields = ['first_name', 'last_name',
-                  'address', 'phone', 'city', 'state', 'payment_option']
+                  'address', 'phone', 'city', 'state']
 
 
 class SignUpForm(UserCreationForm):
@@ -92,3 +92,5 @@ class ProfileUpdateForm(forms.ModelForm):
             'state': TextInput(attrs={'class': 'form-control', 'placeholder': 'state'}),
             # 'image': FileInput(attrs={'class': 'input form-control', }),
         }
+
+

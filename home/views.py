@@ -175,7 +175,7 @@ def subscribe(request):
             data.email = form.cleaned_data['email']
             data.save()
             messages.info(
-                request, "Your Email has been sent. Thank you for subscribing to Shoppitza.")
+                request, "Your Email has been sent. Thank you for subscribing to The Monkeypost.")
 
             return HttpResponseRedirect(url)
 

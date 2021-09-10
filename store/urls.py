@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import shop, StoreView, StoreCategoryView, category_products, addtoshopcart, product_detail, addcomment, shopcart, addtoshopcart, deletefromcart
+from .views import shop, StoreView, StoreCategoryView, ajaxcolor, category_products, addtoshopcart, product_detail, addcomment, shopcart, addtoshopcart, deletefromcart
 
 urlpatterns = [
     path('monkey-post-store/', StoreView.as_view(), name='shop'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('shopcart/', shopcart, name='shopcart'),
     path('addtoshopcart/<int:id>', addtoshopcart, name='add_to_cart'),
     path('deletefromcart/<int:id>/', deletefromcart, name='deletefromcart'),
+    path('ajaxcolor/', ajaxcolor, name='ajaxcolor'),
 ]
