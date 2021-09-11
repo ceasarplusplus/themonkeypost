@@ -213,26 +213,14 @@ def deleteblogcomment(request, id):
 
 
 def highlights(request): 
-    # vids = {} 
-    # videos = {}
-    # highlight = []
-    # url = 'https://www.scorebat.com/video-api/v1/'
-    # r = requests.get(url)
-    # if r.status_code == 200:
-    #     results = r.json()
-    #     vids = json.dumps(results, indent=2)
-    #     print(vids)
-    # # for videos in results:
-    # context = {
-    #     'videos': videos,
-    #     'highlight': highlight,
-    #     'results': results,
-    #     'vids': vids
-    # }
+
+    top_trends = Blog.objects.filter(top_news=True).order_by('-id')[:4]
         
+    context = {
+        'top_trends': top_trends
+    }
 
-
-    return render(request, 'highlights.html')
+    return render(request, 'highlights.html', context)
 
     
     
