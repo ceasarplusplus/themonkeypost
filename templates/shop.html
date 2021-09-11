@@ -44,11 +44,14 @@
                 <div class="product__img">
                     <div class="product__thumb"><img src="{{rs.image.url}}" alt=""></div>
                     <div class="product__overlay">
-                        <div class="product__btns"><a href="/addtoshopcart/{{rs.id}}"
-                                class="btn btn-primary-inverse btn-block btn-icon"><i class="icon-bag"></i> Add to your
+                        <div class="product__btns">
+                            {% if rs.variant == 'None' %}
+                            <a href="/addtoshopcart/{{rs.id}}" class="btn btn-primary-inverse btn-block btn-icon"><i
+                                    class="icon-bag"></i> Add to your
                                 bag</a>
-                            <a href="/product/{{rs.id}}/{{rs.slug}}" class="btn btn-primary btn-block btn-icon"><i
-                                    class="icon-heart"></i>
+                            {% endif %}
+                            <a href="/product/{{rs.id}}/{{rs.slug}}"
+                                class="btn btn-primary-inverse btn-block btn-icon"><i class="icon-heart"></i>
                                 View Item</a>
                         </div>
                     </div>

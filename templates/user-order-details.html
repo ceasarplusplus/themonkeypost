@@ -110,7 +110,7 @@
                                 {% for rs in orderitems %}
                                 <tr>
                                     <td class="product__photo">
-                                        <figure class="product__thumb"><a href="/product/{{rs.id}}/{{rs.slug}}"><img
+                                        <figure class="product__thumb"><a href="/product/{{rs.product.id}}/{{rs.product.slug}}"><img
                                                     src="{{rs.product.image.url}}" alt=""></a>
                                         </figure>
                                     </td>
@@ -118,7 +118,7 @@
                                     </td>
                                     <td class="product__info"><span class="product__cat">{{rs.product.category}}</span>
                                         <h5 class="product__name"><a
-                                                href="/product/{{rs.id}}/{{rs.slug}}">{{rs.product.title}}</a></h5>
+                                                href="/product/{{rs.product.id}}/{{rs.product.slug}}">{{rs.product.title}}</a></h5>
                                         
                                     </td>
     
@@ -127,7 +127,7 @@
                                         <div class="quantity-control"><input type="number" value="{{rs.quantity}}"
                                                 class="form-control input-sm"> </div>
                                     </td>
-                                    <td class="product__total">₦{{rs.price|intcomma}}</td>
+                                    <td class="product__total">₦{{rs.amount|intcomma}}</td>
                                     
                                 </tr>
                                 {% endfor %}

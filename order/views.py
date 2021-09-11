@@ -69,6 +69,8 @@ def checkout(request):
             data.ip = request.META.get('REMOTE_ADDR')
             ordercode = get_random_string(8).upper()  # random cod
             data.code = ordercode
+            for rs in shopcart:
+                data.product_id   = rs.product_id
             data.save()
 
             for rs in shopcart:
@@ -143,33 +145,19 @@ def order_completed(request):
         print(trxref)
 
         paid = Order.objects.get(ref_code=trxref)
-        # print('paid product', paid.product)
-        # print('ref code = ', paid.ref_code)
-
-        # books = OrderBack()
-
-        # books.first_name = paid.first_name
-        # books.last_name = paid.last_name
-        # books.address = paid.address
-        # books.phone = paid.phone
-        # books.user_id = paid.user.id
-        # books.state = paid.state
-        # books.city = paid.city
-        # books.ip = paid.ip
-        # books.code = paid.code
-        # books.ref_code = paid.ref_code
-        # books.total = paid.total
-        # books.ordered = True
+        
+        paid.ordered = True
         paid.save()
         current_user = request.user
         shopcart = ShopCart.objects.filter(user_id=current_user.id)
         for rs in shopcart:
-            if  rs.product.variant=='None':
-                    product = Product.objects.get(id=rs.product_id)
-                    product.amount -= rs.quantity
-                    product.save()
+
+            if rs.product.variant=='None':
+                product = Product.objects.get(id=rs.product_id)
+                product.amount -= rs.quantity
+                product.save()
             else:
-                variant = Variants.objects.get(id=rs.product_id)
+                variant = Variants.objects.get(id=rs.variant_id)
                 variant.quantity -= rs.quantity
                 variant.save()
         

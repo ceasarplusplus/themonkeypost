@@ -65,7 +65,7 @@
                         <td>{{ rs.create_at|date:"M d, Y"}}</td>
                         <td>{{ rs.status }}</td>
                         <td>₦{{rs.total|intcomma}}</td>
-                        <td><a class="btn btn-secondary" href="/order-details/{{ rs.id }}">view</a></td>
+                        <td><a class="btn btn-primary-inverse" href="/order-details/{{ rs.id }}">view</a></td>
                     </tr>
                     {% endfor %}
                     <!-- <tr>
