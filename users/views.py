@@ -49,7 +49,7 @@ def login_form(request):
             return HttpResponseRedirect(url)
         else:
             messages.error(
-                request, "Login Error! Username or Password is incorrect")
+                request, "Login unsuccessful! Username or Password is incorrect")
             return HttpResponseRedirect('/login')
 
         

@@ -65,6 +65,7 @@
                     <div class="card__content">
                         <!-- Register Form -->
                         <form action="/register/" method="POST">
+                            
                             {% csrf_token %}
                             <div class="form-group"><label for="register-name">Your Username</label> <input
                                     type="text" name="username"  class="form-control"
