@@ -11,7 +11,8 @@ body {
 }
 
 body.modal-open {
-    overflow: visible;
+    overflow: visible !important;
+    position: relative;
 }
 
 #jpreOverlay {
@@ -1045,7 +1046,8 @@ td.highlight {
 
 @media (max-width:767px) {
     body.modal-open {
-        overflow: visible;
+        overflow: visible !important;
+        position: relative;
     }
     .df-color-pallete__item {
         -ms-flex-preferred-size: 25%;
@@ -1055,7 +1057,8 @@ td.highlight {
 
 @media (max-width:479px) {
     body.modal-open {
-        overflow: visible;
+        overflow: visible !important;
+        position: relative;
     }
     .df-color-pallete__item {
         -ms-flex-preferred-size: 50%;
