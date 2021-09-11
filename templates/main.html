@@ -405,3 +405,27 @@
 <script src="{% static '' %}assets/js/videos.js"></script>
 
 {% endblock script %}
+<div class="modal fade bd-example-modal-xl" aria-labelledby="mySmallModalLabel "data-backdrop="static" data-keyboard="false"  id="previewmodal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Video</h5>
+
+
+
+                <button type="button" class="close" data-dismiss="modal" id="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="iframe" class="modal-body">
+                <!-- <iframe id="Geeks3" class="embed-responsive-item" controls=1 width="100%" height="315"
+               src="https://www.youtube.com/embed/D2EEj-i1UEo" allowfullscreen></iframe> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary close" data-dismiss="modal"
+                    aria-label="Close">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
