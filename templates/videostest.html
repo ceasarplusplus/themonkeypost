@@ -10,8 +10,9 @@
 
 {% include 'breadcrumb-video.html' %}
 
-<div class="modal fade bd-example-modal-sm show" aria-labelledby="mySmallModalLabel"  id="previewmodal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" >
+<div class="modal fade bd-example-modal-sm show" aria-labelledby="mySmallModalLabel" id="previewmodal" tabindex="-1"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <!-- <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Video</h5>
@@ -78,7 +79,8 @@
                 <div class="slick posts posts--carousel video-carousel">
                     {% for rs in podcast %}
                     <div class="card pl-0" style="width: 18rem;">
-                        <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="{{rs.link}}">
+                        <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal"
+                            data-vid="{{rs.link}}">
                             <img class="vidphoto card-img-top" src="{{rs.image.url}}" alt="{{rs.title}}">
                             <p class="card-text">{{rs.title}}</p>
                         </div>
@@ -109,30 +111,18 @@
 
             <div class="col-lg-6">
                 <div class="card" style="width: 100%;">
-                    <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal" data-vid="{{rs.link}}">
+                    <div class="card-body my-vid" data-toggle="modal" data-target="#previewmodal"
+                        data-vid="{{rs.link}}">
                         <img class="vidphoto" src="{{rs.image.url}}" alt="{{rs.title}}">
                         <p class="card-text">{{rs.title}}</p>
                     </div>
                 </div>
-            </div>   
+            </div>
             {% endfor %}
 
-
-
-
-
-
-            
         </div>
 
-        <!-- <div class="d-flex justify-content-center ">
-            <div id="spinner-box" class="spinner-border text-primary " role="status">
 
-            </div>
-        </div>
-        <div class="d-flex justify-content-center mt-5" id="end-box">
-            <button id="load-btn" class="btn btn-primary-inverse">Load More</button>
-        </div> -->
 
         <div class="justify-content-center">
 
@@ -159,7 +149,7 @@
                     {% endfor %}
 
                     {% if page_obj.has_next %}
-                  
+
                     <li class="page-item">
 
                         <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">

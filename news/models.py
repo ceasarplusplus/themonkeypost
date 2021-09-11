@@ -49,16 +49,17 @@ class Blog(models.Model):
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='images/blog/')
     detail = RichTextUploadingField(blank=True)
     video_link = models.CharField(max_length=255, blank=True, null=True)
     top_news = models.BooleanField(default=False)
-    top_news_img = models.ImageField(
-        upload_to='images/blog/topnews/', blank=True, null=True)
+    top_news_img = models.ImageField(upload_to='images/blog/topnews/', blank=True, null=True)
     tags = TaggableManager(blank=True)
     slug = models.SlugField(null=False, unique=True)
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    image = models.ImageField(upload_to='images/blog/')
+    seo_keywords = models.CharField(max_length=255, blank=True, null=True)
+    seo_description = models.TextField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -101,7 +102,7 @@ class BlogForm(ModelForm):
 class Gif(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True)
-    image = models.ImageField(blank=True, upload_to='videos/gifs/')
+    # image = models.ImageField(blank=True, upload_to='videos/gifs/')
 
     def __str__(self):
         return self.title

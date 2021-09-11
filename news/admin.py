@@ -5,7 +5,7 @@ from .models import Blog, BlogCategory, BlogComment, Gif, NewsSlide
 # Register your models here.
 
 
-@admin_thumbnails.thumbnail('image')
+# @admin_thumbnails.thumbnail('image')
 class GifImageInline(admin.TabularInline):
     model = Gif
     readonly_fields = ('id',)
