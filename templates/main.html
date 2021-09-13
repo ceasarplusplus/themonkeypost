@@ -144,7 +144,7 @@
                             class="btn btn-default btn-outline btn-xs card-header__button">All match fixturces</a>
                     </header>
                     <div class="spm_widget" style="width:100%">
-                        <div class="scoreaxis-live-match-widget scoreaxis-live-match-widget-211820330045" style="border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 8px; padding: 10px; background: rgb(34, 32, 32); width: 100%;"><iframe src="https://www.scoreaxis.com/widget/live-match/18125102?bodyBackground=%23222020&color=%23313934&widgetBorder=1&inst=211820330045&responsiveHeight=1&links=0&font=8&textColor=%23ffffff" width="100%" height="312" style="border: none;" __idm_frm__="1385"></iframe><script type="text/javascript" src="https://www.scoreaxis.com/widget/st/js/installers/live-match.js"></script></div>
+                        <div class="scoreaxis-live-match-widget scoreaxis-live-match-widget-211820330045" style="border: 1px solid rgba(0, 0, 0, 0.15); border-radius: 8px; padding: 10px; background: rgb(34, 32, 32); width: 100%;"><iframe src="https://www.scoreaxis.com/widget/live-match/{{next_match.code}}?bodyBackground=%23222020&color=%23313934&widgetBorder=1&inst=211820330045&responsiveHeight=1&links=0&font=8&textColor=%23ffffff" width="100%" height="312" style="border: none;" __idm_frm__="1385"></iframe><script type="text/javascript" src="https://www.scoreaxis.com/widget/st/js/installers/live-match.js"></script></div>
                     </div>
 
                 </div>
@@ -350,7 +350,7 @@
         <!-- Video Slideshow -->
         <div class="card card--clean">
             <header class="card__header card__header--has-filter">
-                <h4>Video Slideshow</h4>
+                <h4>Video Slideshow <i class="fas fa-arrow-left"></i>   <i class="fas fa-arrow-right"></i></h4>
 
                 <ul class="category-filter category-filter--carousel category-filter--extra-space">
                     <li class="category-filter__item"><a href="{% url 'videos' %}"

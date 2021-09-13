@@ -51,8 +51,6 @@ class IndexView(ListView):
                         'news_slide': news_slide,
                         'top_trends': top_trends,
                         'next_match': next_match,
-       
-                        
                         })
         return context
 
