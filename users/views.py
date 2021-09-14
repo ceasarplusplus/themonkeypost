@@ -45,8 +45,13 @@ def login_form(request):
             request.session['userimage'] = userprofile.image.url
             messages.success(
                 request, f"You are now logged in as {user.username}")
+            
+            if url == 'http://localhost:8000/login/':
+                
+                return HttpResponseRedirect('/')
+            else:
+                return HttpResponseRedirect(url)
 
-            return HttpResponseRedirect(url)
         else:
             messages.error(
                 request, "Login unsuccessful! Username or Password is incorrect")

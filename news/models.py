@@ -55,7 +55,7 @@ class Blog(models.Model):
     top_news = models.BooleanField(default=False)
     top_news_img = models.ImageField(upload_to='images/blog/topnews/', blank=True, null=True)
     tags = TaggableManager(blank=True)
-    slug = models.SlugField(null=False, unique=True)
+    slug = models.SlugField(null=False, unique=True, max_length=255)
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     seo_keywords = models.CharField(max_length=255, blank=True, null=True)
