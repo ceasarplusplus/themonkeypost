@@ -69,6 +69,7 @@ class AudiosView(ListView):
         news_slide = NewsSlide.objects.all()[:6]
         context.update({
                         'news_slide': news_slide,
+                        'title': 'football podcast'
                         
        
                         

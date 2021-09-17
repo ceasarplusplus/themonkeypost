@@ -4,6 +4,14 @@
 {% load mptt_tags %}
 
 
+{% block seo %}
+<title>{{title}}</title>
+<meta name="description" content="">
+<meta name="author" content="The Monkey Post">
+<meta name="keywords" content="">
+
+{% endblock seo %}
+
 {% block content %}
 {% load myapptags %}
 {% breadcrumbs as breadcrumb %}

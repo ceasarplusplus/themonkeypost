@@ -3,18 +3,19 @@
 <head>
     <!-- Basic Page Needs
 	================================================== -->
-    <title>{{title}}</title>
+   
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Sports Club, football podcast, League and News ">
-    <meta name="author" content="Ceasar++">
-    <meta name="keywords" content="sports club news football podcast">
+    
+    <!-- Mobile Specific Metas
+	================================================== -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
 
-    <!-- <title>{% block title %} My Home Page {% endblock %}</title>
-    <meta name="keywords" content="{% block keywords %} Home Keywords {% endblock %}">
-    <meta name="description" content="{% block description %} Home description  {% endblock %}"> -->
-
-
+    {% block seo %}
+    {% endblock seo %}
+   
+    <!-- canonical -->
+    <link rel="canonical" href="{{request.path}}">
 
     <!-- Favicons
 	================================================== -->
@@ -25,9 +26,8 @@
         href="{% static '' %}assets/images/monkeyfav.png">
     <link rel="apple-touch-icon" sizes="152x152"
         href="{% static '' %}assets/images/monkeyfav.png">
-    <!-- Mobile Specific Metas
-	================================================== -->
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+
+
     <!-- Google Web Fonts
 	================================================== -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CSource+Sans+Pro:400,700" rel="stylesheet">

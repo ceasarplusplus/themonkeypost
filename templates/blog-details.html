@@ -4,9 +4,19 @@
 <!-- django -->
 
 <!-- seo block -->
-{% block title %} {{blog.title}} {% endblock %}
+{% block seo %}
+<title>{{blog.title}}</title>
+<meta name="description" content="{{ blog.seo_description }}">
+<meta name="author" content="{{blog.author}}">
+<meta name="keywords" content="{{ blog.seo_keywords }}">
+
+{% endblock seo %}
+
+
+
+<!-- {% block title %} {{blog.title}} {% endblock %}
 {% block description %} {{ blog.seo_description }} {% endblock %}
-{% block keywords %} {{ blog.seo_keywords }} {% endblock %}
+{% block keywords %} {{ blog.seo_keywords }} {% endblock %} -->
 
 
 

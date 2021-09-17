@@ -2,6 +2,18 @@
 {% load static %}
 {% load humanize %}
 {% load mptt_tags %}
+
+<!-- seo -->
+{% block seo %}
+<title>Latest Football News - The Monkey Post</title>
+<meta name="description" content="The Monkey Post brings you the latest football news around all leagues and tournaments.">
+<meta name="author" content="The Monkey Post">
+<meta name="keywords" content="latest football news, latest transfer news, foootball news higlights">
+{% endblock seo %}
+<!-- end seo -->
+
+
+
 {% block content %}
 {% load myapptags %}
 {% advertisements as adverts %}
