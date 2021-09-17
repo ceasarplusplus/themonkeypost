@@ -12,6 +12,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
 from taggit.models import Tag
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
 
 from django.utils.encoding import force_bytes
@@ -107,7 +109,7 @@ class TagView(ListView):
                         })
         return context
 
-
+@cache_page(60 * 10)
 def blog_detail(request, id, slug):
    
     blog = Blog.objects.get(pk=id)
@@ -159,7 +161,7 @@ class BlogCategoryView(ListView):
         return context
 
 
-
+@cache_page(60 * 10)
 def category_blog(request, id, slug):
 
    
@@ -211,7 +213,7 @@ def deleteblogcomment(request, id):
     return HttpResponseRedirect(url)
 
 
-
+@cache_page(60 * 15)
 def highlights(request): 
 
     top_trends = Blog.objects.filter(top_news=True).order_by('-id')[:4]

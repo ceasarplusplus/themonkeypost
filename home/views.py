@@ -12,6 +12,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordChangeForm
 from taggit.models import Tag
+from django.views.decorators.cache import cache_page
 
 
 from django.utils.encoding import force_bytes

@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.views.decorators.cache import cache_page
 from .views import (
   
     IndexView,
@@ -26,9 +27,9 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     
 
-    path('videos/', VideosView.as_view(), name='videos'),
+    path('videos/', cache_page(60 * 10)(VideosView.as_view()), name='videos'),
     path('videostest/', VideosTestView.as_view(), name='videostest'),
-    path('podcast/', AudiosView.as_view(), name='podcast'),
+    path('podcast/', cache_page(60 * 10)(AudiosView.as_view()), name='podcast'),
     
     
     path('videos-category/<int:id>/<slug:slug>',

@@ -13,4 +13,5 @@ urlpatterns = [
     path('addtoshopcart/<int:id>', addtoshopcart, name='add_to_cart'),
     path('deletefromcart/<int:id>/', deletefromcart, name='deletefromcart'),
     path('ajaxcolor/', ajaxcolor, name='ajaxcolor'),
+    
 ]

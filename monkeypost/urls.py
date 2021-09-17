@@ -1,4 +1,5 @@
 from django.contrib import admin
+import debug_toolbar
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -30,6 +31,7 @@ urlpatterns = [
     path('', include('order.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

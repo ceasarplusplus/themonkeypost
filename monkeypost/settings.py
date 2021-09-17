@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'taggit',
+    'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -172,14 +174,14 @@ CKEDITOR_CONFIGS = {
 ###################################
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'mail.privateemail.com'
 EMAIL_HOST_USER = 'info@themonkeypost.net'
 EMAIL_HOST_PASSWORD = 'monkeypost@1Admin'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'info@themonkeypost.net'
 
 
@@ -192,3 +194,17 @@ DEFAULT_FROM_EMAIL = 'info@themonkeypost.net'
 # EMAIL_HOST_USER = 'noreply@shoppitza.com'
 # EMAIL_HOST_PASSWORD = 'Customer13131'
 # DEFAULT_FROM_EMAIL = 'noreply@shoppitza.com'
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
