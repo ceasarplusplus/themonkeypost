@@ -16,7 +16,7 @@ from taggit.models import Tag
 
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
+from django.template.loader import render_to_string, get_template
 # from .tokens import account_activation_token
 import random
 import json
@@ -57,7 +57,7 @@ def checkout(request):
         if form.is_valid():
 
             data = Order()
-            payment_option = form.cleaned_data.get('payment_option')
+            # payment_option = form.cleaned_data.get('payment_option')
             data.first_name = form.cleaned_data['first_name']
             data.last_name = form.cleaned_data['last_name']
             data.address = form.cleaned_data['address']
@@ -67,7 +67,7 @@ def checkout(request):
             data.user_id = current_user.id
             data.total = total
             data.ip = request.META.get('REMOTE_ADDR')
-            ordercode = get_random_string(8).upper()  # random cod
+            ordercode = get_random_string(8).upper()  # random code
             data.code = ordercode
             for rs in shopcart:
                 data.product_id   = rs.product_id
@@ -151,6 +151,7 @@ def order_completed(request):
         current_user = request.user
         shopcart = ShopCart.objects.filter(user_id=current_user.id)
         for rs in shopcart:
+            
 
             if rs.product.variant=='None':
                 product = Product.objects.get(id=rs.product_id)
@@ -163,6 +164,21 @@ def order_completed(request):
         
         shopcart.delete()
         request.session['cart_items'] = 0
+        subject = "Order Receipt"
+        to = [paid.user.email]
+        from_email = settings.DEFAULT_FROM_EMAIL
+
+        ctx = {
+            'username': current_user,
+            'email': paid.user.email,
+            'name': paid.first_name,
+            
+        }
+
+        message = get_template('email_order.html').render(ctx)
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
 
         # template = render_to_string('order_template.html', {
         #                                 'name': paid.first_name,
