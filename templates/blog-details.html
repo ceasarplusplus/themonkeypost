@@ -10,6 +10,18 @@
 <meta name="author" content="{{blog.author}}">
 <meta name="keywords" content="{{ blog.seo_keywords }}">
 
+<!-- facebook -->
+<meta property="og:url" content="https://www.themonkeypost.net{{request.path}}" />
+<meta property="og:title" content="{{blog.title}}" />
+<meta property="og:image" content="https://www.themonkeypost.net{{blog.image.url}}" />
+<meta property="og:image:alt" content="https://www.themonkeypost.net{{blog.image_alt}}" />
+
+
+<!-- twitter -->
+<meta name="twitter:image" content="{{blog.image.url}}" />
+<meta property="twitter:image:alt" content="Description of the image" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@themonkeypost" />
 {% endblock seo %}
 
 
@@ -72,7 +84,7 @@
                             </figure>
                             <div class="post-author__info">
                                 <h4 class="post-author__name">{{blog.author.first_name}} {{blog.author.last_name}}</h4>
-                                <span class="post-author__slogan">{{blog.author.username}}</span>
+                                <span class="post-author__slogan">@{{blog.author.username}}</span>
                             </div>
                         </div>
 

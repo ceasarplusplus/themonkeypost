@@ -211,6 +211,6 @@ INTERNAL_IPS = [
 ]
 
 ROBOTS_SITEMAP_URLS = [
-    'http://localhost:8000/sitemap.xml',
-    'http://localhost:8000/news_sitemap.xml'
+    'https://www.themonkeypost.net/sitemap.xml',
+    'https://www.themonkeypost.net/news_sitemap.xml'
 ]

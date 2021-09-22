@@ -51,6 +51,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=100)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/blog/')
+    image_alt = models.CharField(max_length=100, blank=True, null=True)
     detail = RichTextUploadingField(blank=True)
     video_link = models.CharField(max_length=255, blank=True, null=True)
     top_news = models.BooleanField(default=False)

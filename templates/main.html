@@ -39,7 +39,7 @@
                             {% for rs in top_trends %}
                             {% if rs.top_news_img %}
                             <div class="posts__item posts__item--category-{{rs.category.id}}"><a
-                                    href="{% url 'blog_detail' rs.id rs.slug %}" class="posts__link-wrapper">
+                                    href="{% url 'blog_detail' rs.slug %}" class="posts__link-wrapper">
                                     <figure class="posts__thumb"><img src="{{rs.top_news_img.url}}" alt="">
                                     </figure>
                                     <div class="posts__inner">
@@ -70,12 +70,12 @@
                         <div class="posts__item posts__item--card posts__item--category-{{rs.category.id}} card">
                             <figure class="posts__thumb">
                                 <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
-                                </div><a href="{% url 'blog_detail' rs.id rs.slug %}"><img src="{{rs.image.url}}"
+                                </div><a href="{% url 'blog_detail' rs.slug %}"><img src="{{rs.image.url}}"
                                         alt=""></a>
                             </figure>
                             <div class="posts__inner card__content">
                                 <h6 class="posts__title posts__title--color-hover"><a
-                                        href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6>
+                                        href="{% url 'blog_detail' rs.slug %}">{{rs.title}}</a></h6>
                                 <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}} ago</time>
 
                             </div>
