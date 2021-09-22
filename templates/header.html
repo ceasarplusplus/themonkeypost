@@ -147,7 +147,7 @@
 
                             <span class="header-cart__subtotal-sum">₦{{ total|intcomma }}</span></li>
                         <li class="header-cart__item header-cart__item--action"><a href="{% url 'shopcart' %}"
-                                class="btn btn-default btn-block">Go to Cart</a> <a href="{% url 'checkout' %}"
+                                class="btn btn-danger btn-outline">Go to Cart</a> <a href="{% url 'checkout' %}"
                                 class="btn btn-primary-inverse btn-block">Checkout</a></li>
 
                         {% else %}
@@ -269,14 +269,14 @@
                         {% for rs in top_trends_header %}
                         <li class="posts__item posts__item--category-{{rs.id}}">
                             <figure class="posts__thumb posts__thumb--hover"><a
-                                    href="{% url 'blog_detail' rs.id rs.slug %}"><img src="{{rs.image.url}}"
+                                    href="{% url 'blog_detail' rs.slug %}"><img src="{{rs.image.url}}"
                                         style="width: 80px;" alt=""></a>
                             </figure>
                             <div class="posts__inner">
                                 <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
                                 </div>
                                 <h6 class="posts__title posts__title--color-hover"><a
-                                        href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6><time
+                                        href="{% url 'blog_detail' rs.slug %}">{{rs.title}}</a></h6><time
                                     datetime="2017-08-21" class="posts__date">{{rs.date|timesince}}</time>
                             </div>
                         </li>

@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'robots'
 ]
 
 SITE_ID = 1
@@ -207,4 +208,9 @@ INTERNAL_IPS = [
     # ...
     '127.0.0.1',
     # ...
+]
+
+ROBOTS_SITEMAP_URLS = [
+    'http://localhost:8000/sitemap.xml',
+    'http://localhost:8000/news_sitemap.xml'
 ]

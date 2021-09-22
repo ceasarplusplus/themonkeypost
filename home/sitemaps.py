@@ -6,9 +6,12 @@ from store.models import Product, Category
 
 
 class StaticViewSitemap(Sitemap):
+    
+    priority = 0.5
+    changefreq = 'daily'
 
     def items(self):
-        return ['live_view', 'blog', 'subscribe', 'videos', 'index',
+        return [ 'index', 'blog', 'live_view', 'subscribe', 'videos',
         'odds_view', 'contact', 'tandc','podcast', 'faq', 'donate','privacy_policy',
           'highlights', 'shop',
        'shopcart',
@@ -24,15 +27,23 @@ class StaticViewSitemap(Sitemap):
 
 
 class BlogSitemap(Sitemap):
+    priority = 0.5
+    changefreq = 'never'
 
     def items(self):
         return Blog.objects.all().order_by('id')
+
+    def lastmod(self, obj):
+        return obj.updated
 
 
 class StoreSitemap(Sitemap):
 
     def items(self):
         return Product.objects.all().order_by('id')
+    
+    def lastmod(self, obj):
+        return obj.update_at
 
 class StoreCategorySitemap(Sitemap):
 

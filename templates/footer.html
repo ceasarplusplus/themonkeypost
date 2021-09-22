@@ -71,14 +71,14 @@
                                         
                                         {% for rs in top_trends_footer %}
                                         <li class="posts__item posts__item--category-{{rs.category.id}}">
-                                            <figure class="posts__thumb posts__thumb--hover"><a href="{% url 'blog_detail' rs.id rs.slug %}"><img
+                                            <figure class="posts__thumb posts__thumb--hover"><a href="{% url 'blog_detail' rs.slug %}"><img
                                                         src="{{rs.image.url}}" style="width: 80px;"
                                                         alt=""></a>
                                             </figure>
                                             <div class="posts__inner">
                                                 <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span></div>
                                                 <h6 class="posts__title posts__title--color-hover"><a
-                                                        href="{% url 'blog_detail' rs.id rs.slug %}">{{rs.title}}</a></h6><time
+                                                        href="{% url 'blog_detail' rs.slug %}">{{rs.title}}</a></h6><time
                                                     datetime="2017-08-21" class="posts__date">{{rs.date|timesince}}</time>
                                             </div>
                                         </li>

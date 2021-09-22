@@ -62,26 +62,26 @@ class BlogView(ListView):
                         })
         return context
 
-def blog(request):
+# def blog(request):
  
-    blog_category = BlogCategory.objects.all()
-    news_slide = NewsSlide.objects.all()[:6]
+#     blog_category = BlogCategory.objects.all()
+#     news_slide = NewsSlide.objects.all()[:6]
    
-    blogs = Blog.objects.all().order_by('-id')
-    bc = Breadcrumb.objects.get(pk=1)
+#     blogs = Blog.objects.all().order_by('-id')
+#     bc = Breadcrumb.objects.get(pk=1)
     
 
-    context = {
+#     context = {
     
-        'blog_category': blog_category,
-        'blogs': blogs,
+#         'blog_category': blog_category,
+#         'blogs': blogs,
        
-        'title': 'Latest Football News - The monkey Post',
-        'bc': bc,
-        'news_slide': news_slide,
-    }
+#         'title': 'Latest Football News - The monkey Post',
+#         'bc': bc,
+#         'news_slide': news_slide,
+#     }
 
-    return render(request, 'blog.html', context)
+#     return render(request, 'blog.html', context)
 
 
 
@@ -90,11 +90,11 @@ class TagView(ListView):
     model = Blog
     template_name = 'blog-tags.html'
     context_object_name = 'blogs'
-
+    ordering = ['-id']
     paginate_by = 28
 
     def get_queryset(self):
-        return Blog.objects.filter(tags__slug=self.kwargs.get('slug'))
+        return Blog.objects.filter(tags__slug=self.kwargs.get('slug')).order_by('-id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -110,14 +110,14 @@ class TagView(ListView):
         return context
 
 @cache_page(60 * 10)
-def blog_detail(request, id, slug):
+def blog_detail(request,slug):
    
-    blog = Blog.objects.get(pk=id)
+    blog = Blog.objects.get(slug=slug)
     top_trends = Blog.objects.filter(top_news=True).order_by('-id')[:4]
     blogcat = blog.category
     rel_blog = Blog.objects.filter(category=blogcat).order_by('-id')
-    comments = BlogComment.objects.filter(blog_id=id).order_by('id')
-    gif = Gif.objects.filter(blog_id=id)
+    comments = BlogComment.objects.filter(blog_id=blog.id).order_by('id')
+    gif = Gif.objects.filter(blog_id=blog.id)
     pop_tags = Blog.tags.most_common()[:10]
     paginator = Paginator(comments, 2)
     page = request.GET.get('page')
@@ -137,6 +137,34 @@ def blog_detail(request, id, slug):
     }
 
     return render(request, 'blog-details.html', context)
+# @cache_page(60 * 10)
+# def blog_detail(request, id, slug):
+   
+#     blog = Blog.objects.get(pk=id)
+#     top_trends = Blog.objects.filter(top_news=True).order_by('-id')[:4]
+#     blogcat = blog.category
+#     rel_blog = Blog.objects.filter(category=blogcat).order_by('-id')
+#     comments = BlogComment.objects.filter(blog_id=id).order_by('id')
+#     gif = Gif.objects.filter(blog_id=id)
+#     pop_tags = Blog.tags.most_common()[:10]
+#     paginator = Paginator(comments, 2)
+#     page = request.GET.get('page')
+#     paged_listings = paginator.get_page(page)
+
+
+#     context = {
+#         'blog': blog,
+#         'rel_blog': rel_blog[:2],
+        
+#         'title': 'News details - Monkey Post',
+#         'comments': comments,
+#         'top_trends': top_trends,
+#         'gif': gif,
+#         'pop_tags': pop_tags,
+#         'paged_listings': paged_listings,
+#     }
+
+#     return render(request, 'blog-details.html', context)
 
 
 class BlogCategoryView(ListView):
@@ -148,7 +176,7 @@ class BlogCategoryView(ListView):
     
 
     def get_queryset(self):
-        return Blog.objects.filter(category_id=self.kwargs.get('id'))
+        return Blog.objects.filter(category_id=self.kwargs.get('id')).order_by('-id')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)    
@@ -215,6 +243,7 @@ def deleteblogcomment(request, id):
 
 @cache_page(60 * 15)
 def highlights(request): 
+    
 
     top_trends = Blog.objects.filter(top_news=True).order_by('-id')[:4]
         
@@ -225,7 +254,7 @@ def highlights(request):
     return render(request, 'highlights.html', context)
 
     
-    
+@cache_page(60 * 15)  
 def highlight_json(request):
     vids = {} 
     videos = {}
@@ -262,11 +291,6 @@ def highlight_json(request):
                 # 'vids': vids,
             }
             highlight.append(vids)
-
-#         data = {
-    
-#     'highlight': highlight,
-# }
 
 
     

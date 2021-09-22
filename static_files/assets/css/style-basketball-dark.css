@@ -377,7 +377,7 @@ ul.list.list--circle li:before {
 }
 
 .text-warning {
-    color: #ff7e1f !important
+    color: #f34141 !important
 }
 
 .text-info {
@@ -1079,7 +1079,7 @@ td.highlight {
 }
 
 .df-color-pallete__item.color-3 {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .df-color-pallete__item.color-4 {
@@ -1312,7 +1312,7 @@ screen and (-ms-high-contrast:active) {
 }
 
 .effect-duotone--tertiary .effect-duotone__layer-inner {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .effect-duotone--quaternary .effect-duotone__layer:after {
@@ -1761,7 +1761,7 @@ fieldset[disabled] .btn-primary:hover {
 .btn-primary-inverse:hover,
 .open>.btn-primary-inverse.dropdown-toggle {
     color: #fff;
-    background-color: #ff7e1f;
+    background-color: #f34141;
     border-color: transparent
 }
 
@@ -1915,7 +1915,7 @@ fieldset[disabled] .btn-info:hover {
 
 .btn-warning {
     color: #fff;
-    background-color: #ff7e1f;
+    background-color: #f34141;
     border-color: transparent
 }
 
@@ -1959,12 +1959,12 @@ fieldset[disabled] .btn-info:hover {
 fieldset[disabled] .btn-warning.focus,
 fieldset[disabled] .btn-warning:focus,
 fieldset[disabled] .btn-warning:hover {
-    background-color: #ff7e1f;
+    background-color: #f34141;
     border-color: transparent
 }
 
 .btn-warning .badge {
-    color: #ff7e1f;
+    color: #f34141;
     background-color: #fff
 }
 
@@ -2502,7 +2502,7 @@ fieldset[disabled] .btn-odnoklassniki:hover {
 }
 
 .btn-outline.btn-warning {
-    border-color: #ff7e1f;
+    border-color: #f34141;
     color: #9a9da2;
     border-width: 2px
 }
@@ -3180,7 +3180,7 @@ a.label:hover {
 }
 
 .label-warning {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .label-warning[href]:focus,
@@ -3384,7 +3384,7 @@ fieldset[disabled] .form-control::-webkit-input-placeholder {
 }
 
 .has-warning .form-control {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23ff7e1f' d='M4.4 5.324h-.8v-2.46h.8zm0 1.42h-.8V5.89h.8zM3.76.63L.04 7.075c-.115.2.016.425.26.426h7.397c.242 0 .372-.226.258-.426C6.726 4.924 5.47 2.79 4.253.63c-.113-.174-.39-.174-.494 0z'/%3E%3C/svg%3E")
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23f34141' d='M4.4 5.324h-.8v-2.46h.8zm0 1.42h-.8V5.89h.8zM3.76.63L.04 7.075c-.115.2.016.425.26.426h7.397c.242 0 .372-.226.258-.426C6.726 4.924 5.47 2.79 4.253.63c-.113-.174-.39-.174-.494 0z'/%3E%3C/svg%3E")
 }
 
 .has-error .checkbox,
@@ -4288,7 +4288,7 @@ abbr.required {
 }
 
 .progress__bar--warning {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .progress__bar--danger {
@@ -4544,7 +4544,7 @@ abbr.required {
 }
 
 .progress--battery .progress__bar--warning {
-    background-image: radial-gradient(circle, #ff7e1f, #ff7e1f 2px, transparent 0, transparent), radial-gradient(circle, #ff7e1f, #ff7e1f 2px, transparent 0, transparent), linear-gradient(90deg, #ff7e1f, #ff7e1f 4px, transparent 0, transparent 8px)
+    background-image: radial-gradient(circle, #f34141, #f34141 2px, transparent 0, transparent), radial-gradient(circle, #f34141, #f34141 2px, transparent 0, transparent), linear-gradient(90deg, #f34141, #f34141 4px, transparent 0, transparent 8px)
 }
 
 .progress--battery .progress__bar--danger,
@@ -5128,7 +5128,7 @@ screen and (-ms-high-contrast:active) {
 
 .lightbox-holder.posts__item--category-3 .lightbox-holder__link--play:before,
 .lightbox-holder.posts__item--category-3 .lightbox-holder__overlay--video:before {
-    border-color: #ff7e1f
+    border-color: #f34141
 }
 
 /* my colors category */
@@ -10430,15 +10430,15 @@ ul.posts:not(.post-grid) {
 
 .posts__item--category-3 .posts__cat-label,
 .posts__item--category-3 .posts__cta {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .posts__item--category-3 .posts__title--color-hover>a:hover {
-    color: #ff7e1f
+    color: #f34141
 }
 
 .posts__item--category-3 .posts__thumb--hover:before {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 
@@ -10452,7 +10452,7 @@ ul.posts:not(.post-grid) {
 }
 
 .posts__item .posts__cat-label--category-3 {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .posts__item .posts__cat-label--category-4 {
@@ -11741,7 +11741,7 @@ ul.posts:not(.post-grid) {
 
 .posts__item--tile-event .posts__thumb:after {
     top: 0;
-    background-image: linear-gradient(120deg, #31404b, #ff7e1f);
+    background-image: linear-gradient(120deg, #31404b, #f34141);
     opacity: .4;
     z-index: 3
 }
@@ -12911,7 +12911,7 @@ ul.posts:not(.post-grid) {
 }
 
 .posts--video-grid .posts__item.posts__item--category-3 .posts__link-wrapper:before {
-    border-color: #ff7e1f
+    border-color: #f34141
 }
 
 @media (min-width:992px) {
@@ -15063,7 +15063,7 @@ ul.posts:not(.post-grid) {
 }
 
 .comments-list--alt .comments-list__item--category-3 .comments-list__post:before {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .comments-list--alt .comments-list__avatar {
@@ -17131,7 +17131,7 @@ ul.posts:not(.post-grid) {
 }
 
 .widget-results__dt--category-3:before {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .widget-results__dt--category-4:before {
@@ -18177,7 +18177,7 @@ th.team-leader__total {
 }
 
 .alc-event-calendar .day--type-3 {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .alc-event-calendar .day--type-4 {
@@ -18231,7 +18231,7 @@ th.team-leader__total {
 }
 
 .alc-event-calendar .alc-event-calendar__event--type-3:before {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .alc-event-calendar .alc-event-calendar__event--type-4:before {
@@ -18394,7 +18394,7 @@ th.team-leader__total {
 }
 
 .alc-event-list-item--type-3 .alc-event-list-item__time:before {
-    background-color: #ff7e1f
+    background-color: #f34141
 }
 
 .alc-event-list-item--type-4 .alc-event-list-item__time:before {

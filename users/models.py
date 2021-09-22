@@ -1,20 +1,13 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
-from mptt.models import MPTTModel, TreeForeignKey
-# from django.forms import ModelForm
-from django.forms import ModelForm, TextInput, Textarea
-from django.db.models import Avg, Count
+
 from django.db.models.signals import post_save
 from django.utils.safestring import mark_safe
 # from mptt.fields import TreeForeignKey
 # from mptt.models import MPTTModel
 
-from django.dispatch import receiver
-from django_countries.fields import CountryField
-from django_countries.widgets import CountrySelectWidget
-from taggit.managers import TaggableManager
+
 from PIL import Image
 
 

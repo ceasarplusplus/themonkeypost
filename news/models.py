@@ -15,6 +15,7 @@ from django.dispatch import receiver
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 from taggit.managers import TaggableManager
+from django.contrib.sitemaps import ping_google
 
 
 
@@ -65,7 +66,7 @@ class Blog(models.Model):
         return self.title
 
     def get_absolute_url(self):       
-        return reverse('blog_detail', kwargs={'id': self.id, 'slug': self.slug})
+        return reverse('blog_detail', kwargs={'slug': self.slug})
 
     def image_tag(self):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
@@ -79,6 +80,15 @@ class Blog(models.Model):
         if reviews["count"] is not None:
             cnt = int(reviews["count"])
         return cnt
+
+    # def save(self, force_insert=False, force_update=False):
+    #     super().save(force_insert, force_update)
+    #     try:
+    #         ping_google()
+    #     except Exception:
+    #         # Bare 'except' because we could get a variety
+    #         # of HTTP-related exceptions.
+    #         pass
 
 
 class BlogComment(models.Model):

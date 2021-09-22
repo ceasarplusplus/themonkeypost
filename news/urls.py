@@ -9,7 +9,7 @@ urlpatterns = [
     path('news/', BlogView.as_view(), name='blog'),
     path('highlight-json/', highlight_json, name='highlight-json'),
     path('match-highlights/', highlights, name='highlights'),
-    path('news/<int:id>/<slug:slug>',
+    path('news/<slug:slug>',
          blog_detail, name='blog_detail'),
     path('news/tags/<slug:slug>',
          cache_page(60 * 10)(TagView.as_view()), name='tag_view'),
