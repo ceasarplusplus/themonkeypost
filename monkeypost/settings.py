@@ -27,7 +27,7 @@ SECRET_KEY = 'k6ue4xu1*jxy-t79v3+%zen+%fd0wm%k!$t6)(^#zs8$q=^$u*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['147.182.138.80', 'www.themonnkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -175,14 +175,14 @@ CKEDITOR_CONFIGS = {
 ###################################
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'mail.privateemail.com'
 EMAIL_HOST_USER = 'info@themonkeypost.net'
 EMAIL_HOST_PASSWORD = 'monkeypost@1Admin'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = 'info@themonkeypost.net'
 
 

@@ -69,8 +69,8 @@ def checkout(request):
             data.ip = request.META.get('REMOTE_ADDR')
             ordercode = get_random_string(8).upper()  # random code
             data.code = ordercode
-            for rs in shopcart:
-                data.product   = rs.product
+            # for rs in shopcart:
+            #     data.product_id   = rs.product_id
             data.save()
 
             for rs in shopcart:
@@ -112,7 +112,7 @@ def paystack(request, pk):
     orderid = pk
     order = Order.objects.get(pk=orderid)
     amount = int(order.total)
-    print(order.total)
+    # print(order.total)
     url = 'https://api.paystack.co/transaction/initialize'
     headers = {
         'Authorization': 'Bearer sk_test_0acbc536d975b436505c7ddc7dbd1337e5b97a8e',
@@ -124,9 +124,9 @@ def paystack(request, pk):
         "amount": amount*100
     }
     x = requests.post(url, data=json.dumps(cash), headers=headers)
-    print(x.status_code)
+    # print(x.status_code)
     results = x.json()
-    print('results: ', results)
+    # print('results: ', results)
     # link = []
     print(x.json())
     # print(x['data']['authorization_url'])
@@ -142,7 +142,7 @@ def order_completed(request):
         trxref = request.GET.get('trxref')
         
 
-        print(trxref)
+        # print(trxref)
 
         paid = Order.objects.get(ref_code=trxref)
         
@@ -151,8 +151,8 @@ def order_completed(request):
         current_user = request.user
         shopcart = ShopCart.objects.filter(user_id=current_user.id)
         for rs in shopcart:
-            
-
+            paid.product_id   = rs.product_id
+            paid.save()
             if rs.product.variant=='None':
                 product = Product.objects.get(id=rs.product_id)
                 product.amount -= rs.quantity
@@ -162,16 +162,18 @@ def order_completed(request):
                 variant.quantity -= rs.quantity
                 variant.save()
         
-        shopcart.delete()
+        paid.save()
         request.session['cart_items'] = 0
         subject = "Order Receipt"
         to = [paid.user.email]
         from_email = settings.DEFAULT_FROM_EMAIL
 
         ctx = {
-            'username': current_user,
-            'email': paid.user.email,
-            'name': paid.first_name,
+            # 'username': current_user,
+            # 'email': paid.user.email,
+            # 'name': paid.first_name,
+            'paid': paid,
+            'shopcart': shopcart,
             
         }
 
@@ -198,6 +200,8 @@ def order_completed(request):
 
         #     email.fail_silently = False
         #     email.send()
+        # shopcart.delete()
+        # request.session['cart_items']=0
 
     context = {
         'title': 'Order Completed - The Monkey Post',
