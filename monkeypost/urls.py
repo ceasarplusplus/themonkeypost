@@ -34,12 +34,11 @@ urlpatterns = [
     path('', include('store.urls')),
     path('', include('users.urls')),
     path('', include('order.urls')),
+    # path('accounts/', include('django.contrib.auth.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     # path('sitemap.xml', views.index, {'sitemaps': sitemaps}),
     # path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
     #      name='django.contrib.sitemaps.views.sitemap'),
-
-
     path('news_sitemap.xml', views.index, {'sitemaps': news_sitemap}),
     path('news_sitemap-<section>.xml', views.sitemap, {'sitemaps': news_sitemap, 'template_name': 'sitemap/my_sitemap.html'},
          name='django.contrib.sitemaps.views.sitemap'),

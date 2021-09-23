@@ -79,8 +79,8 @@
                     <div class="post__meta-block post__meta-block--side">
                         <!-- Post Author -->
                         <div class="post-author">
-                            <figure class="post-author__avatar"><img src="{{blog.author.userprofile.image.url}}" style="width: 80px;"
-                                    alt="Post Author Avatar">
+                            <figure class="post-author__avatar"><img src="{{blog.author.userprofile.image.url}}"
+                                    style="width: 80px;" alt="Post Author Avatar">
                             </figure>
                             <div class="post-author__info">
                                 <h4 class="post-author__name">{{blog.author.first_name}} {{blog.author.last_name}}</h4>
@@ -338,8 +338,8 @@
                                         <figure class="posts__thumb">
                                             <div class="posts__cat"><span
                                                     class="label posts__cat-label">{{rs.category}}</span>
-                                            </div><a href="{% url 'blog_detail' rs.slug %}"><img
-                                                    src="{{rs.image.url}}" alt=""></a>
+                                            </div><a href="{% url 'blog_detail' rs.slug %}"><img src="{{rs.image.url}}"
+                                                    alt=""></a>
                                         </figure>
                                         <div class="posts__inner card__content">
                                             <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}}
@@ -382,8 +382,8 @@
                                 <div class="posts__inner">
                                     <div class="posts__cat"><span class="label posts__cat-label">{{rs.category}}</span>
                                     </div>
-                                    <h6 class="posts__title"><a
-                                            href="{% url 'blog_detail' rs.slug %}">{{rs.title}}</a></h6>
+                                    <h6 class="posts__title"><a href="{% url 'blog_detail' rs.slug %}">{{rs.title}}</a>
+                                    </h6>
                                     <time datetime="2016-08-23" class="posts__date">{{rs.date|timesince}} ago</time>
                                 </div>
                             </li>

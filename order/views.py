@@ -70,7 +70,7 @@ def checkout(request):
             ordercode = get_random_string(8).upper()  # random code
             data.code = ordercode
             for rs in shopcart:
-                data.product_id   = rs.product_id
+                data.product   = rs.product
             data.save()
 
             for rs in shopcart:
@@ -107,7 +107,7 @@ def checkout(request):
                }
     return render(request, 'checkout.html', context)
 
-
+@login_required(login_url='/login')
 def paystack(request, pk):
     orderid = pk
     order = Order.objects.get(pk=orderid)
