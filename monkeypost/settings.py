@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = 'k6ue4xu1*jxy-t79v3+%zen+%fd0wm%k!$t6)(^#zs8$q=^$u*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['147.182.138.80', 'www.themonnkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
