@@ -27,7 +27,7 @@ SECRET_KEY = 'k6ue4xu1*jxy-t79v3+%zen+%fd0wm%k!$t6)(^#zs8$q=^$u*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['147.182.138.80', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['137.184.133.130', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -225,3 +225,20 @@ ROBOTS_SITEMAP_URLS = [
     'https://www.themonkeypost.net/sitemap.xml',
     'https://www.themonkeypost.net/news_sitemap.xml'
 ]
+
+
+
+# AWS_ACCESS_KEY_ID = 'HHJVZLP6UBSP7CVJLSTA'
+# AWS_SECRET_ACCESS_KEY = 'paxmBiMeays6bD2nSszYu7gVmkpZoPZO3wMLkPBZMLs'
+# AWS_STORAGE_BUCKET_NAME = 'themonkeypost-space'
+# AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com'
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# AWS_LOCATION = 'static'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
