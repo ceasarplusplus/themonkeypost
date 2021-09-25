@@ -7,7 +7,7 @@ import pathlib
 
 
 def main():
-    dotenv.read_dotenv()
+    # dotenv.read_dotenv()
     # DOT_ENV_PATH = pathlib.Path() / '.env'
     # if DOT_ENV_PATH.exists():
     #     dotenv.read_dotenv(str(DOT_ENV_PATH))
@@ -18,8 +18,8 @@ def main():
 
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'monkeypost.settings.dev')
 
-    # if os.getenv('DJANGO_SETTINGS_MODULE'):
-    #     os.environ['DJANGO_SETTINGS_MODULE'] = os.getenv('DJANGO_SETTINGS_MODULE')
+    if os.getenv('DJANGO_SETTINGS_MODULE'):
+        os.environ['DJANGO_SETTINGS_MODULE'] = os.getenv('DJANGO_SETTINGS_MODULE')
 
     try:
         from django.core.management import execute_from_command_line
@@ -36,6 +36,6 @@ if __name__ == '__main__':
     main()
 
 
-# dotenv.load_dotenv(
-#     os.path.join(os.path.dirname(__file__), '.env')
-# )
+dotenv.load_dotenv(
+    os.path.join(os.path.dirname(__file__), '.env')
+)
