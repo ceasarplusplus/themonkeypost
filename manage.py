@@ -7,11 +7,12 @@ import pathlib
 
 
 def main():
-    DOT_ENV_PATH = pathlib.Path() / '.env'
-    if DOT_ENV_PATH.exists():
-        dotenv.read_dotenv(str(DOT_ENV_PATH))
-    else:
-        print("No .env found ceasar, be sure to make it.")
+     dotenv.read_dotenv()
+    # DOT_ENV_PATH = pathlib.Path() / '.env'
+    # if DOT_ENV_PATH.exists():
+    #     dotenv.read_dotenv(str(DOT_ENV_PATH))
+    # else:
+    #     print("No .env found ceasar, be sure to make it.")
 
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'monkeypost.settings.dev')
