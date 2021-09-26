@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = '6ba5t@&i*pqe7@vllgpbpb&g0-6(-0=#if#ilxf(0wu*vte7ub'
-# SECRET_KEY = config('SECRET_KEY')
-with open(os.path.join(BASE_DIR, 'monkeypost/secret_key.txt')) as f:
-    SECRET_KEY = f.read().strip()
+SECRET_KEY = config('SECRET_KEY')
+# with open(os.path.join(BASE_DIR, 'monkeypost/secret_key.txt')) as f:
+#     SECRET_KEY = f.read().strip()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -100,12 +100,12 @@ WSGI_APPLICATION = 'monkeypost.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
@@ -119,16 +119,16 @@ DATABASES = {
 # }
 
 # databade .ini
-# DATABASES = {
-#     'default': {
-#         'ENGINE': config('ENGINE'),
-#         'NAME': config('NAME'),
-#         'USER': config('USER'),
-#         'PASSWORD': config('PASSWORD'),
-#         'HOST': 'localhost',
-#         'PORT': '',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
