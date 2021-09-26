@@ -1,17 +1,15 @@
-from monkeypost.settings.base import *
+from .base import *
 
-# override base settings here
-
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['67.205.150.17', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com']
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('ENGINE'),
-        'NAME': os.environ.get('NAME'),
-        'USER': os.environ.get('USER'),
-        'PASSWORD': os.environ.get('PASSWORD'),
+        'ENGINE': config('ENGINE'),
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -46,6 +44,20 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
+
+SECURE_HSTS_SECONDS = True
+
+# CORS_REPLACE_HTTPS_REFERER      = True
+# HOST_SCHEME                     = "http://"
+# SECURE_PROXY_SSL_HEADER         = None
+# SECURE_SSL_REDIRECT             = True
+# SESSION_COOKIE_SECURE           = True
+# CSRF_COOKIE_SECURE              = True
+SECURE_HSTS_SECONDS             = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
+SECURE_HSTS_PRELOAD = True
+# SECURE_FRAME_DENY               = True
+
 
 # SECURE_BROWSER_XSS_FILTER = True
 

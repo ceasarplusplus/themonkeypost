@@ -13,22 +13,26 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+# BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'k6ue4xu1*jxy-t79v3+%zen+%fd0wm%k!$t6)(^#zs8$q=^$u*')
+SECRET_KEY = '6ba5t@&i*pqe7@vllgpbpb&g0-6(-0=#if#ilxf(0wu*vte7ub'
+# SECRET_KEY = config('SECRET_KEY')
 # with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
 #     SECRET_KEY = f.read().strip()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = str(os.environ.get('DEBUG')) == 1
+DEBUG = True
 
-ALLOWED_HOSTS = ['137.184.133.130', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['137.184.52.165', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -69,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
 ]
 
 ROOT_URLCONF = 'monkeypost.urls'
