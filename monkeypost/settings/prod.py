@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['67.205.150.17', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com']
+ALLOWED_HOSTS = ['137.184.52.165', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com']
 
 DATABASES = {
     'default': {
