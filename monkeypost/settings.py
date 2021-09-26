@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_countries',
     'taggit',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
