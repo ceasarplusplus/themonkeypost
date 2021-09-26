@@ -48,7 +48,7 @@ urlpatterns = [
 
     path('ckeditor/', include('ckeditor_uploader.urls')),
 
-    path('__debug__/', include(debug_toolbar.urls)),
+    # path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
