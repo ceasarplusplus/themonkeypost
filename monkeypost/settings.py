@@ -284,6 +284,8 @@ CSRF_COOKIE_SECURE = True
 
 SECURE_HSTS_SECONDS = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # CORS_REPLACE_HTTPS_REFERER      = True
 # HOST_SCHEME                     = "http://"
 # SECURE_PROXY_SSL_HEADER         = None
