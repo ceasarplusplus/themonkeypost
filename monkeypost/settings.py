@@ -32,7 +32,7 @@ SECRET_KEY = '6ba5t@&i*pqe7@vllgpbpb&g0-6(-0=#if#ilxf(0wu*vte7ub'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['137.184.52.165', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['161.35.109.84', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -236,15 +236,15 @@ ROBOTS_SITEMAP_URLS = [
 # SESSION_COOKIE_SECURE = False
 # CSRF_COOKIE_SECURE = False
 # SECURE_SSL_REDIRECT = False
-CORS_REPLACE_HTTPS_REFERER      = False
-HOST_SCHEME                     = "http://"
-SECURE_PROXY_SSL_HEADER         = None
-SECURE_SSL_REDIRECT             = False
-SESSION_COOKIE_SECURE           = False
-CSRF_COOKIE_SECURE              = False
-SECURE_HSTS_SECONDS             = None
-SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
-SECURE_FRAME_DENY               = False
+# CORS_REPLACE_HTTPS_REFERER      = False
+# HOST_SCHEME                     = "http://"
+# SECURE_PROXY_SSL_HEADER         = None
+# SECURE_SSL_REDIRECT             = False
+# SESSION_COOKIE_SECURE           = False
+# CSRF_COOKIE_SECURE              = False
+# SECURE_HSTS_SECONDS             = None
+# SECURE_HSTS_INCLUDE_SUBDOMAINS  = False
+# SECURE_FRAME_DENY               = False
 
 # AWS_ACCESS_KEY_ID = 'HHJVZLP6UBSP7CVJLSTA'
 # AWS_SECRET_ACCESS_KEY = 'paxmBiMeays6bD2nSszYu7gVmkpZoPZO3wMLkPBZMLs'
