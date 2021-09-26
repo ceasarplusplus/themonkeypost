@@ -7,20 +7,7 @@
 
 <!-- Page Heading
 		================================================== -->
-        <div class="page-heading">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10 offset-md-1">
-						<h1 class="page-heading__title">Error <span class="highlight">Page</span></h1>
-						<ol class="page-heading__breadcrumb breadcrumb">
-							<li class="breadcrumb-item"><a href="index.html">Home</a></li>
-							<li class="breadcrumb-item"><a href="features-shortcodes.html">Features</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Error</li>
-						</ol>
-					</div>
-				</div>
-			</div>
-		</div><!-- Page Heading / End -->
+     !-- Page Heading / End -->
 		<!-- Content
 		================================================== -->
 		<div class="site-content">
@@ -34,11 +21,12 @@
 								<h2 class="error__title">OOOOPS! Internal Server Error</h2>
 								<h3 class="error__subtitle">Seems that we have a problem!</h3>
 							</header>
-							<div class="error__description">The page you are looking for has been moved or doesn’t exist
-								anymore, if you like you can return to our homepage. If the problem persists, please
+							<div class="error__description">Server Error!. If the problem persists, please
 								send us an email to <a href="mailto:info@alchemists.com">info@alchemists.com</a></div>
-							<footer class="error__cta"><a href="index.html" class="btn btn-primary">Return to Home</a>
-								<a href="#" class="btn btn-primary-inverse">Keep Browsing</a></footer>
+								
+								<footer class="error__cta"><a href="{% url 'index' %}" class="btn btn-primary">Return to Home</a>
+									<a href="{% url 'videos' %}" class="btn btn-primary-inverse">Keep Browsing</a>
+								</footer>
 						</div>
 					</div>
 				</div><!-- Error 404 / End -->

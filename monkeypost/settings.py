@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 # with open(os.path.join(BASE_DIR, 'monkeypost/secret_key.txt')) as f:
 #     SECRET_KEY = f.read().strip()
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['157.245.254.139', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
