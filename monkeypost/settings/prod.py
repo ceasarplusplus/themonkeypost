@@ -39,13 +39,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 
-SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
-SECURE_HSTS_SECONDS = True
+# SECURE_HSTS_SECONDS = True
 
 # CORS_REPLACE_HTTPS_REFERER      = True
 # HOST_SCHEME                     = "http://"
@@ -53,9 +53,14 @@ SECURE_HSTS_SECONDS = True
 # SECURE_SSL_REDIRECT             = True
 # SESSION_COOKIE_SECURE           = True
 # CSRF_COOKIE_SECURE              = True
-SECURE_HSTS_SECONDS             = True
-SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
-SECURE_HSTS_PRELOAD = True
+
+
+# this 3
+# SECURE_HSTS_SECONDS             = True
+# SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
+# SECURE_HSTS_PRELOAD = True
+
+
 # SECURE_FRAME_DENY               = True
 
 
