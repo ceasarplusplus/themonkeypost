@@ -32,7 +32,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['157.245.254.139', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['147.182.215.192', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -287,15 +287,15 @@ DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 
 
-SECURE_SSL_REDIRECT = True
+# SECURE_SSL_REDIRECT = True
 
-SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
 
-SECURE_HSTS_SECONDS = True
+# SECURE_HSTS_SECONDS = True
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # CORS_REPLACE_HTTPS_REFERER      = True
 # HOST_SCHEME                     = "http://"
@@ -305,8 +305,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # CSRF_COOKIE_SECURE              = True
 
 
-# this 3
-# SECURE_HSTS_SECONDS             = True
+# this 2
+
 SECURE_HSTS_INCLUDE_SUBDOMAINS  = True
 SECURE_HSTS_PRELOAD = True
 
