@@ -24,7 +24,7 @@ from .views import (
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
     
 
     path('videos/', cache_page(60 * 10)(VideosView.as_view()), name='videos'),
