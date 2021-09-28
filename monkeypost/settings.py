@@ -192,6 +192,8 @@ CKEDITOR_CONFIGS = {
     },
 }
 
+AWS_QUERYSTRING_AUTH = False
+
 
 ###################################
 
