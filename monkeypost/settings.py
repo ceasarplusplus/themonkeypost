@@ -32,7 +32,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['147.182.215.192', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['137.184.26.85', 'www.themonkeypost.net', 'themonkeypost.net', 'monkeypost.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -282,13 +282,12 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 
 # STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
-# STATIC_ROOT = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
-
 # MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
+
+# # STATIC_ROOT = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
 # MEDIA_ROOT =  f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
 
 # STATICFILES_STORAGE =  'custom_storages.StaticStorage'
-
 # DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 
