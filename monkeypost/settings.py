@@ -268,7 +268,7 @@ AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'static'
+# AWS_LOCATION = 'static'
 AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_SIGNATURE_VERSION = 's3v4'
 
@@ -277,18 +277,18 @@ AWS_S3_SIGNATURE_VERSION = 's3v4'
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # STATIC_URL = '{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # # STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
-STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
-MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
+STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/static/'
+MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}/media/'
 
 # # STATIC_ROOT = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
 # MEDIA_ROOT =  f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
 
-STATICFILES_STORAGE =  'custom_storages.StaticStorage'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+# STATICFILES_STORAGE =  'custom_storages.StaticStorage'
+# DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 
 
