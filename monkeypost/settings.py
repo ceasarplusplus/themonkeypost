@@ -285,8 +285,8 @@ DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 
 
-STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/static/'
-MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}/media/'
+STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}//static/'
+MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}//media/'
 
 # # STATIC_ROOT = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
 # MEDIA_ROOT =  f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
