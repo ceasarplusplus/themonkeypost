@@ -180,7 +180,7 @@ SITE_ID = 1
 ####################################
 ##  CKEDITOR CONFIGURATION ##
 ####################################
-
+AWS_QUERYSTRING_AUTH = False
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
 CKEDITOR_UPLOAD_PATH = 'images/'
@@ -192,7 +192,7 @@ CKEDITOR_CONFIGS = {
     },
 }
 
-AWS_QUERYSTRING_AUTH = False
+
 
 
 ###################################
@@ -284,8 +284,8 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
-# STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/static/'
-# MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}/media/'
+STATIC_URL = f'https://{AWS_S3_ENDPOINT_URL}/static/'
+MEDIA_URL =  f'https://{AWS_S3_ENDPOINT_URL}/media/'
 
 # # STATIC_ROOT = f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
 # MEDIA_ROOT =  f'https://{AWS_S3_ENDPOINT_URL}/{AWS_LOCATION}/'
