@@ -272,8 +272,8 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
 AWS_LOCATION = 'https://monkeypost-static.nyc3.digitaloceanspaces.com/'
-AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_SIGNATURE_VERSION = 's3v4'
+# AWS_DEFAULT_ACL = 'public-read'
+# AWS_S3_SIGNATURE_VERSION = 's3v4'
 STATICFILES_STORAGE =  'custom_storages.StaticStorage'
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
