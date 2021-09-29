@@ -7,7 +7,7 @@ class MediaStorage(S3Boto3Storage):
     file_overwrite = False
 
 
-class StaticStorage(S3StaticStorage):
+class StaticStorage(S3Boto3Storage):
     bucket_name = 'monkeypost-static'
 
     location = 'static'
