@@ -8,7 +8,7 @@ class MediaStorage(S3Boto3Storage):
 
 
 class StaticStorage(S3StaticStorage):
-    bucket_name = 'monkeypost-static'
+    # bucket_name = 'monkeypost-static'
 
     location = 'static'
 
