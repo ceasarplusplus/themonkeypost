@@ -274,14 +274,14 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_LOCATION = 'https://monkeypost-static.nyc3.digitaloceanspaces.com/'
 # AWS_DEFAULT_ACL = 'public-read'
 # AWS_S3_SIGNATURE_VERSION = 's3v4'
-STATICFILES_STORAGE =  'custom_storages.StaticStorage'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+# STATICFILES_STORAGE =  'custom_storages.StaticStorage'
+# DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 # STATIC_URL = '{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 # # STATIC_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 
 
